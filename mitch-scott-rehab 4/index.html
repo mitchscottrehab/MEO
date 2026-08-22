@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en-AU">
+<script>document.documentElement.classList.add("js")</script>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MEO: Hybrid Rehab & Performance Coaching</title>
+<meta name="description" content="Rehab built for athletes, not patients. 1:1 hybrid rehab with no generic timelines and direct access between sessions. In-person at Pinnacle Fitness Albion, or online.">
+<link rel="icon" href="assets/meo-favicon.png" type="image/png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="site-theme has-sticky-book">
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="logo">
+      <img src="assets/meo-mark-white.png" alt="MEO Rehab & Performance" class="logo-img">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#solution" class="nav-cta">Book Now</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding-bottom:24px">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow reveal">REHAB & PERFORMANCE</p>
+      <h1 class="reveal" style="max-width:18ch;margin:18px 0 22px">You're not injured. You're <em>stuck</em>.</h1>
+      <p class="lead reveal" style="max-width:60ch">Stuck in the same loop: rest, feel better, try to come back, flare again. Stuck watching your training slip away week by week. Stuck being told by people who don't really understand you that "these things just take time." They do take time. But not like this.</p>
+
+      <div class="hero-ctas reveal">
+        <a href="in-person-sessions.html" class="btn btn-outline">Book in-person</a>
+        <a href="#apply" class="btn btn-primary">Start your comeback</a>
+      </div>
+      <p class="hero-note reveal">IN-PERSON AT PINNACLE FITNESS ALBION · OR ONLINE, ANYWHERE</p>
+    </div>
+
+    <div class="cycle-visual reveal">
+      <svg viewBox="0 0 240 240" role="img" aria-label="Circular progress trace through four stages: rest, feel better, try to come back, flare again">
+        <circle cx="120" cy="120" r="86" fill="none" stroke="var(--line)" stroke-width="10"/>
+        <circle id="cycleArc" class="cycle-arc" cx="120" cy="120" r="86" fill="none" stroke="var(--forest)" stroke-width="10" stroke-linecap="round" transform="rotate(-90 120 120)"/>
+        <circle id="cycleDot0" class="cycle-dot" cx="120" cy="34" r="7" fill="var(--line)"/>
+        <circle id="cycleDot1" class="cycle-dot" cx="206" cy="120" r="7" fill="var(--line)"/>
+        <circle id="cycleDot2" class="cycle-dot" cx="120" cy="206" r="7" fill="var(--line)"/>
+        <circle id="cycleDot3" class="cycle-dot" cx="34" cy="120" r="7" fill="var(--line)"/>
+        <text id="cycleLabel0" class="cycle-label" x="120" y="18" text-anchor="middle" font-size="12" fill="var(--moss)" style="opacity:0">Rest</text>
+        <text id="cycleLabel1" class="cycle-label" x="220" y="124" text-anchor="start" font-size="12" fill="var(--moss)" style="opacity:0">Feel better</text>
+        <text id="cycleLabel2" class="cycle-label" x="120" y="230" text-anchor="middle" font-size="12" fill="var(--moss)" style="opacity:0">Come back</text>
+        <text id="cycleLabel3" class="cycle-label" x="20" y="124" text-anchor="end" font-size="12" fill="var(--danger)" style="opacity:0">Flare again</text>
+        <text id="cycleCenter" class="cycle-center" x="120" y="126" text-anchor="middle" font-size="15" fill="var(--ink)"></text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" style="padding-top:36px">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">SOUND FAMILIAR?</p>
+      <h2>You're doing everything right. It's still not working.</h2>
+      <p style="margin-top:18px">This usually isn't a discipline problem. It's a structure problem.</p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <span class="num">01</span>
+        <h3>You rest, then it flares straight back up</h3>
+        <p>You gave it weeks, then eased back in carefully. But it flared anyway, because rest was never a plan, it was just the absence of one.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="num">02</span>
+        <h3>"Just stop training" isn't an answer</h3>
+        <p>Every practitioner's fallback is telling you to stop. Nobody shows you what you could still do, so you either push through or lose the routine that keeps you sane.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="num">03</span>
+        <h3>Generic exercises, zero context</h3>
+        <p>Three sets of band work off a PDF that have nothing to do with your sport, your load, or how you actually train.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="num">04</span>
+        <h3>Rushed sessions, shallow results</h3>
+        <p>20 to 30 minutes isn't enough time to actually get to the bottom of a complex problem, so you're left with surface-level fixes that don't hold.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: THE PROBLEM -->
+<section class="on-panel">
+  <div class="wrap" style="max-width:760px">
+    <p class="eyebrow reveal">THE PROBLEM</p>
+    <h2 class="reveal" style="margin:14px 0 22px">The system wasn't built for you.</h2>
+    <p class="reveal" style="font-size:1.05rem">It was built for the average patient. The person who just wants less pain and is happy to rest until it settles.</p>
+    <p class="reveal" style="font-size:1.05rem;margin-top:16px;font-weight:600;color:var(--ink)">That's not you.</p>
+    <p class="reveal" style="font-size:1.05rem;margin-top:16px">You set a 5am alarm. You track your sessions. You've built something over years: a body, a capacity, a version of yourself that only exists because you show up every single day. And right now, all of it feels like it's slipping.</p>
+    <p class="reveal" style="font-size:1.05rem;margin-top:16px">The appointment was 20 minutes. The exercises were the same ones you found on YouTube three weeks ago. And when you asked what "return to training" actually looks like, the answer was some version of <em style="font-style:italic">see how it goes</em>.</p>
+    <p class="reveal" style="font-size:1.15rem;margin-top:16px;font-weight:700;color:var(--ink)">That's not a plan. That's a waiting room with a theraband.</p>
+  </div>
+</section>
+
+<!-- SECTION 2: THE DEEPER TRUTH -->
+<section>
+  <div class="wrap" style="max-width:760px">
+    <p class="eyebrow reveal">THE DEEPER TRUTH</p>
+    <h2 class="reveal" style="margin:14px 0 22px">Pain-free isn't the finish line.</h2>
+    <p class="reveal" style="font-size:1.05rem">Here's what nobody tells you: pain and capacity are two completely different things.</p>
+    <p class="reveal" style="font-size:1.05rem;margin-top:16px">Pain settles when the inflammation clears. That happens with rest. But the tissue capacity, the ability to actually handle the load of your training, only rebuilds when you give it a reason to.</p>
+    <p class="reveal" style="font-size:1.05rem;margin-top:16px">So you rest. The pain goes. You come back. And three sessions in, it flares again. Not because you're unlucky. Not because your body is broken. Because you left too early, before the tissue was actually ready for what you were asking of it.</p>
+    <p class="reveal" style="font-size:1.15rem;margin-top:16px;font-weight:700;color:var(--ink)">You've been treating the symptom. Nobody has treated the athlete.</p>
+    <a href="#model" class="inline-next reveal">See how MEO is different ↓</a>
+  </div>
+</section>
+
+<!-- SECTION 3: THE PIVOT -->
+<section class="on-forest">
+  <div class="wrap" style="max-width:760px">
+    <p class="eyebrow">THE PIVOT</p>
+    <h2 style="margin:14px 0 22px;color:var(--stone)">MEO was built for one type of person.</h2>
+    <p style="font-size:1.05rem;max-width:60ch">The person who trains before work. Who has a race on the calendar they're not willing to scratch. Who knows exactly what their body is capable of and refuses to accept that injury is the end of that story.</p>
+    <p style="font-size:1.15rem;margin-top:16px;font-weight:700;color:var(--stone)">Not the end. The opportunity.</p>
+    <p style="font-size:1.05rem;margin-top:16px;max-width:60ch">Because every athlete who has come through MEO with a serious injury has left in better physical condition than before it happened. Not back to where they were. Further. Because where they were had the compensations, the imbalances, the movement patterns that made them vulnerable in the first place.</p>
+    <p style="font-size:1.15rem;margin-top:16px;font-weight:700;color:var(--stone)">We don't just rehab the injury. We rebuild the athlete. Completely.</p>
+  </div>
+</section>
+
+<!-- SECTION 4: HOW IT'S DIFFERENT -->
+<section id="model">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">THE MODEL</p>
+      <h2>This isn't a 20-minute appointment and a theraband.</h2>
+      <p>MEO is a boutique performance rehabilitation practice. That means:</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-item reveal">
+        <div class="feature-num">01</div>
+        <div><h3>Extended sessions</h3><p>Enough time to actually assess the whole picture, not just treat where it hurts, but where it started. The source and the site of pain aren't always the same place.</p></div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-num">02</div>
+        <div><h3>A performance target, not a symptom target</h3><p>Your first session ends with a specific, measurable answer to "what does success look like?" Not "less pain." Something specific. Something that means something to you.</p></div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-num">03</div>
+        <div><h3>Training through, not around</h3><p>Where possible, you keep training. Modified, structured, purposeful, but you stay an athlete throughout the entire process. Stopping isn't rehab. It's just stopping.</p></div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-num">04</div>
+        <div><h3>A plan that ends at performance, not pain-free</h3><p>Most rehab ends after Phase 1. Ours doesn't.</p></div>
+      </div>
+    </div>
+
+    <div class="phase-grid">
+      <div class="phase-card reveal">
+        <span class="phase-num">PHASE 1</span>
+        <h4>Out of pain</h4>
+        <p>Where most rehab stops.</p>
+      </div>
+      <div class="phase-card reveal">
+        <span class="phase-num">PHASE 2</span>
+        <h4>Back to your best</h4>
+        <p>Full capacity restored, not just symptoms settled.</p>
+      </div>
+      <div class="phase-card reveal">
+        <span class="phase-num">PHASE 3</span>
+        <h4>Exceeding what you were</h4>
+        <p>The goal? Not just getting back, but getting better than you were before.</p>
+      </div>
+    </div>
+
+    <div class="mid-cta reveal">
+      <a href="#solution" class="btn btn-primary">Find your solution</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: THE CALL -->
+<section class="on-panel">
+  <div class="wrap" style="max-width:760px;text-align:center">
+    <p class="eyebrow reveal" style="justify-content:center">APPLICATIONS OPEN</p>
+    <h2 class="reveal" style="margin:14px 0 22px">Applications are open.</h2>
+    <p class="reveal" style="font-size:1.05rem;margin:0 auto">MEO works with a small number of athletes at a time. Not because of capacity, because of the level of attention this model requires.</p>
+    <p class="reveal" style="font-size:1.05rem;margin:16px auto 0">If you've read this far, you already know whether this is for you.</p>
+    <p class="reveal" style="font-size:1.15rem;font-weight:700;color:var(--ink);margin:16px auto 0">You're not looking for someone to manage your injury. You're looking for someone to engineer your return, and make sure that when you come back, you come back better.</p>
+    <p class="reveal" style="font-size:1.05rem;margin:16px auto 28px">If that's you, fill out the application below. It takes two minutes. I read every one.</p>
+    <a href="https://form.typeform.com/to/Sd3qPs6e" target="_blank" rel="noopener" class="btn btn-primary reveal">Apply to work with MEO</a>
+  </div>
+</section>
+
+<!-- THE SOLUTION -->
+<section id="solution" class="on-panel">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">THE SOLUTION</p>
+      <h2>Three ways to work with me.</h2>
+    </div>
+
+    <div class="cards cols-3">
+      <div class="card reveal" style="border-color:var(--forest)">
+        <span class="price-badge" style="position:static;display:inline-flex;margin-bottom:4px">Most Popular</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 8l7-5 7 5M5 8v13h14V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p class="meta">In-Person · Pinnacle Fitness Albion</p>
+        <h3>Face-to-Face</h3>
+        <p>You've been guessing long enough. This is where it ends. Hands-on details, eyes on how you actually move, and a clear answer to why it keeps happening.</p>
+        <div class="card-foot">
+          <a href="in-person-sessions.html" class="btn btn-primary btn-sm">Book a session →</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 10l5-3v10l-5-3M4 7h11v10H4z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p class="meta">Online · 1:1</p>
+        <h3>The Same Service, Online</h3>
+        <p>Can't get to Brisbane, or just want answers first? Let's spend 60 minutes together online. We'll figure out exactly what's going on, why it keeps coming back, and what to do about it right now, from wherever you are.</p>
+        <div class="card-foot">
+          <a href="https://mitch-scott-rehab.au5.cliniko.com/bookings?business_id=1970647816577494027&amp;practitioner_id=1969447206637284849&amp;appointment_type_id=2021497536367308744" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Book online →</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 2 3 14h7l-1 8 11-14h-7l1-6z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p class="meta">Online · 1:1</p>
+        <h3>The Hybrid Rehab &amp; Peak Performance Package</h3>
+        <p>A 12-week program built entirely around your sport, your training, and where you want to be. Not just a 30 minute appointment with some exercises scribbled down on a sheet. Bespoke programming and direct access to me the whole way through.</p>
+        <div class="card-foot">
+          <a href="peak-performance-package.html" class="btn btn-outline btn-sm">See what's included →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="decision-help reveal">
+      <p class="eyebrow" style="justify-content:center;margin-bottom:14px">NOT SURE WHICH ONE?</p>
+      <p>If you're local and want face-to-face treatment, start with In-Person Rehab. If you're remote or time-poor, Online Rehab covers the same ground. If you're ready to commit to a full return-to-performance journey with ongoing support, or if you have a more serious injury, the 12-week package is built exactly for you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="on-panel">
+  <div class="wrap" style="max-width:920px">
+    <div class="section-head reveal">
+      <p class="eyebrow">THE DIFFERENCE</p>
+      <h2>What changes when someone's actually in your corner.</h2>
+    </div>
+
+    <div class="compare">
+      <div class="compare-col before reveal">
+        <h3>Before</h3>
+        <ul>
+          <li>Rested for weeks, it still flares back up</li>
+          <li>Told to just stop training, no real alternative</li>
+          <li>Doing exercises with no idea why</li>
+          <li>Scared to push in case you undo everything</li>
+          <li>No idea if you're actually ready</li>
+        </ul>
+      </div>
+      <div class="compare-col after reveal">
+        <h3>After</h3>
+        <ul>
+          <li>A plan that works around your training, not instead of it</li>
+          <li>You understand exactly why you're doing what you're doing</li>
+          <li>Direct access to me the moment something feels off</li>
+          <li>Confidence built on what you can demonstrate, not hope</li>
+          <li>Tested and cleared to perform, not just cleared of pain</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section>
+  <div class="wrap" style="max-width:820px">
+    <div class="section-head reveal">
+      <p class="eyebrow">FREE CONTENT</p>
+      <h2>Follow along on Instagram.</h2>
+    </div>
+    <div class="podcast-box reveal">
+      <div class="podcast-art" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px">@mitchscottrehab</h3>
+        <p>Rehab tips, training insight, and behind-the-scenes of the program, posted regularly. Give it a follow.</p>
+        <a href="https://www.instagram.com/mitchscottrehab" target="_blank" rel="noopener" class="btn btn-outline btn-sm" style="margin-top:16px">Follow on Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section id="apply" class="on-panel">
+  <div class="wrap" style="max-width:680px">
+    <div class="section-head reveal">
+      <p class="eyebrow">READY TO START</p>
+      <h2>Start your comeback.</h2>
+      <p>Fill in a short application and I'll be in touch. Tell me about your injury, your goals and your timeline.</p>
+    </div>
+
+    <form class="apply-form reveal" name="application" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="application">
+      <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
+
+      <div class="row2">
+        <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required></div>
+        <div class="field"><label for="email2">Email</label><input id="email2" name="email" type="email" required></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel"></div>
+        <div class="field"><label for="pathway">Interested in</label>
+          <select id="pathway" name="pathway">
+            <option>In-Person Rehab</option>
+            <option>Online Rehab</option>
+            <option>Hybrid Rehab &amp; Peak Performance Package</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="goal">Tell me about your injury, sport and goals</label><textarea id="goal" name="goal" required></textarea></div>
+
+      <button type="submit" class="btn btn-primary">Submit application</button>
+      <p class="form-note">I'll reply within 48 hours. Prefer email? <a href="mailto:mitchscottrehab@gmail.com" style="text-decoration:underline">mitchscottrehab@gmail.com</a></p>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap" style="max-width:760px">
+    <div class="section-head reveal">
+      <p class="eyebrow">BEFORE YOU APPLY</p>
+      <h2>Still deciding? The honest answers.</h2>
+    </div>
+
+    <div class="faq-item reveal open">
+      <div class="faq-q"><span>Does online rehab actually work?</span><span class="plus">+</span></div>
+      <div class="faq-a"><p>Yes. Online rehab follows the same principles as in-person: thorough assessment, an individualised plan, and regular check-ins, with the same attention to detail.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>How is this different from an app or a generic PDF of exercises?</span><span class="plus">+</span></div>
+      <div class="faq-a"><p>This is bespoke rehab and coaching from a practitioner, not a one-and-done plan you're handed and left to run. It's adjusted as you go, so you get the most out of every week.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>What's the difference between an Initial and a Subsequent consultation?</span><span class="plus">+</span></div>
+      <div class="faq-a"><p>Your Initial consultation covers a full assessment of your history, movement and goals, and sets out a plan. Subsequent consultations build on that plan: hands-on rehab, coaching, or progress checks, depending on where you're at.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>How do I choose between in-person, online, or the full package?</span><span class="plus">+</span></div>
+      <div class="faq-a"><p>If you're near Pinnacle Fitness Albion and want hands-on treatment, go in-person. If you're remote or time-poor, online covers the same ground. If you want ongoing support and programming over 12 weeks, the Peak Performance package is built for that.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>How do I get started?</span><span class="plus">+</span></div>
+      <div class="faq-a"><p>Fill in the short application above, or book a session directly if you already know you want to start in-person. I'll reply within 48 hours.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>What does it cost?</span><span class="plus">+</span></div>
+      <div class="faq-a"><p>In-person sessions range from $150 to $350 depending on length. Online rehab is $220 per session. The Hybrid Rehab &amp; Peak Performance Package is $2,499 for the full 12 weeks. <a href="#solution" style="text-decoration:underline">See all options →</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section>
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <h2>Ready to trust your body again?</h2>
+      <a href="#apply" class="btn btn-primary">Start your comeback</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="index.html" class="logo" style="margin-bottom:14px">
+          <img src="assets/meo-mark.png" alt="MEO Rehab & Performance" class="logo-img logo-img-dark">
+        </a>
+        <p style="max-width:32ch;margin-top:10px">Rehab &amp; Performance: hybrid rehab and performance coaching. In-person at Pinnacle Fitness Albion, or online.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <a href="#solution">The Solution</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div>
+        <h4>Work with me</h4>
+        <a href="in-person-sessions.html">In-person booking</a>
+        <a href="#apply">Book Now</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:mitchscottrehab@gmail.com">Email</a>
+        <a href="https://www.instagram.com/mitchscottrehab" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> MEO Rehab & Performance</span>
+      <span>Pinnacle Fitness Albion, Brisbane · Online everywhere</span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-book">
+  <a href="#apply">Book Now</a>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
