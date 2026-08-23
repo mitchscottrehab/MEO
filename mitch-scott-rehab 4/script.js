@@ -57,9 +57,12 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
-/* Hero "stuck cycle" circular trace - progresses as the page scrolls.
-   Rest -> Feel better -> Try to come back -> Flare again, with the whole
-   loop turning red once the flare stage begins (75% of the way round). */
+/* Hero "stuck cycle" circular trace. The page is held in place (scroll is
+   intercepted) while the user scrolls down, and that scroll input drives the
+   circle instead: Rest -> Feel better -> Try to come back -> Flare again,
+   with the whole loop turning red once the flare stage begins (75% of the
+   way round). Once the circle finishes, normal page scrolling resumes and
+   never locks again. */
 (function () {
   const arc = document.getElementById('cycleArc');
   if (!arc) return;
@@ -71,15 +74,13 @@ document.querySelectorAll('.faq-item').forEach(item => {
   const dots = [0, 1, 2, 3].map(i => document.getElementById('cycleDot' + i));
   const labels = [0, 1, 2, 3].map(i => document.getElementById('cycleLabel' + i));
   const center = document.getElementById('cycleCenter');
-  const names = ['Rest', 'Feel better', 'Try to come back', 'Flare again'];
+  const names = ['Rest', 'Feel better', 'Come back', 'Flare again'];
 
-  // How much scrolling (in px) it takes to complete the full cycle.
-  const SCROLL_RANGE = 650;
-  let ticking = false;
+  let progress = 0;      // 0 to 1
+  let completed = false;  // once true, scrolling is never intercepted again
 
-  function update() {
-    ticking = false;
-    const p = Math.min(1, Math.max(0, window.scrollY / SCROLL_RANGE));
+  function render() {
+    const p = progress;
     arc.style.strokeDashoffset = circumference * (1 - p);
 
     const idx = Math.min(3, Math.floor(p * 4 + 0.0001));
@@ -105,14 +106,58 @@ document.querySelectorAll('.faq-item').forEach(item => {
     arc.setAttribute('stroke', flareStarted ? 'var(--danger)' : 'var(--forest)');
   }
 
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(update);
-      ticking = true;
+  // How much cumulative scroll input (in px-equivalent) it takes to complete
+  // the full cycle. Bigger = slower/more scrolling required.
+  const DRIVE_RANGE = 900;
+
+  function isHeroInView() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return false;
+    const rect = hero.getBoundingClientRect();
+    // Only lock while we're still essentially at the top of the page.
+    return rect.top > -40 && window.scrollY < 40;
+  }
+
+  function handleWheel(e) {
+    if (completed) return;
+    if (!isHeroInView()) { completed = true; return; }
+
+    // Scrolling down drives progress; scrolling up reverses it.
+    if (e.deltaY > 0 || progress > 0) {
+      e.preventDefault();
+      progress = Math.min(1, Math.max(0, progress + e.deltaY / DRIVE_RANGE));
+      render();
+      if (progress >= 1) {
+        completed = true;
+      }
     }
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  update();
+  let touchStartY = null;
+  function handleTouchStart(e) {
+    if (completed) return;
+    touchStartY = e.touches[0].clientY;
+  }
+  function handleTouchMove(e) {
+    if (completed || touchStartY === null) return;
+    if (!isHeroInView()) { completed = true; return; }
+    const currentY = e.touches[0].clientY;
+    const deltaY = touchStartY - currentY; // positive = scrolling down
+    if (deltaY > 0 || progress > 0) {
+      e.preventDefault();
+      progress = Math.min(1, Math.max(0, progress + deltaY / (DRIVE_RANGE * 0.6)));
+      touchStartY = currentY;
+      render();
+      if (progress >= 1) {
+        completed = true;
+      }
+    }
+  }
+
+  window.addEventListener('wheel', handleWheel, { passive: false });
+  window.addEventListener('touchstart', handleTouchStart, { passive: true });
+  window.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+  render();
 })();
 
