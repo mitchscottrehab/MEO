@@ -4,7 +4,47 @@
 
 document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
 
-/* Mobile nav toggle */
+/* Subtle premium cursor accent - desktop/mouse only, purely decorative.
+   Never replaces the real cursor, never blocks clicks (pointer-events:none),
+   and simply does nothing if anything here fails. */
+(function () {
+  const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+  if (!isFinePointer) return;
+
+  const dot = document.createElement('div');
+  dot.className = 'cursor-dot';
+  document.body.appendChild(dot);
+
+  let x = 0, y = 0;
+  let rafPending = false;
+
+  function move() {
+    rafPending = false;
+    dot.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    x = e.clientX;
+    y = e.clientY;
+    dot.classList.add('is-visible');
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(move);
+    }
+  }, { passive: true });
+
+  window.addEventListener('mouseleave', () => dot.classList.remove('is-visible'));
+
+  const hoverTargets = 'a, button, .btn, input, textarea, select, [role="button"]';
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(hoverTargets)) dot.classList.add('is-hovering');
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(hoverTargets)) dot.classList.remove('is-hovering');
+  });
+})();
+
+
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 if (navToggle && navLinks) {
