@@ -191,7 +191,11 @@ p{ color:var(--moss); max-width:60ch; }
 .hero-grid{
   display:grid; grid-template-columns:1fr 480px; gap:40px; align-items:start;
 }
-@media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
+.hero-eyebrow{ white-space:nowrap; }
+@media (max-width:900px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero-eyebrow{ white-space:normal; }
+}
 
 .cycle-visual{ display:flex; align-items:flex-start; justify-content:flex-end; margin-top:54px; }
 .cycle-visual svg{ width:100%; max-width:460px; height:auto; overflow:visible; }
