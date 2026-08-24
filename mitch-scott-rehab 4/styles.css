@@ -512,7 +512,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 
 /* Problem grid */
 .problem-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
-.problem-card{ border:1px solid var(--line); border-radius:18px; padding:28px 24px; }
+.problem-card{ border:1.5px solid var(--vivid); border-radius:18px; padding:28px 24px; }
 .problem-card .num{ font-family:var(--mono); font-size:0.8rem; color:var(--clay); margin-bottom:14px; display:block; }
 .problem-card h3{ font-size:1.05rem; margin-bottom:10px; }
 .problem-card p{ font-size:0.9rem; }
