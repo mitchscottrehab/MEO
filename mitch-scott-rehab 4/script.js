@@ -120,34 +120,57 @@ document.querySelectorAll('.faq-item').forEach(item => {
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
 
   if (isTouchDevice) {
-    // Scroll-jacking via preventDefault on touch events is unreliable across
-    // mobile browsers (iOS Safari in particular restricts it). Instead, tie
-    // progress to the circle's own position on screen: it stays at rest
-    // until it reaches the vertical centre of the viewport, then cycles
-    // through the stages as the user keeps scrolling past that point.
-    const MOBILE_RANGE = 320; // px of scroll, once centred, to complete the cycle
-    let ticking = false;
+    // Hold the screen still while the circle is mid-cycle, same idea as
+    // desktop: drag input drives progress instead of scrolling, only
+    // released once fully complete (or fully reset when reversing).
+    // Before the circle reaches the centre of the screen, or after it has
+    // fully finished, touches scroll the page completely normally.
+    const MOBILE_DRIVE_RANGE = 260; // px of drag, once engaged, to complete the cycle
+    let touchStartY = null;
 
-    function updateFromScroll() {
-      ticking = false;
+    function distancePastCenter() {
       const el = document.querySelector('.cycle-visual');
-      if (!el) return;
+      if (!el) return -9999;
       const rect = el.getBoundingClientRect();
       const elCenter = rect.top + rect.height / 2;
       const viewportCenter = window.innerHeight / 2;
-      const distancePastCenter = viewportCenter - elCenter; // >0 once scrolled past centre
-      progress = Math.min(1, Math.max(0, distancePastCenter / MOBILE_RANGE));
+      return viewportCenter - elCenter; // >0 once it has reached/passed centre
+    }
+
+    function handleTouchStart(e) {
+      touchStartY = e.touches[0].clientY;
+    }
+
+    function handleTouchMove(e) {
+      if (touchStartY === null) return;
+      const currentY = e.touches[0].clientY;
+      const deltaY = touchStartY - currentY; // >0 = finger moving up = scrolling down
+
+      // Not yet engaged and not mid-cycle: let the page scroll natively so
+      // the circle can drift up toward the centre of the screen.
+      if (progress <= 0 && distancePastCenter() < 0) {
+        touchStartY = currentY;
+        return;
+      }
+
+      const scrollingDown = deltaY > 0;
+      if (scrollingDown && progress >= 1) { touchStartY = currentY; return; }  // done, let them continue past
+      if (!scrollingDown && progress <= 0) { touchStartY = currentY; return; } // fully reset, let them continue up
+
+      e.preventDefault();
+      progress = Math.min(1, Math.max(0, progress + deltaY / MOBILE_DRIVE_RANGE));
+      touchStartY = currentY;
       render();
     }
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(updateFromScroll);
-        ticking = true;
-      }
-    }, { passive: true });
+    function handleTouchEnd() {
+      touchStartY = null;
+    }
 
-    updateFromScroll();
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
 
   } else {
     // Desktop/mouse: hold the page in place while the wheel drives the
