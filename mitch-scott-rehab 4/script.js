@@ -118,45 +118,49 @@ document.querySelectorAll('.faq-item').forEach(item => {
     return rect.top > -40 && window.scrollY < 40;
   }
 
-  function handleWheel(e) {
-    if (completed) return;
-    if (!isHeroInView()) { completed = true; return; }
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
 
-    // Scrolling down drives progress; scrolling up reverses it.
-    if (e.deltaY > 0 || progress > 0) {
-      e.preventDefault();
-      progress = Math.min(1, Math.max(0, progress + e.deltaY / DRIVE_RANGE));
+  if (isTouchDevice) {
+    // Scroll-jacking via preventDefault on touch events is unreliable across
+    // mobile browsers (iOS Safari in particular restricts it). Rather than
+    // fight that, just tie progress straight to normal scroll position -
+    // the page scrolls natively and the circle animates alongside it.
+    const MOBILE_RANGE = 500;
+    let ticking = false;
+
+    function updateFromScroll() {
+      ticking = false;
+      progress = Math.min(1, Math.max(0, window.scrollY / MOBILE_RANGE));
       render();
-      if (progress >= 1) {
-        completed = true;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateFromScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+
+  } else {
+    // Desktop/mouse: hold the page in place while the wheel drives the
+    // circle, then release once it's fully complete.
+    function handleWheel(e) {
+      if (completed) return;
+      if (!isHeroInView()) { completed = true; return; }
+
+      // Scrolling down drives progress; scrolling up reverses it.
+      if (e.deltaY > 0 || progress > 0) {
+        e.preventDefault();
+        progress = Math.min(1, Math.max(0, progress + e.deltaY / DRIVE_RANGE));
+        render();
+        if (progress >= 1) {
+          completed = true;
+        }
       }
     }
-  }
 
-  let touchStartY = null;
-  function handleTouchStart(e) {
-    if (completed) return;
-    touchStartY = e.touches[0].clientY;
+    window.addEventListener('wheel', handleWheel, { passive: false });
   }
-  function handleTouchMove(e) {
-    if (completed || touchStartY === null) return;
-    if (!isHeroInView()) { completed = true; return; }
-    const currentY = e.touches[0].clientY;
-    const deltaY = touchStartY - currentY; // positive = scrolling down
-    if (deltaY > 0 || progress > 0) {
-      e.preventDefault();
-      progress = Math.min(1, Math.max(0, progress + deltaY / (DRIVE_RANGE * 0.6)));
-      touchStartY = currentY;
-      render();
-      if (progress >= 1) {
-        completed = true;
-      }
-    }
-  }
-
-  window.addEventListener('wheel', handleWheel, { passive: false });
-  window.addEventListener('touchstart', handleTouchStart, { passive: true });
-  window.addEventListener('touchmove', handleTouchMove, { passive: false });
 
   render();
 })();
