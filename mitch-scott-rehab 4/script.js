@@ -77,7 +77,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
   const names = ['Rest', 'Feel better', 'Come back', 'Flare again'];
 
   let progress = 0;      // 0 to 1
-  let completed = false;  // once true, scrolling is never intercepted again
 
   function render() {
     const p = progress;
@@ -143,20 +142,21 @@ document.querySelectorAll('.faq-item').forEach(item => {
 
   } else {
     // Desktop/mouse: hold the page in place while the wheel drives the
-    // circle, then release once it's fully complete.
+    // circle, then release once it's fully complete. No permanent "done"
+    // flag - re-checks hero visibility on every event, so it works correctly
+    // however the page was loaded (fresh load, anchor jump, or navigating
+    // back), and reverses correctly if the user scrolls back up into view
+    // after having scrolled past it.
     function handleWheel(e) {
-      if (completed) return;
-      if (!isHeroInView()) { completed = true; return; }
+      if (!isHeroInView()) return;
 
-      // Scrolling down drives progress; scrolling up reverses it.
-      if (e.deltaY > 0 || progress > 0) {
-        e.preventDefault();
-        progress = Math.min(1, Math.max(0, progress + e.deltaY / DRIVE_RANGE));
-        render();
-        if (progress >= 1) {
-          completed = true;
-        }
-      }
+      const scrollingDown = e.deltaY > 0;
+      if (scrollingDown && progress >= 1) return;   // fully done, let them continue past
+      if (!scrollingDown && progress <= 0) return;  // fully reset, nothing above to reveal
+
+      e.preventDefault();
+      progress = Math.min(1, Math.max(0, progress + e.deltaY / DRIVE_RANGE));
+      render();
     }
 
     window.addEventListener('wheel', handleWheel, { passive: false });
