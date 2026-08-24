@@ -125,8 +125,18 @@ document.querySelectorAll('.faq-item').forEach(item => {
     // released once fully complete (or fully reset when reversing).
     // Before the circle reaches the centre of the screen, or after it has
     // fully finished, touches scroll the page completely normally.
+    //
+    // Mobile browsers (iOS Safari in particular) decide whether a touch
+    // gesture is "a scroll" the moment it starts moving, and won't honour
+    // preventDefault() called later in that same continuous drag once
+    // they've already committed to scrolling. So instead of trying to
+    // switch mid-drag, we decide once per gesture (at touchstart, based on
+    // the circle's position at that moment) whether this whole drag should
+    // drive the circle or scroll the page. Short natural swipes mean this
+    // re-checks constantly and still feels continuous.
     const MOBILE_DRIVE_RANGE = 260; // px of drag, once engaged, to complete the cycle
     let touchStartY = null;
+    let gestureEngaged = false;
 
     function distancePastCenter() {
       const el = document.querySelector('.cycle-visual');
@@ -139,19 +149,15 @@ document.querySelectorAll('.faq-item').forEach(item => {
 
     function handleTouchStart(e) {
       touchStartY = e.touches[0].clientY;
+      // Engage for this whole gesture if we're already mid-cycle, or the
+      // circle is at/past the centre of the screen right now.
+      gestureEngaged = progress > 0 || distancePastCenter() >= 0;
     }
 
     function handleTouchMove(e) {
-      if (touchStartY === null) return;
+      if (touchStartY === null || !gestureEngaged) return;
       const currentY = e.touches[0].clientY;
       const deltaY = touchStartY - currentY; // >0 = finger moving up = scrolling down
-
-      // Not yet engaged and not mid-cycle: let the page scroll natively so
-      // the circle can drift up toward the centre of the screen.
-      if (progress <= 0 && distancePastCenter() < 0) {
-        touchStartY = currentY;
-        return;
-      }
 
       const scrollingDown = deltaY > 0;
       if (scrollingDown && progress >= 1) { touchStartY = currentY; return; }  // done, let them continue past
@@ -165,6 +171,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
 
     function handleTouchEnd() {
       touchStartY = null;
+      gestureEngaged = false;
     }
 
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
