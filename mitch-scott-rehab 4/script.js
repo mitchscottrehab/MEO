@@ -121,15 +121,22 @@ document.querySelectorAll('.faq-item').forEach(item => {
 
   if (isTouchDevice) {
     // Scroll-jacking via preventDefault on touch events is unreliable across
-    // mobile browsers (iOS Safari in particular restricts it). Rather than
-    // fight that, just tie progress straight to normal scroll position -
-    // the page scrolls natively and the circle animates alongside it.
-    const MOBILE_RANGE = 500;
+    // mobile browsers (iOS Safari in particular restricts it). Instead, tie
+    // progress to the circle's own position on screen: it stays at rest
+    // until it reaches the vertical centre of the viewport, then cycles
+    // through the stages as the user keeps scrolling past that point.
+    const MOBILE_RANGE = 320; // px of scroll, once centred, to complete the cycle
     let ticking = false;
 
     function updateFromScroll() {
       ticking = false;
-      progress = Math.min(1, Math.max(0, window.scrollY / MOBILE_RANGE));
+      const el = document.querySelector('.cycle-visual');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const elCenter = rect.top + rect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      const distancePastCenter = viewportCenter - elCenter; // >0 once scrolled past centre
+      progress = Math.min(1, Math.max(0, distancePastCenter / MOBILE_RANGE));
       render();
     }
 
@@ -139,6 +146,8 @@ document.querySelectorAll('.faq-item').forEach(item => {
         ticking = true;
       }
     }, { passive: true });
+
+    updateFromScroll();
 
   } else {
     // Desktop/mouse: hold the page in place while the wheel drives the
