@@ -4,7 +4,7 @@
    meets lime + clay (performance energy).
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow:wght@600&display=swap');
 
 :root{
   /* --- Color tokens --- */
@@ -117,6 +117,12 @@ p{ color:var(--moss); max-width:60ch; }
   max-width:var(--container); margin:0 auto;
 }
 .logo{ display:flex; align-items:center; gap:10px; }
+.logo-tagline{
+  font-family:'Barlow', sans-serif; font-weight:600; font-size:0.72rem;
+  letter-spacing:0.28em; text-transform:uppercase; color:#FFFFFF;
+  white-space:nowrap; margin-left:2px;
+}
+@media (max-width:640px){ .logo-tagline{ display:none; } }
 .logo-img{ height:36px; width:auto; }
 .logo-word{
   font-family:var(--display); font-weight:700; font-size:1.05rem;
@@ -204,7 +210,7 @@ p{ color:var(--moss); max-width:60ch; }
 .cycle-visual .cycle-center{ font-family:var(--display); font-weight:600; transition:fill .3s ease; }
 .cycle-visual .cycle-dot{ transition:fill .3s ease; }
 .cycle-visual .cycle-arc{ transition:stroke .3s ease; }
-@media (max-width:900px){ .cycle-visual{ margin-top:24px; justify-content:center; } .cycle-visual svg{ max-width:260px; } }
+@media (max-width:900px){ .cycle-visual{ display:none; } }
 .hero h1{ margin:18px 0 22px; }
 h1 em, h2 em, h3 em{
   font-family:var(--display); font-style:italic; font-weight:700;
@@ -478,7 +484,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   text-transform:uppercase; letter-spacing:0.06em; margin-bottom:24px;
 }
 
-.price-features{ display:flex; flex-direction:column; gap:12px; margin-bottom:30px; flex-grow:1; }
+.price-features{ display:flex; flex-direction:column; gap:12px; margin-bottom:30px; }
 .price-features li{ display:flex; gap:10px; font-size:0.92rem; color:var(--ink); align-items:flex-start; }
 .price-features li::before{
   content:'✓'; color:var(--forest); font-weight:700; flex-shrink:0;
@@ -560,7 +566,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 .compare-col ul{ display:flex; flex-direction:column; gap:20px; }
 .compare-col li{ display:flex; gap:14px; font-size:1.2rem; line-height:1.4; align-items:flex-start; }
 .compare-col.before li{ color:var(--moss); opacity:0.75; }
-.compare-col.before li span.txt{ text-decoration:line-through; text-decoration-color:var(--line); text-decoration-thickness:1.5px; }
+.compare-col.before li span.txt{ text-decoration:line-through; text-decoration-color:currentColor; text-decoration-thickness:1.5px; }
 .compare-col.after li{ color:var(--ink); font-weight:500; }
 .compare-col.before li::before{
   content:'\2013'; color:var(--clay); flex-shrink:0; font-weight:700; font-size:1.1rem; line-height:1.4;
@@ -676,8 +682,8 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 /* Model section - roughly 1/3 phase timeline, 2/3 heading+features */
 .model-wrap{ max-width:1500px; }
 .model-grid{ display:grid; grid-template-columns:400px 1fr; gap:64px; align-items:start; }
-.model-phases{ position:sticky; top:110px; }
-@media (max-width:1100px){ .model-grid{ grid-template-columns:1fr; } .model-phases{ position:static; } }
+.model-phases{ padding-left:24px; }
+@media (max-width:1100px){ .model-grid{ grid-template-columns:1fr; } .model-phases{ padding-left:0; } }
 
 .phase-grid-large{ max-width:none; margin-top:0; }
 .phase-grid-large .phase-card{ padding:0 0 64px 48px; border-left:2px solid var(--line-dark); }

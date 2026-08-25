@@ -57,13 +57,17 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
-/* Hero "stuck cycle" circular trace. The page is held in place (scroll is
-   intercepted) while the user scrolls down, and that scroll input drives the
-   circle instead: Rest -> Feel better -> Try to come back -> Flare again,
-   with the whole loop turning red once the flare stage begins (75% of the
-   way round). Once the circle finishes, normal page scrolling resumes and
-   never locks again. */
+/* Hero "stuck cycle" circular trace - desktop only (hidden via CSS on
+   touch devices, see .cycle-visual media query). The page is held in place
+   (scroll is intercepted) while the user scrolls down, and that scroll
+   input drives the circle instead: Rest -> Feel better -> Come back ->
+   Flare again, with the whole loop turning red once the flare stage begins
+   (75% of the way round). Once the circle finishes, normal page scrolling
+   resumes and never locks again. */
 (function () {
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+  if (isTouchDevice) return; // hidden on mobile, nothing to wire up
+
   const arc = document.getElementById('cycleArc');
   if (!arc) return;
 
@@ -117,89 +121,24 @@ document.querySelectorAll('.faq-item').forEach(item => {
     return rect.top > -40 && window.scrollY < 40;
   }
 
-  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+  // Hold the page in place while the wheel drives the circle, then release
+  // once it's fully complete. No permanent "done" flag - re-checks hero
+  // visibility on every event, so it works correctly however the page was
+  // loaded (fresh load, anchor jump, or navigating back), and reverses
+  // correctly if the user scrolls back up into view after scrolling past it.
+  function handleWheel(e) {
+    if (!isHeroInView()) return;
 
-  if (isTouchDevice) {
-    // Hold the screen still while the circle is mid-cycle, same idea as
-    // desktop: drag input drives progress instead of scrolling, only
-    // released once fully complete (or fully reset when reversing).
-    // Before the circle reaches the centre of the screen, or after it has
-    // fully finished, touches scroll the page completely normally.
-    //
-    // Mobile browsers (iOS Safari in particular) decide whether a touch
-    // gesture is "a scroll" the moment it starts moving, and won't honour
-    // preventDefault() called later in that same continuous drag once
-    // they've already committed to scrolling. So instead of trying to
-    // switch mid-drag, we decide once per gesture (at touchstart, based on
-    // the circle's position at that moment) whether this whole drag should
-    // drive the circle or scroll the page. Short natural swipes mean this
-    // re-checks constantly and still feels continuous.
-    const MOBILE_DRIVE_RANGE = 260; // px of drag, once engaged, to complete the cycle
-    let touchStartY = null;
-    let gestureEngaged = false;
+    const scrollingDown = e.deltaY > 0;
+    if (scrollingDown && progress >= 1) return;   // fully done, let them continue past
+    if (!scrollingDown && progress <= 0) return;  // fully reset, nothing above to reveal
 
-    function distancePastCenter() {
-      const el = document.querySelector('.cycle-visual');
-      if (!el) return -9999;
-      const rect = el.getBoundingClientRect();
-      const elCenter = rect.top + rect.height / 2;
-      const viewportCenter = window.innerHeight / 2;
-      return viewportCenter - elCenter; // >0 once it has reached/passed centre
-    }
-
-    function handleTouchStart(e) {
-      touchStartY = e.touches[0].clientY;
-      // Engage for this whole gesture if we're already mid-cycle, or the
-      // circle is at/past the centre of the screen right now.
-      gestureEngaged = progress > 0 || distancePastCenter() >= 0;
-    }
-
-    function handleTouchMove(e) {
-      if (touchStartY === null || !gestureEngaged) return;
-      const currentY = e.touches[0].clientY;
-      const deltaY = touchStartY - currentY; // >0 = finger moving up = scrolling down
-
-      const scrollingDown = deltaY > 0;
-      if (scrollingDown && progress >= 1) { touchStartY = currentY; return; }  // done, let them continue past
-      if (!scrollingDown && progress <= 0) { touchStartY = currentY; return; } // fully reset, let them continue up
-
-      e.preventDefault();
-      progress = Math.min(1, Math.max(0, progress + deltaY / MOBILE_DRIVE_RANGE));
-      touchStartY = currentY;
-      render();
-    }
-
-    function handleTouchEnd() {
-      touchStartY = null;
-      gestureEngaged = false;
-    }
-
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd, { passive: true });
-    window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
-
-  } else {
-    // Desktop/mouse: hold the page in place while the wheel drives the
-    // circle, then release once it's fully complete. No permanent "done"
-    // flag - re-checks hero visibility on every event, so it works correctly
-    // however the page was loaded (fresh load, anchor jump, or navigating
-    // back), and reverses correctly if the user scrolls back up into view
-    // after having scrolled past it.
-    function handleWheel(e) {
-      if (!isHeroInView()) return;
-
-      const scrollingDown = e.deltaY > 0;
-      if (scrollingDown && progress >= 1) return;   // fully done, let them continue past
-      if (!scrollingDown && progress <= 0) return;  // fully reset, nothing above to reveal
-
-      e.preventDefault();
-      progress = Math.min(1, Math.max(0, progress + e.deltaY / DRIVE_RANGE));
-      render();
-    }
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
+    e.preventDefault();
+    progress = Math.min(1, Math.max(0, progress + e.deltaY / DRIVE_RANGE));
+    render();
   }
+
+  window.addEventListener('wheel', handleWheel, { passive: false });
 
   render();
 })();
