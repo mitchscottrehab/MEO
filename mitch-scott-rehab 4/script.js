@@ -4,6 +4,24 @@
 
 document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
 
+/* Hide the sticky Book Now bar while "The Solution" section is in view -
+   it already has three booking CTAs of its own, so the sticky bar is
+   redundant there, and hiding it reclaims that space so the section's
+   heading and tiles can actually fit on screen after an anchor jump. */
+(function () {
+  const stickyBar = document.querySelector('.sticky-book');
+  const solutionSection = document.getElementById('solution');
+  if (!stickyBar || !solutionSection || !('IntersectionObserver' in window)) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      stickyBar.classList.toggle('is-hidden', entry.isIntersecting);
+    });
+  }, { threshold: 0.15 });
+
+  io.observe(solutionSection);
+})();
+
 
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');

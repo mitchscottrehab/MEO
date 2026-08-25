@@ -267,6 +267,7 @@ h1 em, h2 em, h3 em{
    SECTION LAYOUT
    ============================================================ */
 section{ padding:120px 0; scroll-margin-top:120px; }
+#solution{ scroll-margin-top:100px; }
 .section-head{ max-width:640px; margin-bottom:56px; }
 .section-head h2{ margin-top:14px; }
 
@@ -712,7 +713,9 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   background:#0A0A0A; border-top:1px solid #262626;
   display:flex; align-items:center; justify-content:center;
   padding:20px 24px;
+  transition:transform .35s cubic-bezier(.25,.8,.25,1), opacity .35s ease;
 }
+.sticky-book.is-hidden{ transform:translateY(100%); opacity:0; pointer-events:none; }
 .sticky-book a{
   background:var(--vivid); color:var(--vivid-ink);
   font-weight:700; font-size:1.05rem;
