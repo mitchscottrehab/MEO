@@ -657,6 +657,10 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 }
 .js .divider-line.in{ width:120px; }
 
+.divider-line-wide{
+  height:1px; background:var(--line); width:100%; margin:70px auto;
+}
+
 /* ============================================================
    PHASE TIMELINE - "How it's different" section
    ============================================================ */
