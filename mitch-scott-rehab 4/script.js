@@ -40,8 +40,13 @@ if (navToggle && navLinks) {
 const revealEls = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window && revealEls.length) {
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    // Entries that cross the threshold in the same scroll tick (e.g. a row
+    // of cards appearing together) get a small incremental delay each, so
+    // they cascade in one after another instead of all popping in at once.
+    // Elements that arrive on their own (like a lone heading) just get 0.
+    entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = (Math.min(i, 6) * 70) + 'ms';
         entry.target.classList.add('in');
         io.unobserve(entry.target);
       }
