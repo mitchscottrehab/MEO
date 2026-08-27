@@ -46,7 +46,7 @@ if ('IntersectionObserver' in window && revealEls.length) {
     // Elements that arrive on their own (like a lone heading) just get 0.
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        entry.target.style.transitionDelay = (Math.min(i, 6) * 70) + 'ms';
+        entry.target.style.transitionDelay = (Math.min(i, 5) * 200) + 'ms';
         entry.target.classList.add('in');
         io.unobserve(entry.target);
       }
