@@ -118,7 +118,7 @@ p{ color:var(--moss); max-width:60ch; }
 }
 .logo{ display:flex; align-items:center; gap:10px; }
 .logo-tagline{
-  font-family:'Barlow', sans-serif; font-weight:600; font-size:0.72rem;
+  font-family:'Barlow', sans-serif; font-weight:600; font-size:0.9rem;
   letter-spacing:0.28em; text-transform:uppercase; color:#FFFFFF;
   white-space:nowrap; margin-left:2px;
 }
