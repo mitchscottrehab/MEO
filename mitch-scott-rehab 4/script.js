@@ -53,12 +53,9 @@ if ('IntersectionObserver' in window && revealEls.length) {
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -20% 0px' });
   revealEls.forEach(el => io.observe(el));
-
-  // Safety net: if anything is still hidden after a couple of seconds
-  // (slow render, observer edge case, etc.), reveal it anyway rather
-  // than leaving real content invisible.
-  setTimeout(() => revealEls.forEach(el => el.classList.add('in')), 2500);
 } else {
+  // IntersectionObserver isn't supported at all in this browser - show
+  // everything immediately rather than leaving real content invisible.
   revealEls.forEach(el => el.classList.add('in'));
 }
 
