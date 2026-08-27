@@ -51,7 +51,7 @@ if ('IntersectionObserver' in window && revealEls.length) {
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -20% 0px' });
   revealEls.forEach(el => io.observe(el));
 
   // Safety net: if anything is still hidden after a couple of seconds
