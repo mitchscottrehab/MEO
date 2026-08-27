@@ -379,16 +379,20 @@ section{ padding:120px 0; scroll-margin-top:120px; }
 
 /* Footer */
 footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
-.foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px; }
+.foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1fr; gap:32px; margin-bottom:48px; }
 .foot-grid h4{ color:var(--stone); font-size:0.85rem; margin-bottom:16px; letter-spacing:0.02em; }
 .foot-grid a{ display:block; font-size:0.9rem; padding:5px 0; color:#B9C4B4; }
 .foot-grid a:hover{ color:var(--vivid); }
+
+.footer-legal-links{ margin:0 auto 16px !important; }
+.footer-legal-links a{ color:#B9C4B4; text-decoration:underline; margin:0 8px; }
+.footer-legal-links a:hover{ color:var(--vivid); }
 .foot-bottom{
   border-top:1px solid var(--line-dark); padding-top:24px;
   display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
   font-size:0.8rem;
 }
-@media (max-width:760px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:760px){ .foot-grid{ grid-template-columns:1fr 1fr; } .foot-grid > div:first-child{ grid-column:1 / -1; } }
 
 /* Reveal-on-scroll - content is visible by default; JS only adds the
    fade-in effect once confirmed running, so a slow/blocked script never
@@ -558,30 +562,29 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 
 /* Before / after comparison */
 .compare{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-.compare{ position:relative; display:grid; grid-template-columns:1fr 1fr; gap:0; }
-.compare-col{ padding:32px 44px; }
-.compare-col.before{ background:transparent; border-right:1px solid var(--line); }
-.compare-col.after{ background:transparent; }
+.compare{ position:relative; display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:24px; overflow:hidden; }
+.compare-col{ padding:44px 40px; }
+.compare-col.before{ background:#242422; }
+.compare-col.after{ background:var(--vivid); }
 .compare-col h3{ margin-bottom:22px; font-family:var(--display); }
-.compare-col.after h3{ color:var(--ink); }
+.compare-col.before h3{ color:#FFFFFF; }
+.compare-col.after h3{ color:var(--vivid-ink); }
 .compare-col ul{ display:flex; flex-direction:column; gap:20px; }
 .compare-col li{ display:flex; gap:14px; font-size:1.2rem; line-height:1.4; align-items:flex-start; }
-.compare-col.before li{ color:var(--moss); opacity:0.75; }
+.compare-col.before li{ color:#D9D9D6; }
 .compare-col.before li span.txt{ text-decoration:line-through; text-decoration-color:currentColor; text-decoration-thickness:1.5px; }
-.compare-col.after li{ color:var(--ink); font-weight:500; }
+.compare-col.after li{ color:var(--vivid-ink); font-weight:600; }
 .compare-col.before li::before{
-  content:'\2013'; color:var(--clay); flex-shrink:0; font-weight:700; font-size:1.1rem; line-height:1.4;
+  content:'\2013'; color:var(--danger); flex-shrink:0; font-weight:700; font-size:1.2rem; line-height:1.4;
 }
 .compare-col.after li::before{
-  content:'\2713'; color:var(--forest); flex-shrink:0; font-weight:700; font-size:1rem; line-height:1.5;
-  width:22px; height:22px; border-radius:50%; background:var(--stone-dim);
+  content:'\2713'; color:var(--vivid-ink); flex-shrink:0; font-weight:700; font-size:1rem; line-height:1.5;
+  width:22px; height:22px; border-radius:50%; background:#FFFFFF;
   display:flex; align-items:center; justify-content:center; margin-top:1px;
 }
 @media (max-width:760px){
-  .compare{ grid-template-columns:1fr; }
-  .compare-col.before{ border-right:none; border-bottom:1px solid var(--line); }
+  .compare{ grid-template-columns:1fr; border-radius:18px; }
 }
-@media (max-width:760px){ .compare{ grid-template-columns:1fr; } }
 
 /* Testimonials */
 .testimonial-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
@@ -660,6 +663,46 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 .divider-line-wide{
   height:1px; background:var(--line); width:100%; margin:70px auto;
 }
+
+/* ============================================================
+   THE JOURNEY - alternating image + text rows
+   ============================================================ */
+.journey-rows{ display:flex; flex-direction:column; gap:64px; margin-top:56px; }
+.journey-row{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+.journey-row.reverse .journey-image{ order:2; }
+.journey-row.reverse .journey-text{ order:1; }
+.journey-image{
+  aspect-ratio:4/3; border-radius:20px; background:var(--stone-dim);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:10px; color:var(--moss); overflow:hidden;
+}
+.journey-image img{ width:100%; height:100%; object-fit:cover; }
+.journey-image span{ font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; text-align:center; padding:0 20px; }
+.journey-tag{ font-family:var(--mono); font-size:0.75rem; color:var(--clay); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px; display:block; }
+.journey-text h3{ font-size:1.5rem; margin-bottom:14px; }
+.journey-text p{ font-size:1rem; max-width:42ch; }
+@media (max-width:800px){
+  .journey-row{ grid-template-columns:1fr; gap:24px; }
+  .journey-row.reverse .journey-image{ order:1; }
+  .journey-row.reverse .journey-text{ order:2; }
+}
+
+/* ============================================================
+   LEGAL / POLICY PAGES
+   ============================================================ */
+.legal-content{ max-width:760px; margin:0 auto; }
+.legal-content h2{ font-size:1.4rem; margin:48px 0 16px; }
+.legal-content h2:first-child{ margin-top:0; }
+.legal-content p{ max-width:none; color:var(--moss); margin-bottom:14px; line-height:1.7; }
+.legal-content ul{ margin:0 0 16px; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+.legal-content ul ul{ margin-top:10px; margin-left:24px; }
+.legal-content li{ color:var(--moss); line-height:1.7; padding-left:22px; position:relative; }
+.legal-content li::before{ content:'\2013'; position:absolute; left:0; color:var(--clay); font-weight:700; }
+.legal-content strong{ color:var(--ink); font-weight:600; }
+.legal-content hr{ border:none; border-top:1px solid var(--line); margin:40px 0; }
+.legal-content .legal-meta{ font-family:var(--mono); font-size:0.85rem; color:var(--moss); margin-bottom:8px; }
+.legal-content .legal-fields{ margin-top:32px; padding-top:24px; border-top:1px solid var(--line); }
+.legal-content .legal-fields p{ margin-bottom:10px; }
 
 /* ============================================================
    PHASE TIMELINE - "How it's different" section
