@@ -38,6 +38,19 @@ if (navToggle && navLinks) {
 
 /* Scroll reveal */
 const revealEls = document.querySelectorAll('.reveal');
+const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+
+// On mobile, some pages have a grid of cards/tiles positioned far enough
+// down (below a tall header) that a mobile visitor would see an apparently
+// empty page until they scrolled. Any .reveal element inside a container
+// marked .cascade-immediate-mobile reveals right away on page load instead
+// of waiting for scroll - same stagger cascade, just triggered immediately.
+// Desktop is unaffected; those containers still wait for scroll there.
+const immediateEls = new Set();
+if (isTouchDevice) {
+  document.querySelectorAll('.cascade-immediate-mobile .reveal').forEach(el => immediateEls.add(el));
+}
+
 if ('IntersectionObserver' in window && revealEls.length) {
   const io = new IntersectionObserver((entries) => {
     // Entries that cross the threshold in the same scroll tick (e.g. a row
@@ -52,12 +65,18 @@ if ('IntersectionObserver' in window && revealEls.length) {
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -20% 0px' });
-  revealEls.forEach(el => io.observe(el));
+  revealEls.forEach(el => { if (!immediateEls.has(el)) io.observe(el); });
 } else {
   // IntersectionObserver isn't supported at all in this browser - show
   // everything immediately rather than leaving real content invisible.
   revealEls.forEach(el => el.classList.add('in'));
 }
+
+// Trigger the immediate-cascade elements right away (still staggered).
+Array.from(immediateEls).forEach((el, i) => {
+  el.style.transitionDelay = (Math.min(i, 5) * 200) + 'ms';
+  el.classList.add('in');
+});
 
 /* FAQ accordion */
 document.querySelectorAll('.faq-item').forEach(item => {
