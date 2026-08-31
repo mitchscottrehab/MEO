@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-AU">
+<script>document.documentElement.classList.add("js")</script>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book In-Person: MEO Rehab & Performance</title>
+<meta name="description" content="First time, or coming back? Book your in-person consultation at Pinnacle Fitness Albion.">
+<link rel="icon" href="assets/meo-favicon.png" type="image/png">
+<link rel="stylesheet" href="styles.css">
+<style>
+.consult-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px; }
+.consult-card{
+  border:1.5px solid var(--line); border-radius:20px; padding:40px 32px;
+  text-align:center; display:flex; flex-direction:column; align-items:center;
+  transition:transform .4s cubic-bezier(.25,.8,.25,1), box-shadow .4s ease, border-color .4s ease;
+}
+.consult-card:hover{ transform:translateY(-6px); box-shadow:0 28px 48px -26px rgba(22,32,26,0.35); border-color:var(--vivid); }
+.consult-card h2{ font-size:1.5rem; margin:8px 0 12px; }
+.consult-card p{ font-size:0.98rem; margin-bottom:28px; }
+@media (max-width:700px){ .consult-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body class="site-theme">
+
+<header class="site-header">
+  <nav class="nav" style="justify-content:center">
+    <a href="index.html" class="logo">
+      <img src="assets/meo-mark-white.png" alt="MEO Rehab & Performance" class="logo-img">
+    </a>
+  </nav>
+</header>
+
+<section class="offer-page-header">
+  <div class="wrap" style="max-width:760px">
+    <p class="eyebrow reveal">IN-PERSON · PINNACLE FITNESS ALBION</p>
+    <h1 class="reveal">First time, or coming back?</h1>
+    <p class="reveal">Pick whichever applies so we can get you booked into the right session.</p>
+    <p class="reveal" style="margin-top:18px"><a href="index.html#solution" style="text-decoration:underline;color:var(--forest);font-size:0.9rem">← Back to all options</a></p>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap" style="max-width:900px">
+    <div class="consult-grid">
+
+      <div class="consult-card reveal">
+        <p class="eyebrow" style="justify-content:center">NEW HERE</p>
+        <h2>Initial Consultation</h2>
+        <p>Your first session with me. A full assessment of your injury, your movement, and what your sport actually demands from you.</p>
+        <a href="https://mitch-scott-rehab.au5.cliniko.com/bookings?business_id=1970647816577494027&amp;practitioner_id=1969447206637284849&amp;appointment_type_id=2021488754300039109" target="_blank" rel="noopener" class="btn btn-primary">Book initial consultation →</a>
+      </div>
+
+      <div class="consult-card reveal">
+        <p class="eyebrow" style="justify-content:center">ALREADY WORKING WITH ME</p>
+        <h2>Subsequent Consultation</h2>
+        <p>Already an existing client? Choose whichever session length fits what you need this time.</p>
+        <a href="in-person-sessions.html" class="btn btn-outline">Choose session length →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer style="padding:48px 0">
+  <div class="wrap" style="text-align:center">
+    <p style="margin:0 auto 10px">MEO Rehab &amp; Performance<br>Pinnacle Fitness Albion, Brisbane · Online everywhere</p>
+    <p class="footer-legal-links"><a href="privacy-policy.html">Privacy Policy</a>·<a href="terms-conditions.html">Terms &amp; Conditions</a>·<a href="telehealth-consent.html">Telehealth Consent</a></p>
+    <p style="margin:0 auto">© <span id="year"></span> MEO Rehab &amp; Performance</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

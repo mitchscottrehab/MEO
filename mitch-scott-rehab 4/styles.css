@@ -4,7 +4,7 @@
    meets lime + clay (performance energy).
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow:wght@600&display=swap');
 
 :root{
   /* --- Color tokens --- */
@@ -60,9 +60,9 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 
 h1,h2,h3,h4{
   font-family:var(--display);
-  font-weight:700;
-  letter-spacing:-0.01em;
-  line-height:1.08;
+  font-weight:900;
+  letter-spacing:-0.02em;
+  line-height:0.98;
 }
 
 :focus-visible{
@@ -79,22 +79,17 @@ h1,h2,h3,h4{
 
 .eyebrow{
   font-family:var(--mono);
-  font-size:15px;
-  letter-spacing:0.14em;
+  font-size:12px;
+  letter-spacing:0.1em;
   text-transform:uppercase;
   color:var(--clay);
-  display:flex;
+  display:inline-flex;
   align-items:center;
-  gap:10px;
+  border:1px solid var(--clay);
+  border-radius:100px;
+  padding:6px 14px;
 }
-.eyebrow::before{
-  content:'';
-  width:7px; height:7px;
-  border-radius:50%;
-  background:var(--clay);
-  flex-shrink:0;
-}
-.on-dark .eyebrow, .on-dark .eyebrow::before{ color:var(--vivid); background:var(--vivid); }
+.on-dark .eyebrow{ color:var(--vivid); border-color:var(--vivid); }
 
 h1{ font-size:clamp(2.6rem, 5vw, 4.4rem); }
 h2{ font-size:clamp(1.9rem, 3.4vw, 3rem); }
@@ -198,7 +193,7 @@ p{ color:var(--moss); max-width:60ch; }
 .hero-grid{
   display:grid; grid-template-columns:1fr 480px; gap:40px; align-items:start;
 }
-.hero-eyebrow{ white-space:nowrap; }
+.hero-eyebrow{ white-space:nowrap; border:none; padding:0; border-radius:0; }
 @media (max-width:900px){
   .hero-grid{ grid-template-columns:1fr; }
   .hero-eyebrow{ white-space:normal; }
@@ -266,7 +261,7 @@ h1 em, h2 em, h3 em{
 /* ============================================================
    SECTION LAYOUT
    ============================================================ */
-section{ padding:120px 0; scroll-margin-top:120px; }
+section{ padding:150px 0; scroll-margin-top:120px; }
 #solution{ scroll-margin-top:100px; }
 .section-head{ max-width:640px; margin-bottom:56px; }
 .section-head h2{ margin-top:14px; }
@@ -548,9 +543,10 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 .problem-card{ border:1.5px solid var(--vivid); border-radius:18px; padding:30px 24px 28px; position:relative; transition:transform .4s cubic-bezier(.25,.8,.25,1), box-shadow .4s ease, background-color .4s ease; }
 .problem-card:hover{ transform:translateY(-6px); box-shadow:0 28px 48px -26px rgba(22,32,26,0.4); background-color:var(--stone-dim); border-color:var(--forest); }
 .problem-card .num{
-  font-family:var(--display); font-weight:700; font-style:normal;
-  font-size:2.1rem; line-height:1; color:var(--clay); opacity:1;
-  display:block; margin-bottom:16px;
+  font-family:var(--mono); font-weight:600; font-style:normal;
+  font-size:0.7rem; letter-spacing:0.05em; color:var(--clay); opacity:1;
+  display:inline-block; margin-bottom:14px;
+  border:1px solid var(--clay); border-radius:100px; padding:3px 10px;
 }
 .problem-card h3{ font-size:1.05rem; margin-bottom:10px; }
 .problem-card p{ font-size:0.9rem; }
@@ -674,6 +670,56 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 }
 
 /* ============================================================
+   TRUSTED BY / INSTITUTIONAL LOGOS STRIP
+   ============================================================ */
+.trust-strip{ padding:36px 0; border-bottom:1px solid var(--line); }
+
+.trust-strip .label{
+  text-align:center; font-family:var(--mono); font-size:0.72rem; color:var(--moss);
+  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px;
+}
+.trust-logos{
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+  gap:48px; max-width:960px; margin:0 auto;
+}
+.trust-logos .logo-slot{
+  height:36px; width:120px; display:flex; align-items:center; justify-content:center;
+  filter:grayscale(1); opacity:0.55; transition:opacity .3s ease, filter .3s ease;
+}
+.trust-logos .logo-slot:hover{ filter:grayscale(0); opacity:1; }
+.trust-logos .logo-slot img{ max-height:100%; max-width:100%; object-fit:contain; }
+.trust-logos .logo-placeholder{
+  height:36px; width:120px; border:1.5px dashed var(--line); border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.68rem; color:var(--moss); text-transform:uppercase;
+}
+@media (max-width:640px){ .trust-logos{ gap:28px; } .trust-logos .logo-slot, .trust-logos .logo-placeholder{ width:90px; height:28px; } }
+
+/* ============================================================
+   ABOUT MITCH / MEO (the "Guide" section)
+   ============================================================ */
+.about-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:center; }
+.about-photo{
+  aspect-ratio:4/5; border-radius:20px; background:var(--stone-dim);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:10px; color:var(--moss);
+}
+.about-photo span{ font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; text-align:center; padding:0 20px; }
+.about-text h3{ font-size:1.6rem; margin-bottom:16px; }
+.about-text p{ font-size:1.02rem; margin-bottom:14px; }
+.about-video{
+  margin-top:28px; aspect-ratio:16/9; border-radius:14px; background:var(--ink);
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;
+  color:#B9C4B4; position:relative; overflow:hidden;
+}
+.about-video .play-icon{
+  width:56px; height:56px; border-radius:50%; background:var(--vivid);
+  display:flex; align-items:center; justify-content:center; color:var(--vivid-ink);
+}
+.about-video span{ font-family:var(--mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; }
+@media (max-width:800px){ .about-grid{ grid-template-columns:1fr; } .about-photo{ max-width:340px; margin:0 auto; } }
+
+/* ============================================================
    THE JOURNEY - alternating image + text rows
    ============================================================ */
 .journey-rows{ display:flex; flex-direction:column; gap:64px; margin-top:56px; }
@@ -687,7 +733,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 }
 .journey-image img{ width:100%; height:100%; object-fit:cover; }
 .journey-image span{ font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; text-align:center; padding:0 20px; }
-.journey-tag{ font-family:var(--mono); font-size:0.75rem; color:var(--clay); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px; display:block; }
+.journey-tag{ font-family:var(--mono); font-size:0.7rem; color:var(--clay); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; display:inline-block; border:1px solid var(--clay); border-radius:100px; padding:3px 10px; }
 .journey-text h3{ font-size:1.5rem; margin-bottom:14px; }
 .journey-text p{ font-size:1rem; max-width:42ch; }
 @media (max-width:800px){
@@ -730,8 +776,9 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   box-shadow:0 0 0 1px var(--line-dark);
 }
 .phase-card .phase-num{
-  font-family:var(--mono); font-size:0.75rem; color:var(--clay);
-  text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px; display:block;
+  font-family:var(--mono); font-size:0.7rem; color:var(--clay);
+  text-transform:uppercase; letter-spacing:0.05em; margin-bottom:10px; display:inline-block;
+  border:1px solid var(--clay); border-radius:100px; padding:3px 10px;
 }
 .phase-card h4{ font-family:var(--display); font-weight:700; font-size:1.15rem; margin-bottom:6px; }
 .phase-card p{ font-size:0.92rem; }
