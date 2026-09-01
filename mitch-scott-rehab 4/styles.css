@@ -702,7 +702,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; } .about-photo{ max-width:340px; margin:0 auto; } }
 
 .credentials-grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:48px;
+  display:grid; grid-template-columns:0.8fr 1.2fr; gap:48px;
   margin-top:56px; padding-top:44px; border-top:1px solid var(--line);
 }
 .credentials-grid h4{ font-size:1.05rem; margin-bottom:18px; color:var(--ink); }
@@ -716,7 +716,13 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   color:var(--vivid-ink); font-size:0.65rem; font-weight:700;
   display:flex; align-items:center; justify-content:center;
 }
-@media (max-width:700px){ .credentials-grid{ grid-template-columns:1fr; gap:32px; } }
+.check-list-2col{
+  display:grid; grid-template-columns:1fr 1fr; column-gap:24px;
+}
+@media (max-width:700px){
+  .credentials-grid{ grid-template-columns:1fr; gap:32px; }
+  .check-list-2col{ grid-template-columns:1fr; }
+}
 
 /* ============================================================
    THE JOURNEY - alternating image + text rows
