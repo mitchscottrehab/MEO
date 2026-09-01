@@ -46,10 +46,16 @@ const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouch
 // marked .cascade-immediate-mobile reveals right away on page load instead
 // of waiting for scroll - same stagger cascade, just triggered immediately.
 // Desktop is unaffected; those containers still wait for scroll there.
+//
+// .cascade-immediate does the same thing but on every device, regardless
+// of touch/pointer type - used on long single-column pages (like the legal
+// pages) where a percentage-based scroll threshold basically never fires
+// for a very tall block of content, making the page look empty either way.
 const immediateEls = new Set();
 if (isTouchDevice) {
   document.querySelectorAll('.cascade-immediate-mobile .reveal').forEach(el => immediateEls.add(el));
 }
+document.querySelectorAll('.cascade-immediate .reveal').forEach(el => immediateEls.add(el));
 
 if ('IntersectionObserver' in window && revealEls.length) {
   const io = new IntersectionObserver((entries) => {

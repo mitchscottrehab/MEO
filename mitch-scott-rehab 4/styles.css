@@ -667,8 +667,8 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 .trust-strip{ padding:36px 0; border-bottom:1px solid var(--line); }
 
 .trust-strip .label{
-  text-align:center; font-family:var(--mono); font-size:0.72rem; color:var(--moss);
-  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px;
+  text-align:left; font-family:var(--mono); font-size:1.15rem; color:var(--moss);
+  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px; white-space:nowrap;
 }
 .trust-logos{
   display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
