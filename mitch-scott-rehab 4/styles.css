@@ -699,17 +699,24 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 .about-photo span{ font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; text-align:center; padding:0 20px; }
 .about-text h3{ font-size:1.6rem; margin-bottom:16px; }
 .about-text p{ font-size:1.02rem; margin-bottom:14px; }
-.about-video{
-  margin-top:28px; aspect-ratio:16/9; border-radius:14px; background:var(--ink);
-  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;
-  color:#B9C4B4; position:relative; overflow:hidden;
-}
-.about-video .play-icon{
-  width:56px; height:56px; border-radius:50%; background:var(--vivid);
-  display:flex; align-items:center; justify-content:center; color:var(--vivid-ink);
-}
-.about-video span{ font-family:var(--mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; }
 @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; } .about-photo{ max-width:340px; margin:0 auto; } }
+
+.credentials-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:48px;
+  margin-top:56px; padding-top:44px; border-top:1px solid var(--line);
+}
+.credentials-grid h4{ font-size:1.05rem; margin-bottom:18px; color:var(--ink); }
+.check-list{ list-style:none; padding:0; display:flex; flex-direction:column; gap:14px; }
+.check-list li{
+  font-size:0.98rem; padding-left:30px; position:relative; color:var(--moss);
+}
+.check-list li::before{
+  content:'✓'; position:absolute; left:0; top:0.5px;
+  width:20px; height:20px; border-radius:50%; background:var(--vivid);
+  color:var(--vivid-ink); font-size:0.65rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+@media (max-width:700px){ .credentials-grid{ grid-template-columns:1fr; gap:32px; } }
 
 /* ============================================================
    THE JOURNEY - alternating image + text rows
