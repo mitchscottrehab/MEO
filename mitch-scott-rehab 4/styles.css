@@ -114,7 +114,7 @@ p{ color:var(--moss); max-width:60ch; }
 .logo{ display:flex; align-items:center; gap:10px; }
 .logo-tagline{
   font-family:'Barlow', sans-serif; font-weight:600; font-size:0.9rem;
-  letter-spacing:0.28em; text-transform:uppercase; color:#FFFFFF;
+  letter-spacing:0.28em; text-transform:uppercase; color:var(--vivid);
   white-space:nowrap; margin-left:2px;
 }
 @media (max-width:640px){ .logo-tagline{ display:none; } }
@@ -199,7 +199,7 @@ p{ color:var(--moss); max-width:60ch; }
   .hero-eyebrow{ white-space:normal; }
 }
 
-.cycle-visual{ display:flex; align-items:flex-start; justify-content:flex-end; margin-top:54px; }
+.cycle-visual{ display:flex; align-items:flex-start; justify-content:flex-end; margin-top:28px; }
 .cycle-visual svg{ width:100%; max-width:400px; height:auto; overflow:visible; }
 .cycle-visual .cycle-label{ font-family:var(--body); transition:opacity .4s ease, fill .3s ease; }
 .cycle-visual .cycle-center{ font-family:var(--display); font-weight:600; transition:fill .3s ease; }
