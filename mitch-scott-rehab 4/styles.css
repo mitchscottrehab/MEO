@@ -667,7 +667,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 .trust-strip{ padding:36px 0; border-bottom:1px solid var(--line); }
 
 .trust-strip .label{
-  text-align:left; font-family:var(--mono); font-size:1.15rem; color:var(--moss);
+  text-align:left; font-family:var(--mono); font-size:0.56rem; color:var(--moss);
   text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px; white-space:nowrap;
 }
 .trust-logos{
@@ -675,7 +675,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   gap:48px; max-width:960px; margin:0 auto;
 }
 .trust-logos .logo-slot{
-  height:36px; width:120px; display:flex; align-items:center; justify-content:center;
+  height:54px; width:180px; display:flex; align-items:center; justify-content:center;
   filter:grayscale(1); opacity:0.55; transition:opacity .3s ease, filter .3s ease;
 }
 .trust-logos .logo-slot:hover{ filter:grayscale(0); opacity:1; }
@@ -685,7 +685,11 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   display:flex; align-items:center; justify-content:center;
   font-family:var(--mono); font-size:0.68rem; color:var(--moss); text-transform:uppercase;
 }
-@media (max-width:640px){ .trust-logos{ gap:28px; } .trust-logos .logo-slot, .trust-logos .logo-placeholder{ width:90px; height:28px; } }
+@media (max-width:640px){
+  .trust-strip .label{ white-space:normal; }
+  .trust-logos{ gap:28px; }
+  .trust-logos .logo-slot, .trust-logos .logo-placeholder{ width:135px; height:42px; }
+}
 
 /* ============================================================
    ABOUT MITCH / MEO (the "Guide" section)

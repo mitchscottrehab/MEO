@@ -9,7 +9,7 @@
 <link rel="icon" href="assets/meo-favicon.png" type="image/png">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="site-theme has-sticky-book">
+<body class="site-theme">
 
 <header class="site-header">
   <nav class="nav">
@@ -19,6 +19,7 @@
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="about-meo.html">About MEO</a></li>
+      <li><a href="approach.html">The Approach</a></li>
       <li><a href="#solution" class="nav-cta">Book Now</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -250,7 +251,7 @@
 </section>
 
 <!-- THE JOURNEY -->
-<section>
+<section id="journey">
   <div class="wrap">
     <div class="section-head reveal" style="max-width:700px">
       <p class="eyebrow">THE JOURNEY</p>
@@ -454,9 +455,15 @@
   </div>
 </footer>
 
-<div class="sticky-book">
-  <a href="#solution">Book Now</a>
-</div>
+<!-- HaltH settings -->
+<script>
+  window.halthSettings = {
+    organisationId: "org_3EvylBEyxgqaxwmYjPt5xBO6jra",
+    theme: "white"
+  };
+</script>
+<!-- HaltH embed -->
+<script src="https://loader.embed.halth.com" async></script>
 
 <script src="script.js"></script>
 </body>
