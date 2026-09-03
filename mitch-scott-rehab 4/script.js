@@ -4,18 +4,21 @@
 
 document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
 
-/* Hide the sticky Book Now bar while "The Solution" section is in view -
-   it already has three booking CTAs of its own, so the sticky bar is
-   redundant there, and hiding it reclaims that space so the section's
-   heading and tiles can actually fit on screen after an anchor jump. */
+/* Hide the HaltH red backdrop bar while "The Solution" section is in view -
+   that section already has three booking CTAs of its own on the tiles, so
+   the backdrop is redundant there, and hiding it reclaims the space so the
+   section's heading and tiles can actually fit on screen after an anchor
+   jump, without needing to shrink the backdrop everywhere else. Desktop
+   only - the backdrop is a fixed height on mobile where this isn't an issue. */
 (function () {
-  const stickyBar = document.querySelector('.sticky-book');
+  const backdrop = document.querySelector('.halth-backdrop');
   const solutionSection = document.getElementById('solution');
-  if (!stickyBar || !solutionSection || !('IntersectionObserver' in window)) return;
+  const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+  if (!backdrop || !solutionSection || !isDesktop || !('IntersectionObserver' in window)) return;
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      stickyBar.classList.toggle('is-hidden', entry.isIntersecting);
+      backdrop.classList.toggle('is-hidden', entry.isIntersecting);
     });
   }, { threshold: 0.15 });
 
