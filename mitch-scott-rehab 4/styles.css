@@ -748,6 +748,13 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   display:block; position:fixed; left:0; right:0; bottom:0; height:110px;
   background:var(--vivid); z-index:999990;
 }
+@media (min-width:769px){
+  .halth-backdrop{ height:70px; }
+  .halth-embed-frame{
+    right:auto !important; left:50% !important; margin-left:-200px !important;
+    transform-origin:bottom center !important;
+  }
+}
 
 /* THE JOURNEY - alternating image + text rows */
 .journey-rows{ display:flex; flex-direction:column; gap:64px; margin-top:56px; }
