@@ -729,8 +729,30 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 }
 
 /* ============================================================
-   THE JOURNEY - alternating image + text rows
+   HALTH EMBED - keep button permanently expanded (never minimised),
+   and a mobile-only red backdrop bar behind it for contrast
    ============================================================ */
+.halth-embed-button:not(.is-open){
+  width:260px !important; justify-content:flex-start !important; padding-left:16px !important;
+}
+.halth-embed-button:not(.is-open) .button-text{ display:block !important; }
+@media (max-width:768px){
+  .halth-embed-button:not(.is-open){
+    width:calc(100% - 40px) !important; right:20px !important;
+    justify-content:center !important; padding-left:0 !important;
+  }
+  .halth-embed-button:not(.is-open) .button-text{ margin-right:0; margin-left:48px; max-width:none; }
+}
+
+.halth-mobile-backdrop{ display:none; }
+@media (max-width:900px){
+  .halth-mobile-backdrop{
+    display:block; position:fixed; left:0; right:0; bottom:0; height:110px;
+    background:var(--vivid); z-index:999990;
+  }
+}
+
+/* THE JOURNEY - alternating image + text rows */
 .journey-rows{ display:flex; flex-direction:column; gap:64px; margin-top:56px; }
 .journey-row{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
 .journey-row.reverse .journey-image{ order:2; }
