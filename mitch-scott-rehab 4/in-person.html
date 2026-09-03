@@ -54,7 +54,7 @@
         <p class="eyebrow" style="justify-content:center">NEW HERE</p>
         <h2>Initial Consultation</h2>
         <p>Your first session with me.<br>A full assessment of your injury, your movement, and what your training actually demands from you.</p>
-        <a href="https://mitch-scott-rehab.au5.cliniko.com/bookings?business_id=1970647816577494027&amp;practitioner_id=1969447206637284849&amp;appointment_type_id=2021488754300039109" target="_blank" rel="noopener" class="btn btn-primary">Book initial consultation →</a>
+        <a href="https://mitch-scott-rehab.au5.cliniko.com/bookings?business_id=1970647816577494027&amp;practitioner_id=1969447206637284849&amp;appointment_type_id=2021488754300039109" target="_blank" rel="noopener" class="btn btn-primary" onclick="if(window.halthEmbed){window.halthEmbed.open();return false;}">Book initial consultation →</a>
       </div>
 
       <div class="consult-card reveal">
@@ -77,6 +77,19 @@
     <p style="margin:0 auto">© <span id="year"></span> MEO Rehab &amp; Performance</p>
   </div>
 </footer>
+
+<!-- HaltH settings -->
+<script>
+  window.halthSettings = {
+    organisationId: "org_3EvylBEyxgqaxwmYjPt5xBO6jra",
+    theme: "white"
+  };
+</script>
+<!-- HaltH embed -->
+<script src="https://loader.embed.halth.com" async></script>
+
+<!-- Red backdrop bar, sits behind the HaltH button for contrast -->
+<div class="halth-backdrop"></div>
 
 <script src="script.js"></script>
 </body>

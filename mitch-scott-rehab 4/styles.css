@@ -744,12 +744,9 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   .halth-embed-button:not(.is-open) .button-text{ margin-right:0; margin-left:48px; max-width:none; }
 }
 
-.halth-mobile-backdrop{ display:none; }
-@media (max-width:900px){
-  .halth-mobile-backdrop{
-    display:block; position:fixed; left:0; right:0; bottom:0; height:110px;
-    background:var(--vivid); z-index:999990;
-  }
+.halth-backdrop{
+  display:block; position:fixed; left:0; right:0; bottom:0; height:110px;
+  background:var(--vivid); z-index:999990;
 }
 
 /* THE JOURNEY - alternating image + text rows */
