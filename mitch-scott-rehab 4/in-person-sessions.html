@@ -4,10 +4,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>In-Person Session Options: MEO Rehab & Performance</title>
-<meta name="description" content="Choose your in-person session length at Pinnacle Fitness Albion: 30, 60 or 90 minutes.">
+<title>Book In-Person: MEO Rehab & Performance</title>
+<meta name="description" content="First time, or coming back? Book your in-person consultation at Pinnacle Fitness Albion.">
 <link rel="icon" href="assets/meo-favicon.png" type="image/png">
 <link rel="stylesheet" href="styles.css">
+<style>
+.consult-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px; }
+.consult-card{
+  border:1.5px solid var(--line); border-radius:20px; padding:40px 32px;
+  text-align:center; display:flex; flex-direction:column; align-items:center;
+  transition:transform .4s cubic-bezier(.25,.8,.25,1), box-shadow .4s ease, border-color .4s ease;
+}
+.consult-card:hover{ transform:translateY(-6px); box-shadow:0 28px 48px -26px rgba(22,32,26,0.35); border-color:var(--vivid); }
+.consult-card h2{ font-size:1.5rem; margin:8px 0 12px; }
+.consult-card p{ font-size:0.98rem; margin-bottom:28px; }
+@media (max-width:700px){ .consult-grid{ grid-template-columns:1fr; } }
+</style>
 </head>
 <body class="site-theme">
 
@@ -28,84 +40,33 @@
 </header>
 
 <section class="offer-page-header">
-  <div class="wrap" style="max-width:1220px">
-    <p class="eyebrow reveal">SUBSEQUENT SESSIONS · PINNACLE FITNESS ALBION</p>
-    <h1 class="reveal">Choose your session length.</h1>
-    <p class="reveal">All in-person sessions are face to face at Pinnacle Fitness Albion.<br>Pick whatever length fits your needs.</p>
-    <p class="reveal" style="margin-top:18px"><a href="in-person.html" style="text-decoration:underline;color:var(--forest);font-size:0.9rem">← Back to all options</a></p>
+  <div class="wrap" style="max-width:1120px">
+    <p class="eyebrow reveal">IN-PERSON · PINNACLE FITNESS ALBION</p>
+    <h1 class="reveal">First time, or coming back?</h1>
   </div>
 </section>
 
 <section style="padding-top:20px">
-  <div class="wrap">
-    <div class="pricing-grid cascade-immediate-mobile">
+  <div class="wrap" style="max-width:900px">
+    <div class="consult-grid cascade-immediate-mobile">
 
-      <!-- 30 MIN -->
-      <div class="price-tile reveal">
-        <h3 class="tile-name">30 Minute Session</h3>
-        <p class="tile-sub">For when something feels off and you don't want to wait a week to find out what to do.</p>
-
-        <div class="price-amount" style="margin-top:20px"><span class="num">$150</span><span class="unit">/ session</span></div>
-        <div class="price-duration">30 MINUTES · IN-PERSON</div>
-
-        <ul class="price-features">
-          <li>A fast, focused check on the thing that's actually bugging you, not a full re-assessment from scratch</li>
-          <li>Quick adjustments to your plan so things keep moving instead of grinding to a halt</li>
-          <li>A straight answer on whether to push through, back off, or change direction, so you're not left guessing until the next session</li>
-          <li>Ideal between bigger sessions, when you need a quick recalibration, not a full overhaul</li>
-        </ul>
-
-        <a href="https://mitch-scott-rehab.au5.cliniko.com/bookings?business_id=1970647816577494027&amp;practitioner_id=1969447206637284849&amp;appointment_type_id=1969447208231120510" target="_blank" rel="noopener" class="btn btn-outline" onclick="if(window.halthEmbed){window.halthEmbed.open();return false;}">Book Now</a>
-        <p style="font-size:0.78rem;color:var(--moss);margin-top:12px">✓ Private health rebate available</p>
+      <div class="consult-card reveal">
+        <p class="eyebrow" style="justify-content:center">NEW HERE</p>
+        <h2>Initial Consultation</h2>
+        <p>Your first session with me.<br>A full assessment of your injury, your movement, and what your training actually demands from you.</p>
+        <a href="in-person-initial.html" class="btn btn-primary">Book initial consultation →</a>
       </div>
 
-      <!-- 60 MIN (featured) -->
-      <div class="price-tile featured reveal">
-        <span class="price-badge">Most Popular</span>
-        <h3 class="tile-name">60 Minute Session</h3>
-        <p class="tile-sub">For when you're sick of being told to rest and hope it goes away.</p>
-
-        <div class="price-amount" style="margin-top:20px"><span class="num">$220</span><span class="unit">/ session</span></div>
-        <div class="price-duration">60 MINUTES · IN-PERSON</div>
-
-        <ul class="price-features">
-          <li>Enough time to actually find the source of the problem, not just treat where it hurts</li>
-          <li>A bespoke plan built around your training and your goals, not a generic band-and-stretch routine that ignores what you actually do</li>
-          <li>Manual and exercise therapy combined in the one session, so treatment and understanding happen together, not separately</li>
-          <li>An honest read on where you're actually at: no fake timeline, no arbitrary "6 weeks and you'll be fine"</li>
-          <li>The starting point for direct access between sessions, so the next seven days aren't spent in the dark</li>
-        </ul>
-
-        <a href="https://mitch-scott-rehab.au5.cliniko.com/bookings?business_id=1970647816577494027&amp;practitioner_id=1969447206637284849&amp;appointment_type_id=1969447208398892671" target="_blank" rel="noopener" class="btn btn-primary" onclick="if(window.halthEmbed){window.halthEmbed.open();return false;}">Book Now</a>
-        <p style="font-size:0.78rem;color:var(--moss);margin-top:6px">✓ Private health rebate available</p>
-      </div>
-
-      <!-- 90 MIN -->
-      <div class="price-tile reveal">
-        <h3 class="tile-name">90 Minute Session</h3>
-        <p class="tile-sub">For the person that's already tried and failed multiple times, with nothing to show for it.</p>
-
-        <div class="price-amount" style="margin-top:20px"><span class="num">$350</span><span class="unit">/ session</span></div>
-        <div class="price-duration">90 MINUTES · IN-PERSON</div>
-
-        <ul class="price-features">
-          <li>The ability to properly untangle a complex or multi-area problem in one sitting, instead of piecing it together over three separate appointments</li>
-          <li>A full dig into what you've already tried, what didn't work, and (more importantly) WHY it didn't work</li>
-          <li>Time to connect the dots between old injuries, current load, and what you're actually training for</li>
-          <li>The start of a plan that's built to get you back to performing, not just handed to you as a symptom-management checklist</li>
-          <li>Space to ask everything you've been sitting on, instead of rushing it in the last five minutes of your appointment</li>
-        </ul>
-
-        <a href="https://mitch-scott-rehab.au5.cliniko.com/bookings?business_id=1970647816577494027&amp;practitioner_id=1969447206637284849&amp;appointment_type_id=2021484676580913090" target="_blank" rel="noopener" class="btn btn-outline" onclick="if(window.halthEmbed){window.halthEmbed.open();return false;}">Book Now</a>
-        <p style="font-size:0.78rem;color:var(--moss);margin-top:12px">✓ Private health rebate available</p>
+      <div class="consult-card reveal">
+        <p class="eyebrow" style="justify-content:center">ALREADY WORKING WITH ME</p>
+        <h2>Subsequent Consultation</h2>
+        <p>Already an existing client?<br>Choose whichever session length fits what you need this time.</p>
+        <a href="in-person-subsequent.html" class="btn btn-outline">Choose session length →</a>
       </div>
 
     </div>
 
-    <div class="decision-help reveal">
-      <p class="eyebrow" style="justify-content:center;margin-bottom:14px">NOT SURE WHICH LENGTH?</p>
-      <p style="max-width:72ch;margin-left:auto;margin-right:auto">Most new clients start with a 60 minute session. If you're just after a quick check-in on an existing plan, 30 minutes usually covers it. If you've got more than one area to work through, 90 minutes gives us the room to do it properly.</p>
-    </div>
+    <p style="text-align:center;margin-top:36px"><a href="index.html#solution" style="text-decoration:underline;color:var(--forest);font-size:0.9rem">← Back to all options</a></p>
   </div>
 </section>
 
