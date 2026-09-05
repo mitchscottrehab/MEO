@@ -493,6 +493,8 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
   display:flex; align-items:center; justify-content:center; font-size:0.7rem; margin-top:1px;
 }
 .price-tile.featured .price-features li::before{ background:#E4EEE0; }
+.price-features li.cross{ color:var(--moss); }
+.price-features li.cross::before{ content:'✗'; color:var(--danger); background:transparent; }
 
 .price-tile .btn{ width:100%; justify-content:center; margin-top:auto; }
 
