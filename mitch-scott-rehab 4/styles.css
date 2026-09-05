@@ -729,8 +729,9 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 }
 
 .stats-bar{
-  display:flex; gap:56px; margin-top:44px; padding-top:36px; border-top:1px solid var(--line);
+  display:flex; justify-content:center; gap:56px; margin-top:44px; padding-top:36px; border-top:1px solid var(--line);
 }
+.stat-item{ text-align:center; }
 .stat-item .stat-num{ font-size:2.2rem; font-weight:900; color:var(--vivid); line-height:1; }
 .stat-item .stat-label{ font-size:0.85rem; color:var(--moss); margin-top:6px; text-transform:uppercase; letter-spacing:0.04em; }
 @media (max-width:700px){ .stats-bar{ gap:32px; flex-wrap:wrap; } }
