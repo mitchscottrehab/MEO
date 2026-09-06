@@ -4,7 +4,10 @@
    meets lime + clay (performance energy).
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow:wght@600&display=swap');
+/* Fonts now loaded via <link> tags in each page's <head> with preconnect
+   hints, instead of @import here - @import blocks the browser from
+   discovering and fetching fonts until after this entire stylesheet has
+   been downloaded and parsed, adding a needless serial round-trip. */
 
 :root{
   /* --- Color tokens --- */
