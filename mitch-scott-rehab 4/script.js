@@ -4,25 +4,75 @@
 
 document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
 
-/* Hide the HaltH red backdrop bar while "The Solution" section is in view -
-   that section already has three booking CTAs of its own on the tiles, so
-   the backdrop is redundant there, and hiding it reclaims the space so the
-   section's heading and tiles can actually fit on screen after an anchor
-   jump, without needing to shrink the backdrop everywhere else. Desktop
-   only - the backdrop is a fixed height on mobile where this isn't an issue. */
+/* Cliniko booking modal - opens the booking flow in an embedded popup so
+   visitors never leave the site, and listens for Cliniko's booking-completed
+   signal to redirect to a confirmation page afterward.
+
+   IMPORTANT CAVEAT: the redirect-on-completion part relies on a
+   `clinikoBookingCompleted` postMessage event that Cliniko's embed does
+   fire, but which Cliniko's own support documentation explicitly describes
+   as undocumented and unsupported for this kind of external use - they
+   note they can't help troubleshoot it if it breaks. The popup itself
+   (Cliniko's official embed method) is solid and fully supported; only the
+   auto-redirect-after-booking piece carries this risk. If Cliniko changes
+   their embed internals, the popup will keep working but the redirect may
+   silently stop firing - worth testing on the live site after deploying,
+   and periodically afterward. */
 (function () {
-  const backdrop = document.querySelector('.halth-backdrop');
-  const solutionSection = document.getElementById('solution');
-  const isDesktop = window.matchMedia('(min-width: 769px)').matches;
-  if (!backdrop || !solutionSection || !isDesktop || !('IntersectionObserver' in window)) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'cliniko-modal-overlay';
+  overlay.innerHTML = `
+    <div class="cliniko-modal">
+      <button class="cliniko-modal-close" aria-label="Close booking">&times;</button>
+      <div class="cliniko-modal-loading">Loading booking...</div>
+      <iframe title="Book an appointment"></iframe>
+    </div>
+  `;
+  document.body.appendChild(overlay);
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      backdrop.classList.toggle('is-hidden', entry.isIntersecting);
-    });
-  }, { threshold: 0.15 });
+  const modal = overlay.querySelector('.cliniko-modal');
+  const iframe = overlay.querySelector('iframe');
+  const loading = overlay.querySelector('.cliniko-modal-loading');
+  const closeBtn = overlay.querySelector('.cliniko-modal-close');
 
-  io.observe(solutionSection);
+  function openClinikoBooking(url) {
+    loading.style.display = 'flex';
+    iframe.src = url;
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => overlay.classList.add('is-visible'));
+  }
+
+  function closeClinikoBooking() {
+    overlay.classList.remove('is-visible');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      overlay.classList.remove('is-open');
+      iframe.src = 'about:blank';
+    }, 250);
+  }
+
+  iframe.addEventListener('load', () => { loading.style.display = 'none'; });
+  closeBtn.addEventListener('click', closeClinikoBooking);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeClinikoBooking(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeClinikoBooking();
+  });
+
+  // Cliniko's iframe posts a `clinikoBookingCompleted` message on successful
+  // booking - see caveat above about this being an unsupported signal.
+  window.addEventListener('message', (event) => {
+    if (!event.data) return;
+    const isCompleted =
+      event.data === 'clinikoBookingCompleted' ||
+      event.data.event === 'clinikoBookingCompleted' ||
+      event.data.type === 'clinikoBookingCompleted';
+    if (isCompleted) {
+      window.location.href = 'booking-confirmed.html';
+    }
+  });
+
+  window.openClinikoBooking = openClinikoBooking;
 })();
 
 

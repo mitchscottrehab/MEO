@@ -765,34 +765,38 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 }
 
 /* ============================================================
-   HALTH EMBED - keep button permanently expanded (never minimised),
-   and a mobile-only red backdrop bar behind it for contrast
+   CLINIKO BOOKING MODAL - embedded popup so visitors never leave the site
    ============================================================ */
-.halth-embed-button:not(.is-open){
-  width:260px !important; justify-content:flex-start !important; padding-left:16px !important;
+.cliniko-modal-overlay{
+  display:none; position:fixed; inset:0; background:rgba(10,10,10,0.65);
+  z-index:999995; align-items:center; justify-content:center; padding:24px;
+  opacity:0; transition:opacity .25s ease;
 }
-.halth-embed-button:not(.is-open) .button-text{ display:block !important; }
-@media (max-width:768px){
-  .halth-embed-button:not(.is-open){
-    width:calc(100% - 40px) !important; right:20px !important;
-    justify-content:center !important; padding-left:0 !important;
-  }
-  .halth-embed-button:not(.is-open) .button-text{ margin-right:0; margin-left:48px; max-width:none; }
+.cliniko-modal-overlay.is-open{ display:flex; }
+.cliniko-modal-overlay.is-visible{ opacity:1; }
+.cliniko-modal{
+  background:#fff; border-radius:16px; width:100%; max-width:720px; height:88vh;
+  max-height:840px; position:relative; box-shadow:0 30px 80px -20px rgba(0,0,0,0.5);
+  display:flex; flex-direction:column; overflow:hidden;
+  transform:scale(0.96); transition:transform .25s ease;
 }
-
-.halth-backdrop{
-  display:block; position:fixed; left:0; right:0; bottom:0; height:110px;
-  background:var(--vivid); z-index:999990;
-  transition:transform .35s cubic-bezier(.25,.8,.25,1), opacity .35s ease;
+.cliniko-modal-overlay.is-visible .cliniko-modal{ transform:scale(1); }
+.cliniko-modal-close{
+  position:absolute; top:12px; right:12px; z-index:2; width:36px; height:36px;
+  border-radius:50%; background:rgba(10,10,10,0.06); border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--ink);
+  transition:background .2s ease;
 }
-.halth-backdrop.is-hidden{ transform:translateY(100%); opacity:0; pointer-events:none; }
-@media (min-width:769px){
-  .halth-embed-frame{
-    right:auto !important; left:50% !important; margin-left:-200px !important;
-    transform-origin:bottom center !important;
-  }
+.cliniko-modal-close:hover{ background:rgba(10,10,10,0.12); }
+.cliniko-modal iframe{ flex:1; width:100%; height:100%; border:none; }
+.cliniko-modal-loading{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.85rem; color:var(--moss); background:#fff;
 }
-
+@media (max-width:640px){
+  .cliniko-modal-overlay{ padding:0; }
+  .cliniko-modal{ max-width:100%; height:100%; max-height:100%; border-radius:0; }
+}
 /* THE JOURNEY - alternating image + text rows */
 .journey-rows{ display:flex; flex-direction:column; gap:64px; margin-top:56px; }
 .journey-row{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
