@@ -49,19 +49,12 @@ document.getElementById('year') && (document.getElementById('year').textContent 
 })();
 
 /* Cliniko booking modal - opens the booking flow in an embedded popup so
-   visitors never leave the site, and listens for Cliniko's booking-completed
-   signal to redirect to a confirmation page afterward.
+   visitors never leave the site. This is Cliniko's official embed method
+   and is solid and fully supported.
 
-   IMPORTANT CAVEAT: the redirect-on-completion part relies on a
-   `clinikoBookingCompleted` postMessage event that Cliniko's embed does
-   fire, but which Cliniko's own support documentation explicitly describes
-   as undocumented and unsupported for this kind of external use - they
-   note they can't help troubleshoot it if it breaks. The popup itself
-   (Cliniko's official embed method) is solid and fully supported; only the
-   auto-redirect-after-booking piece carries this risk. If Cliniko changes
-   their embed internals, the popup will keep working but the redirect may
-   silently stop firing - worth testing on the live site after deploying,
-   and periodically afterward. */
+   Note: we previously tried auto-redirecting to a confirmation page on
+   booking completion via an undocumented Cliniko postMessage signal, but
+   it proved unreliable in practice and was removed. */
 (function () {
   const overlay = document.createElement('div');
   overlay.className = 'cliniko-modal-overlay';
@@ -101,19 +94,6 @@ document.getElementById('year') && (document.getElementById('year').textContent 
   overlay.addEventListener('click', (e) => { if (e.target === overlay) closeClinikoBooking(); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeClinikoBooking();
-  });
-
-  // Cliniko's iframe posts a `clinikoBookingCompleted` message on successful
-  // booking - see caveat above about this being an unsupported signal.
-  window.addEventListener('message', (event) => {
-    if (!event.data) return;
-    const isCompleted =
-      event.data === 'clinikoBookingCompleted' ||
-      event.data.event === 'clinikoBookingCompleted' ||
-      event.data.type === 'clinikoBookingCompleted';
-    if (isCompleted) {
-      window.location.href = 'booking-confirmed.html';
-    }
   });
 
   window.openClinikoBooking = openClinikoBooking;

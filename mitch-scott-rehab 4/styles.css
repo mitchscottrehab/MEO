@@ -681,7 +681,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 
 .trust-strip .label{
   text-align:left; font-family:var(--mono); font-size:0.86rem; color:var(--moss);
-  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px; white-space:nowrap;
+  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px;
 }
 .trust-logos{
   display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
@@ -870,7 +870,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 
 /* Model section - roughly 1/3 phase timeline, 2/3 heading+features */
 .model-wrap{ max-width:1500px; }
-.model-grid{ display:grid; grid-template-columns:400px 1fr; gap:64px; align-items:start; }
+.model-grid{ display:grid; grid-template-columns:1fr 400px; gap:64px; align-items:start; }
 .model-phases{ padding-left:24px; }
 @media (max-width:1100px){ .model-grid{ grid-template-columns:1fr; } .model-phases{ padding-left:0; } }
 
@@ -958,7 +958,7 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
   background:linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
 }
 .parallax-hero .parallax-content{
-  position:relative; text-align:center; color:#fff; max-width:760px; padding:0 32px;
+  position:relative; text-align:center; color:#fff; max-width:1800px; padding:0 32px;
 }
 .parallax-hero .logo-lockup{
   width:260px; height:auto; margin:0 auto 32px; display:block;
@@ -976,16 +976,18 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
    specified lines - the shared vw-based clamp above was letting these grow
    too large for the fixed-width text container, causing 4-7 lines of
    unintended wrapping on wide desktop screens. */
-.hero-title-home{ font-size:46px !important; }
-.hero-title-about{ font-size:43px !important; }
-.hero-title-approach{ font-size:34px !important; }
+.hero-title-home{ font-size:clamp(70px, calc(5.6vw + 8px), 140px) !important; }
+.hero-title-about{ font-size:clamp(60px, calc(5.3vw + 3px), 120px) !important; }
+.hero-title-approach{ font-size:clamp(50px, 4.5vw, 100px) !important; }
 .mobile-break{ display:none; }
 @media (max-width:640px){
-  .hero-title-home{ font-size:22px !important; }
-  .hero-title-about{ font-size:20px !important; }
-  .hero-title-approach{ font-size:24px !important; }
+  .parallax-hero .parallax-content{ padding:0 16px; }
+  .hero-title-home{ font-size:25px !important; }
+  .hero-title-about{ font-size:23px !important; }
+  .hero-title-approach{ font-size:32px !important; }
   .hero-title-solution{ font-size:34px !important; }
   .mobile-break{ display:block; }
+  .parallax-hero p.parallax-sub{ font-size:0.85rem !important; }
 }
 .parallax-hero h1 em{ font-style:italic; }
 .parallax-hero h1 em.accent{ color:var(--vivid); }
