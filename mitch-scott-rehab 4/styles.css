@@ -190,6 +190,8 @@ p{ color:var(--moss); max-width:60ch; }
 .on-dark .btn-outline:hover{ background:var(--stone); color:var(--ink); }
 .btn-clay{ background:var(--clay); color:var(--stone); }
 .btn-clay:hover{ transform:translateY(-2px); background:#a24f2b; box-shadow:0 12px 24px -12px rgba(0,0,0,0.18); }
+.btn-grey{ background:var(--moss); color:var(--stone); }
+.btn-grey:hover{ transform:translateY(-2px); background:#4a4a4a; }
 .btn-sm{ padding:10px 18px; font-size:0.85rem; }
 
 /* ============================================================
@@ -967,8 +969,23 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
   padding:6px 14px; font-size:12px; letter-spacing:0.05em; font-family:var(--mono); margin-bottom:20px;
 }
 .parallax-hero h1{
-  font-size:clamp(3.9rem, 8.25vw, 6.3rem); font-weight:900; line-height:1.0; margin:0 0 16px;
+  font-size:clamp(2.6rem, 8.25vw, 6.3rem); font-weight:900; line-height:1.05; margin:0 0 16px;
   letter-spacing:-0.02em; text-shadow:0 4px 30px rgba(0,0,0,0.4); color:#fff;
+}
+/* Fixed, tested sizes per page so each heading reliably breaks into the exact
+   specified lines - the shared vw-based clamp above was letting these grow
+   too large for the fixed-width text container, causing 4-7 lines of
+   unintended wrapping on wide desktop screens. */
+.hero-title-home{ font-size:46px !important; }
+.hero-title-about{ font-size:43px !important; }
+.hero-title-approach{ font-size:34px !important; }
+.mobile-break{ display:none; }
+@media (max-width:640px){
+  .hero-title-home{ font-size:22px !important; }
+  .hero-title-about{ font-size:20px !important; }
+  .hero-title-approach{ font-size:24px !important; }
+  .hero-title-solution{ font-size:34px !important; }
+  .mobile-break{ display:block; }
 }
 .parallax-hero h1 em{ font-style:italic; }
 .parallax-hero h1 em.accent{ color:var(--vivid); }
