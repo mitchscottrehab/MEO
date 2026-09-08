@@ -22,25 +22,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<style>
-.approach-cred{
-  display:flex; align-items:center; gap:20px; margin-top:36px; padding:20px 24px;
-  border:1px solid var(--line); border-radius:16px; max-width:640px;
-}
-.approach-cred img{ width:56px; height:56px; border-radius:50%; object-fit:cover; flex-shrink:0; }
-.approach-cred .name{ font-weight:700; font-size:1rem; }
-.approach-cred .title{ font-size:0.88rem; color:var(--moss); }
-.approach-next{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px; }
-.approach-next a{
-  display:block; border:1.5px solid var(--line); border-radius:16px; padding:28px 26px;
-  transition:transform .3s cubic-bezier(.25,.8,.25,1), border-color .3s ease, box-shadow .3s ease;
-}
-.approach-next a:hover{ transform:translateY(-4px); border-color:var(--vivid); box-shadow:0 20px 40px -24px rgba(22,32,26,0.35); }
-.approach-next .label{ font-family:var(--mono); font-size:0.72rem; color:var(--clay); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px; display:block; }
-.approach-next h3{ font-size:1.15rem; margin-bottom:8px; }
-.approach-next p{ font-size:0.92rem; margin:0; }
-@media (max-width:700px){ .approach-next{ grid-template-columns:1fr; } .approach-cred{ flex-direction:column; align-items:flex-start; text-align:left; } }
-</style>
 </head>
 <body class="site-theme">
 
@@ -53,7 +34,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="about-meo.html">About MEO</a></li>
       <li><a href="approach.html">The Approach</a></li>
-      <li><a href="index.html#solution" class="nav-cta">Book Now</a></li>
+      <li><a href="the-solution.html" class="nav-cta">Book Now</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -115,21 +96,70 @@
   </div>
 </section>
 
-<section>
-  <div class="wrap" style="max-width:900px">
-    <p class="eyebrow reveal">WHERE TO NEXT</p>
-    <h2 class="reveal" style="margin:14px 0 8px">Two ways to go from here.</h2>
-    <div class="approach-next">
-      <a href="index.html#journey" class="reveal">
-        <span class="label">See the process</span>
-        <h3>How a session actually works →</h3>
-        <p>The three steps from first booking to back doing what you love.</p>
-      </a>
-      <a href="index.html#solution" class="reveal">
-        <span class="label">See pricing</span>
-        <h3>Find your session type →</h3>
-        <p>In-person, online, or the full 12-week package — compare and book.</p>
-      </a>
+<!-- THE JOURNEY -->
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:700px">
+      <p class="eyebrow">THE JOURNEY</p>
+      <h2>From first session to back doing what you love.</h2>
+      <p style="margin-top:20px">Three steps. No guesswork, no surprises.</p>
+    </div>
+
+    <div class="journey-rows">
+      <div class="journey-row reveal">
+        <div class="journey-image">
+          <img src="assets/journey-assess.jpg" alt="Hands-on movement assessment at MEO">
+        </div>
+        <div class="journey-text">
+          <span class="journey-tag">Step 1</span>
+          <h3>Book &amp; assess</h3>
+          <p>A full assessment of your injury, your movement, and what your training actually demands from you.</p>
+        </div>
+      </div>
+
+      <div class="journey-row reverse reveal">
+        <div class="journey-image">
+          <img src="assets/journey-plan.jpg" alt="Building a custom training program">
+        </div>
+        <div class="journey-text">
+          <span class="journey-tag">Step 2</span>
+          <h3>Your custom plan</h3>
+          <p>A program built around your training, with direct access to me between sessions as you progress.</p>
+        </div>
+      </div>
+
+      <div class="journey-row reveal">
+        <div class="journey-image">
+          <img src="assets/journey-train.jpg" alt="Back to training and performing">
+        </div>
+        <div class="journey-text">
+          <span class="journey-tag">Step 3</span>
+          <h3>Train &amp; return</h3>
+          <p>Cleared to perform, not just cleared of pain, with the goal of returning better than you left.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mid-cta reveal">
+      <a href="the-solution.html" class="btn btn-primary">Start your journey →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITY SHOWCASE -->
+<section class="on-panel">
+  <div class="wrap">
+    <p class="eyebrow reveal">THE FACILITY</p>
+    <h2 class="reveal" style="margin:14px 0 8px">Pinnacle Fitness Albion.</h2>
+    <p class="reveal" style="max-width:65ch">A full strength and conditioning gym, not a clinic room. Space to assess thoroughly, problem solve, and implement your plan immediately.</p>
+    <p class="reveal" style="max-width:95ch;margin-top:10px">Keen to train here while you rehab? 24/7 memberships available through Pinnacle Fitness.</p>
+    <div class="facility-grid">
+      <a href="assets/facility/facility-1.jpg" target="_blank" rel="noopener" class="reveal"><img src="assets/facility/facility-1.jpg" alt="Pinnacle Fitness Albion training floor"></a>
+      <a href="assets/facility/facility-2.jpg" target="_blank" rel="noopener" class="reveal"><img src="assets/facility/facility-2.jpg" alt="Squat racks and plyo boxes"></a>
+      <a href="assets/facility/facility-3.jpg" target="_blank" rel="noopener" class="reveal"><img src="assets/facility/facility-3.jpg" alt="Cable machines and weight plates"></a>
+      <a href="assets/facility/facility-4.jpg" target="_blank" rel="noopener" class="reveal"><img src="assets/facility/facility-4.jpg" alt="Kettlebells and medicine balls"></a>
+      <a href="assets/facility/facility-5.jpg" target="_blank" rel="noopener" class="reveal"><img src="assets/facility/facility-5.jpg" alt="Full training floor with mezzanine"></a>
+      <a href="assets/facility/facility-6.jpg" target="_blank" rel="noopener" class="reveal"><img src="assets/facility/facility-6.jpg" alt="Rig and accessory equipment"></a>
     </div>
   </div>
 </section>
