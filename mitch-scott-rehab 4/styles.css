@@ -935,8 +935,8 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
    PARALLAX HERO - full-viewport photo hero with real motion parallax
    ============================================================ */
 .parallax-hero{
-  position:relative; height:calc(100vh - 97px); min-height:520px; overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
+  position:relative; min-height:calc(100vh - 97px); overflow:hidden;
+  display:flex; align-items:center; justify-content:center; padding:140px 0 100px;
 }
 .parallax-hero .parallax-bg{
   position:absolute; top:-20%; left:0; right:0; height:140%;
@@ -960,7 +960,7 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
   padding:6px 14px; font-size:12px; letter-spacing:0.05em; font-family:var(--mono); margin-bottom:20px;
 }
 .parallax-hero h1{
-  font-size:clamp(2.6rem, 5.5vw, 4.2rem); font-weight:900; line-height:1.0; margin:0 0 16px;
+  font-size:clamp(3.9rem, 8.25vw, 6.3rem); font-weight:900; line-height:1.0; margin:0 0 16px;
   letter-spacing:-0.02em; text-shadow:0 4px 30px rgba(0,0,0,0.4); color:#fff;
 }
 .parallax-hero h1 em{ font-style:italic; }
@@ -970,10 +970,9 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
 }
 .parallax-hero .btn{ font-size:1rem; }
 .parallax-hero .scroll-hint{
-  position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+  margin-top:36px;
   color:rgba(255,255,255,0.65); font-size:0.85rem; letter-spacing:0.04em; font-family:var(--body);
 }
-body.has-sticky-book .parallax-hero .scroll-hint{ bottom:128px; }
 @media (max-width:640px){
   .parallax-hero .logo-lockup{ width:190px; }
 }
