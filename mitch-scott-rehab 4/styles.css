@@ -170,7 +170,14 @@ p{ color:var(--moss); max-width:60ch; }
   }
   .nav-links.open{ transform:translateY(0); }
   .nav-links a{ font-size:1.15rem; padding:16px 14px; }
+  .nav-cta{ display:none; }
+  .nav-book-mobile{ display:block !important; margin-top:20px; }
+  .nav-book-mobile a{
+    display:inline-block; background:var(--vivid); color:var(--vivid-ink);
+    padding:16px 14px; border-radius:100px; text-align:center; font-weight:700;
+  }
 }
+.nav-book-mobile{ display:none; }
 
 /* ============================================================
    BUTTONS
@@ -681,7 +688,7 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 
 .trust-strip .label{
   text-align:left; font-family:var(--mono); font-size:0.86rem; color:var(--moss);
-  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px;
+  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:24px; white-space:nowrap;
 }
 .trust-logos{
   display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
@@ -871,8 +878,9 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 /* Model section - roughly 1/3 phase timeline, 2/3 heading+features */
 .model-wrap{ max-width:1500px; }
 .model-grid{ display:grid; grid-template-columns:1fr 400px; gap:64px; align-items:start; }
+.model-content{ padding-left:48px; }
 .model-phases{ padding-left:24px; }
-@media (max-width:1100px){ .model-grid{ grid-template-columns:1fr; } .model-phases{ padding-left:0; } }
+@media (max-width:1100px){ .model-grid{ grid-template-columns:1fr; } .model-phases{ padding-left:0; } .model-content{ padding-left:0; } }
 
 .phase-grid-large{ max-width:none; margin-top:0; }
 .phase-grid-large .phase-card{ padding:0 0 64px 48px; border-left:2px solid var(--line-dark); }
