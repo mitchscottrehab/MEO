@@ -54,11 +54,11 @@
   <div class="wrap" style="max-width:640px">
     <p class="eyebrow reveal">CONTACT US</p>
     <h1 class="reveal">Got a question?</h1>
-    <p class="reveal" style="font-size:1.1rem;margin-top:10px">Not sure where to start, or just want to ask something first? Send a message below.</p>
+    <p class="reveal" style="font-size:1.1rem;margin-top:10px">Not sure where to start, or just want to ask something first?<br>Send a message below.</p>
   </div>
 </section>
 
-<section style="padding-top:20px">
+<section style="padding-top:20px;padding-bottom:20px">
   <div class="wrap" style="max-width:560px">
     <form class="apply-form reveal" id="contactForm">
       <input type="hidden" name="access_key" value="9dd1ccda-340e-45ce-a69d-4a8da99e12ce">
@@ -77,6 +77,11 @@
       </div>
 
       <div class="field">
+        <label for="contact-phone">Phone Number</label>
+        <input type="tel" id="contact-phone" name="phone" placeholder="+61 4XX XXX XXX" required autocomplete="tel">
+      </div>
+
+      <div class="field">
         <label for="contact-instagram">Instagram Handle (optional)</label>
         <input type="text" id="contact-instagram" name="instagram_handle" placeholder="@yourhandle" autocomplete="off">
       </div>
@@ -92,7 +97,7 @@
   </div>
 </section>
 
-<section style="padding-top:60px">
+<section style="padding-top:20px">
   <div class="wrap" style="max-width:560px;text-align:center">
     <div class="decision-help reveal">
       <p class="eyebrow" style="justify-content:center;margin-bottom:14px">PREFER TO CONTACT US DIRECTLY?</p>
