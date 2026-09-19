@@ -659,12 +659,21 @@ footer{ background:var(--ink); color:#B9C4B4; padding:64px 0 32px; }
 
 /* Application form */
 .apply-form{ display:flex; flex-direction:column; gap:16px; max-width:560px; }
-.apply-form label{ font-family:var(--mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--moss); margin-bottom:6px; display:block; }
+.apply-form label{ font-family:var(--body); font-size:0.85rem; text-transform:none; letter-spacing:0; color:var(--moss); margin-bottom:6px; display:block; }
 .apply-form input, .apply-form select, .apply-form textarea{
   width:100%; padding:13px 16px; border-radius:12px; border:1.5px solid var(--line);
   background:var(--stone); font-family:var(--body); font-size:0.95rem; color:var(--ink);
 }
 .apply-form textarea{ min-height:110px; resize:vertical; }
+.consent-field{ margin-top:4px; }
+.consent-label{
+  display:flex; align-items:flex-start; gap:10px; cursor:pointer;
+  font-family:var(--body); font-size:0.85rem; color:var(--moss); line-height:1.5;
+}
+.consent-label input[type="checkbox"]{
+  width:18px; height:18px; flex-shrink:0; margin-top:2px; accent-color:var(--vivid); cursor:pointer;
+}
+.consent-label a{ color:var(--ink); text-decoration:underline; }
 .apply-form input:focus, .apply-form select:focus, .apply-form textarea:focus{ outline:none; border-color:var(--forest); }
 .apply-form .field{ display:flex; flex-direction:column; }
 .apply-form .row2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
