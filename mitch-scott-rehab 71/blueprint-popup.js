@@ -9,29 +9,33 @@
   var FORCE = /[?&]popup=1/.test(location.search);
   try { if (!FORCE && localStorage.getItem(KEY)) return; } catch (e) {}
 
-  var css = '#cbpOv{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(22,32,26,.72)}'
-  + '#cbpOv.on{display:flex}'
+  var css = '#cbpOv{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(22,32,26,0);-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0);visibility:hidden;opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.22,.8,.24,1),background .5s ease,backdrop-filter .5s ease,-webkit-backdrop-filter .5s ease,visibility 0s linear .5s}'
+  + '#cbpOv.on{visibility:visible;opacity:1;pointer-events:auto;background:rgba(22,32,26,.68);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition-delay:0s}'
+  + '#cbpBox{transform:translateY(28px) scale(.97);opacity:0;transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .45s ease}'
+  + '#cbpOv.on #cbpBox{transform:none;opacity:1;transition-delay:.06s}'
+  + '@media(prefers-reduced-motion:reduce){#cbpOv,#cbpBox{transition-duration:.01s!important;transition-delay:0s!important}}'
   + '#cbpBox{position:relative;width:100%;max-width:440px;max-height:calc(100dvh - 40px);overflow:auto;background:var(--stone,#F1EDE3);color:var(--ink,#16201A);padding:34px 28px 28px;font-family:"Work Sans",system-ui,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.35)}'
   + '#cbpBox h2{font-family:Inter,sans-serif;font-weight:900;font-size:1.7rem;line-height:1.05;letter-spacing:-.03em;margin:0 0 10px}'
   + '#cbpBox p{margin:0 0 16px;font-size:.98rem;line-height:1.5}'
   + '#cbpBox .cbp-eye{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#F95132;margin-bottom:10px}'
   + '#cbpBox label.f{display:block;font-size:.85rem;margin-bottom:12px}'
   + '#cbpBox input[type=text],#cbpBox input[type=email]{display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:12px;font:inherit;font-size:1rem;border:1px solid #8a9a8f;background:#fff;color:inherit;border-radius:0}'
-  + '#cbpBox .cbp-c{display:flex;gap:10px;align-items:flex-start;font-size:.78rem;line-height:1.4;margin:4px 0 16px}'
+  + '#cbpBox .cbp-c{display:flex;gap:10px;align-items:flex-start;font-size:.78rem;line-height:1.4;margin:4px 0 11px}'
   + '#cbpBox .cbp-c input{margin-top:3px;flex:none}'
   + '#cbpBox button.go{width:100%;padding:14px;border:0;background:#F95132;color:#fff;font:inherit;font-weight:600;font-size:1rem;cursor:pointer}'
   + '#cbpBox button.go:disabled{opacity:.6}'
   + '#cbpBox button.x{position:absolute;top:8px;right:10px;border:0;background:none;font-size:1.6rem;line-height:1;cursor:pointer;color:inherit;padding:6px}'
-  + '@media(max-width:600px){#cbpOv{align-items:flex-end;padding:0}#cbpBox{max-width:none;max-height:88dvh;padding:28px 20px calc(22px + env(safe-area-inset-bottom,0px))}}'
-  + '#cbpBox .cbp-sub{font-weight:600}#cbpBox .cbp-fine{font-size:.78rem;margin:10px 0 0}#cbpBox .cbp-no{display:block;margin:14px auto 0;border:0;background:none;font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;color:inherit}#cbpBox a.go{display:block;text-align:center;text-decoration:none;padding:14px;background:#F95132;color:#fff;font-weight:600}#cbpBox a.ln{display:block;margin-top:14px;font-size:.92rem}'
+  + '@media(max-width:600px){#cbpOv{align-items:flex-end;padding:0}#cbpBox{transform:translateY(100%);opacity:1;max-width:none;max-height:88dvh;padding:28px 20px calc(22px + env(safe-area-inset-bottom,0px))}}'
+  + '@media(max-width:600px){#cbpOv.on #cbpBox{transform:none}}'
+  + '#cbpBox .cbp-sub{font-weight:600}#cbpBox .cbp-fine{font-size:.78rem;margin:15px 0 0}#cbpBox .cbp-no{display:block;margin:0 auto;border:0;background:none;font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;color:inherit}#cbpBox a.go{display:block;text-align:center;text-decoration:none;padding:14px;background:#F95132;color:#fff;font-weight:600}#cbpBox a.ln{display:block;margin-top:14px;font-size:.92rem}'
   + '#cbpMsg{margin:10px 0 0;font-size:.85rem;color:#a02b14;display:none}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
   var ov = document.createElement('div'); ov.id = 'cbpOv';
   ov.innerHTML = '<div id="cbpBox" role="dialog" aria-modal="true" aria-labelledby="cbpT">'
-  + '<div id="cbpA"><h2 id="cbpT">The Comeback Blueprint</h2>'
-  + '<p class="cbp-sub">For runners, lifters and people who play who are tired of the rest, flare, repeat loop.</p>'
-  + '<p>A free 13-page guide from me (Mitch), a Physio in Brisbane, Australia. It reads in about 15 minutes and there\u2019s a weekly tracker at the end for you to start taking action.</p>'
+  + '<div id="cbpA"><h2 id="cbpT">Want my Comeback Blueprint?</h2>'
+  + '<p class="cbp-sub">For runners, lifters, and athletes who are tired of being told to rest and have no clue where to start.</p>'
+  + '<p>A FREE guide, with 5 actionable moves you can make today. It\u2019s a 10 min read and if you have any questions, DM me and we can chat some more.</p>'
   + '<form id="cbpForm" novalidate>'
   + '<input type="hidden" name="access_key" value="9dd1ccda-340e-45ce-a69d-4a8da99e12ce">'
   + '<input type="hidden" name="subject" value="Comeback Blueprint request">'

@@ -87,7 +87,9 @@ h3 { font-size: clamp(24px, 3.2vw, 32px); letter-spacing: -0.02em; line-height: 
 .chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); font-weight: 900; font-size: 15px; }
 .chip svg { width: 18px; height: 18px; }
 .toc { margin-top: clamp(48px, 7vw, 80px); display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border-top: 1px solid var(--line); }
-.toc a { display: grid; grid-template-columns: 44px 1fr; gap: 8px; padding: 16px 16px 16px 0; text-decoration: none; border-bottom: 1px solid var(--line); transition: color .2s; }
+.toc { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 960px) { .toc { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); } }
+.toc a { display: grid; grid-template-columns: 36px 1fr; gap: 6px; padding: 16px 16px 16px 0; text-decoration: none; border-bottom: 1px solid var(--line); transition: color .2s; }
 .toc a:hover .stmt { color: var(--red); }
 .toc b { color: var(--red); font-weight: 900; font-variant-numeric: tabular-nums; }
 .byline { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 6px 24px; align-items: baseline; }
@@ -350,13 +352,14 @@ footer .wrap { display: flex; flex-direction: column; gap: 12px; }
     <div class="hero-top"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODE4IDM5OCIgd2lkdGg9IjE4MTgiIGhlaWdodD0iMzk4Ij48dGl0bGU+TUVPPC90aXRsZT48cGF0aCBmaWxsPSIjZmI0NTJmIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01LjAgMzkyLjdDNS4wIDM5Mi41IDkuMSAzODIuOSAxNC4xIDM3MS40QzE5LjEgMzU5LjkgMjQuNiAzNDcuNCAyNi4yIDM0My41QzM3LjAgMzE4LjUgNzAuNyAyNDEuMCA3OC41IDIyMy41QzgzLjYgMjExLjkgOTAuNCAxOTYuNyA5My41IDE4OS41QzExMC4yIDE1MS4yIDExNi41IDEzNi44IDEyNC4wIDEyMC4wQzEyOC41IDEwOS44IDEzNS41IDk0LjEgMTM5LjUgODUuMEMxNDMuNSA3NS45IDE1MC42IDU5LjggMTU1LjQgNDkuMkMxNjAuMSAzOC42IDE2NC4wIDI5LjggMTY0LjAgMjkuNUMxNjQuMCAyOS4zIDE2Ni4wIDI0LjcgMTY4LjUgMTkuNEMxNzEuMCAxNC4xIDE3My4wIDkuNCAxNzMuMCA4LjlDMTczLjAgNi4zIDE3OS4xIDYuMCAyNDAuMCA2LjFMMzAzLjEgNi4yTDMwNS4xIDguM0MzMDYuMSA5LjQgMzA3LjAgMTAuOCAzMDcuMCAxMS4yQzMwNy4wIDExLjcgMzE3LjAgMzIuMiAzMjkuMSA1Ni44QzM0MS4zIDgxLjQgMzU4LjQgMTE2LjAgMzY3LjEgMTMzLjhDMzc1LjkgMTUxLjUgMzgzLjUgMTY2LjAgMzg0LjEgMTY2LjBDMzg1LjQgMTY2LjAgNDAzLjUgMTUyLjcgNDU3LjQgMTEyLjFDNDk3LjcgODEuOSA1NjguMiAyOS4yIDU4Ny4zIDE1LjFMNTk4LjEgNy4yTDYwOS4zIDYuNUM2MjIuMyA1LjcgNzI3LjcgNi40IDcyOC42IDcuMkM3MjguOSA3LjUgNzI2LjcgMTMuNiA3MjMuNyAyMC43QzcyMC43IDI3LjcgNzE1LjYgMzkuOCA3MTIuNCA0Ny41QzcwOS4zIDU1LjIgNzAwLjEgNzYuOCA2OTIuMiA5NS41QzY4NC4yIDExNC4yIDY3NS40IDEzNS4xIDY3Mi41IDE0Mi4wQzY2OC40IDE1MS44IDY0MS4xIDIxNS44IDYzNS44IDIyOC4wQzYzNS4yIDIyOS40IDYzNC4yIDIzMS44IDYzMy41IDIzMy41QzYzMi44IDIzNS4yIDYzMS4yIDIzOC44IDYzMC4wIDI0MS41QzYyNS4xIDI1Mi42IDU3My42IDM3My45IDU3MS40IDM3OS45QzU3MC4wIDM4My40IDU2OC4zIDM4Ny41IDU2Ny40IDM4OS4xTDU2NS45IDM5Mi4wTDUwNS41IDM5Mi4wQzQ2OS41IDM5Mi4wIDQ0NC45IDM5MS42IDQ0NC41IDM5MS4xQzQ0NC4yIDM5MC42IDQ0Ny40IDM4Mi4xIDQ1MS42IDM3Mi4zQzQ1NS43IDM2Mi41IDQ2MC4yIDM1MS44IDQ2MS41IDM0OC41QzQ2My40IDM0My4zIDQ2Ni42IDMzNi4wIDQ3MC4wIDMyOC41QzQ3MS41IDMyNS4zIDQ5NC4xIDI3MS4wIDQ5Ni4yIDI2NS41QzQ5OC40IDI2MC4xIDUxMi43IDIyNS42IDUxNi41IDIxNy4wQzUyNS43IDE5NS45IDUzMS4xIDE4Mi43IDUzMC44IDE4MS44QzUzMC42IDE4MS4zIDUyMy4wIDE4Ni44IDUxMy44IDE5NC4yQzQ5Ny44IDIwNy4wIDQ4MC4wIDIyMS4yIDQ2MC4wIDIzNi45QzQ1NC44IDI0MS4wIDQ0My4xIDI1MC4zIDQzNC4wIDI1Ny41QzQxNy45IDI3MC4zIDM3Ny43IDMwMi4wIDM2Ni4wIDMxMS4wQzM2Mi44IDMxMy41IDM1MS4xIDMyMi42IDM0MC4xIDMzMS4zQzMyOS4wIDM0MC4wIDMxOS40IDM0Ny4wIDMxOC45IDM0Ni44QzMxOC4zIDM0Ni42IDMxMC44IDMzMi41IDMwMi4xIDMxNS41QzI4Ni4xIDI4My45IDI3Mi42IDI1Ny45IDI2Ny4zIDI0OC4wQzI2NS43IDI0NS4wIDI1OS45IDIzMy45IDI1NC41IDIyMy41QzI0OS4xIDIxMy4xIDI0Mi43IDIwMC43IDI0MC4yIDE5Ni4wQzIzNy43IDE5MS4zIDIzNS4wIDE4Ni4zIDIzNC4zIDE4NC44QzIzMi4zIDE4MC44IDIzMS42IDE4MC44IDIzMC4xIDE4NC4zQzIyOS4zIDE4Ni4xIDIyNy43IDE4OS44IDIyNi41IDE5Mi41QzIyNS4zIDE5NS4yIDIyMC42IDIwNi4zIDIxNi4xIDIxNy4wQzIxMS42IDIyNy43IDIwNy4zIDIzNy44IDIwNi41IDIzOS41QzIwNS44IDI0MS4yIDIwNC4wIDI0NS40IDIwMi41IDI0OS4wQzIwMS4xIDI1Mi42IDE5OS4yIDI1Ni45IDE5OC40IDI1OC43QzE5Ny42IDI2MC40IDE5Ny4wIDI2Mi4wIDE5Ny4wIDI2Mi4zQzE5Ny4wIDI2Mi42IDE5NS4yIDI2Ni44IDE5My4wIDI3MS41QzE5MC44IDI3Ni4yIDE4OS4wIDI4MC41IDE4OS4wIDI4MC45QzE4OS4wIDI4MS40IDE4Ny44IDI4NC40IDE4Ni40IDI4Ny42QzE4NS4wIDI5MC45IDE4Mi45IDI5NS41IDE4MS45IDI5OC4wQzE4MC44IDMwMC41IDE3OS41IDMwMy40IDE3OS4wIDMwNC41QzE3OC41IDMwNS42IDE3My4zIDMxOC4wIDE2Ny41IDMzMi4wQzE2MS42IDM0Ni4wIDE1Ni4wIDM1OS4zIDE1NS4wIDM2MS41QzE1NC4wIDM2My43IDE1MC42IDM3MS43IDE0Ny40IDM3OS4yTDE0MS43IDM5My4wTDczLjQgMzkzLjBDMzUuOCAzOTMuMCA1LjAgMzkyLjggNS4wIDM5Mi43Wk02MzEuMCAzOTIuNUM2MzEuMCAzOTIuMCA2NjcuOCAzNDkuMCA2NjkuNSAzNDcuNUM2NzAuMiAzNDYuOSA2NzQuOSAzNDEuNiA2ODAuMCAzMzUuNUM2ODUuMiAzMjkuNCA2OTEuNyAzMjIuMCA2OTQuNiAzMTkuMEM2OTcuNCAzMTYuMCA3MDEuMCAzMTIuMCA3MDIuNSAzMTAuMkw3MDUuMiAzMDcuMEw5NDcuMSAzMDcuMEMxMDk1LjMgMzA3LjAgMTE4OS4wIDMwNy40IDExODkuMCAzMDcuOUMxMTg5LjAgMzA4LjQgMTE4OC40IDMwOS41IDExODcuNyAzMTAuMkMxMTg1LjYgMzEyLjUgMTE2MS43IDM0MS4yIDExNTcuNiAzNDYuNUMxMTU1LjQgMzQ5LjIgMTE1MS44IDM1My42IDExNDkuNiAzNTYuMUMxMTQ3LjMgMzU4LjYgMTE0MC4zIDM2Ni44IDExMzQuMCAzNzQuNEMxMTI3LjcgMzgxLjkgMTEyMS42IDM4OS4yIDExMjAuNSAzOTAuNkwxMTE4LjQgMzkzLjBMODc0LjcgMzkzLjBDNzQwLjcgMzkzLjAgNjMxLjAgMzkyLjggNjMxLjAgMzkyLjVaTTEyMDIuMCAzOTIuNUMxMjAyLjAgMzkyLjAgMTIzMC42IDMyMC42IDEyMzIuMCAzMTcuNUMxMjMyLjUgMzE2LjQgMTIzNi42IDMwNi41IDEyNDEuMCAyOTUuNUMxMjQ1LjUgMjg0LjUgMTI1Mi40IDI2Ny40IDEyNTYuNSAyNTcuNUMxMjc0LjkgMjEyLjIgMTI4Ni4xIDE4NC41IDEyOTYuMiAxNTkuNUMxMzAyLjEgMTQ0LjcgMTMwNy40IDEzMS42IDEzMDcuOSAxMzAuNUMxMzA5LjIgMTI3LjYgMTMxNi42IDEwOS41IDEzMjYuMCA4Ni4wQzEzMzcuNCA1Ny41IDEzNDMuMSA0OC4xIDEzNTcuNiAzMy41QzEzNzEuMiAyMC4wIDEzODguOCA5LjkgMTQwNS4yIDYuNkwxNDEyLjkgNS4wTDE2MTMuMCA1LjBDMTcyMy4wIDUuMCAxODEzLjAgNS4yIDE4MTMuMCA1LjRDMTgxMy4wIDUuNiAxODExLjIgMTAuMiAxODA5LjEgMTUuNkMxODA3LjAgMjEuMSAxODAzLjEgMzAuOSAxODAwLjUgMzcuNUMxNzk3LjkgNDQuMSAxNzk1LjIgNTAuOSAxNzk0LjUgNTIuNUMxNzkzLjggNTQuMSAxNzg0LjggNzYuNiAxNzc0LjUgMTAyLjVDMTc2NC4zIDEyOC40IDE3NTMuOSAxNTQuMiAxNzUxLjYgMTYwLjBDMTc0OS4yIDE2NS44IDE3NDMuMyAxODAuNCAxNzM4LjUgMTkyLjVDMTczMy43IDIwNC42IDE3MjcuOSAyMTkuMiAxNzI1LjUgMjI1LjBDMTcyMy4xIDIzMC44IDE3MTcuMSAyNDUuNiAxNzEyLjIgMjU4LjBDMTcwNC41IDI3Ny41IDE2OTguMiAyOTIuOCAxNjg1LjIgMzI0LjZDMTY3Ny4xIDM0NC42IDE2NjIuNyAzNjMuNSAxNjQ2LjAgMzc2LjBDMTYzOC4xIDM4MS45IDE2MjMuOCAzODguNiAxNjE0LjAgMzkxLjBMMTYwNS41IDM5My4wTDE0MDMuOCAzOTMuMEMxMjkyLjggMzkzLjAgMTIwMi4wIDM5Mi44IDEyMDIuMCAzOTIuNVpNMTU2MS41IDMwNi4xQzE1NjkuNSAzMDIuNSAxNTc0LjUgMjk2LjAgMTU3OS42IDI4Mi40QzE1ODEuOCAyNzYuNSAxNTkxLjEgMjUzLjcgMTU5My4wIDI0OS41QzE1OTMuNSAyNDguNCAxNTk1LjMgMjQzLjkgMTU5Ny4xIDIzOS41QzE2MDAuMCAyMzIuMCAxNjE2LjEgMTkyLjkgMTYxOC4wIDE4OC41QzE2MTguOSAxODYuNSAxNjI1LjkgMTY5LjYgMTYzMi4wIDE1NC41QzE2NTAuMiAxMDkuOCAxNjU3LjcgOTAuNCAxNjU3LjEgODkuN0MxNjU2LjcgODkuMyAxNjEyLjMgODkuMSAxNTU4LjQgODkuMkwxNDYwLjUgODkuNUwxNDU1LjQgOTIuMkMxNDUwLjAgOTUuMCAxNDQ0LjIgMTAwLjkgMTQ0MS41IDEwNi4wQzE0NDAuNiAxMDcuOCAxNDM3LjggMTE0LjQgMTQzNS40IDEyMC44QzE0MzMuMCAxMjcuMyAxNDMwLjYgMTMzLjQgMTQzMC4xIDEzNC41QzE0MjguNCAxMzguNSAxNDI2LjQgMTQzLjUgMTQwMS41IDIwNS41QzEzODcuNiAyNDAuMiAxMzcyLjggMjc3LjAgMTM2OC42IDI4Ny4zQzEzNjQuNCAyOTcuNyAxMzYxLjAgMzA2LjYgMTM2MS4wIDMwNy4xQzEzNjEuMCAzMDcuNiAxNDAxLjYgMzA4LjAgMTQ1OS4yIDMwOC4wTDE1NTcuNSAzMDguMEwxNTYxLjUgMzA2LjFaTTcyNC42IDI0Mi4xQzcyNC4xIDI0MS4zIDcyNy4yIDIzNC4zIDczOC4yIDIxMS4wQzc0MC41IDIwNi4zIDc0NC40IDE5OC4wIDc0Ny4wIDE5Mi41Qzc0OS42IDE4Ny4wIDc1NC43IDE3Ni4zIDc1OC40IDE2OC44TDc2NC45IDE1NS4wTDk5MS4xIDE1NS4wQzExMzEuMyAxNTUuMCAxMjE3LjAgMTU1LjQgMTIxNi44IDE1NS45QzEyMTYuNiAxNTYuNSAxMjExLjEgMTYyLjYgMTIwNC40IDE2OS43QzExOTcuOCAxNzYuNyAxMTg5LjcgMTg1LjUgMTE4Ni40IDE4OS4xQzExNzYuMSAyMDAuNSAxMTQwLjggMjM4LjQgMTEzOC4zIDI0MC44TDExMzUuOSAyNDMuMEw5MzAuNSAyNDMuMEM4MTMuMCAyNDMuMCA3MjQuOSAyNDIuNiA3MjQuNiAyNDIuMVpNNzQ2LjUgOTIuMUM3NDYuMiA5MS42IDc1Mi4yIDg1LjQgNzU5LjcgNzguM0M3NjcuMyA3MS4zIDc3Ny43IDYxLjUgNzgzLjAgNTYuNUM3OTcuMiA0My4xIDgyNi41IDE3LjIgODM4LjAgNy44TDg0MS40IDUuMEwxMDYyLjcgNS4wQzEyMzkuMSA1LjAgMTI4NC4wIDUuMyAxMjgzLjkgNi4yQzEyODMuOSA2LjkgMTI4MS4xIDkuOSAxMjc3LjcgMTIuOUMxMjc0LjMgMTUuOSAxMjU3LjggMzEuMCAxMjQxLjAgNDYuNUMxMjI0LjIgNjIuMCAxMjA3LjYgNzcuMyAxMjA0LjAgODAuNkMxMjAwLjQgODMuOCAxMTk1LjkgODguMCAxMTk0LjAgODkuN0wxMTkwLjUgOTMuMEw5NjguOCA5My4wQzgzOS43IDkzLjAgNzQ2LjkgOTIuNiA3NDYuNSA5Mi4xWiIvPjwvc3ZnPg==" alt="MEO Rehab and Performance"><p class="hand red" style="font-size: 22px;">Read it in 15 minutes</p></div>
     <h1><span class="ln"><span>The</span></span><span class="ln"><span>Comeback</span></span><span class="ln"><span>Blueprint</span></span></h1>
     <p class="tagline">Pain free isn't the <span class="strike">finish line.<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 8 C 22 3, 48 11, 70 6 S 92 4, 98 7"/></svg></span></p>
-    <p class="lede read">Four moves you can make today, before you rest another week. Written for people who run, lift or play, or all three.</p>
+    <p class="lede read">Five moves you can make today, before you rest another week. Written for people who run, lift or play, or all three.</p>
     <div class="chips"><span class="chip"><svg style="color: var(--red)"><use href="#i-run"/></svg>You run</span><span class="chip"><svg style="color: var(--red)"><use href="#i-lift"/></svg>You lift</span><span class="chip"><svg style="color: var(--red)"><use href="#i-play"/></svg>You play</span></div>
     <nav class="toc" aria-label="Contents">
-      <a href="#move-1"><b>01</b><span class="stmt">Name the finish line</span></a>
-      <a href="#move-2"><b>02</b><span class="stmt">Turn one dial, leave the rest</span></a>
-      <a href="#move-3"><b>03</b><span class="stmt">Judge it by tomorrow morning</span></a>
-      <a href="#move-4"><b>04</b><span class="stmt">Test the other side</span></a>
+      <a href="#move-1"><b>01</b><span class="stmt">The 60&#8209;second check</span></a>
+      <a href="#move-2"><b>02</b><span class="stmt">Name the finish line</span></a>
+      <a href="#move-3"><b>03</b><span class="stmt">Turn one dial, leave the rest</span></a>
+      <a href="#move-4"><b>04</b><span class="stmt">Judge it by tomorrow morning</span></a>
+      <a href="#move-5"><b>05</b><span class="stmt">Test the other side</span></a>
     </nav>
     <div class="byline"><span class="stmt" style="font-size: 17px;">Mitch Scott</span><span class="small">Physiotherapist and Exercise Physiologist. MEO Rehab &amp; Performance, Pinnacle Fitness Albion, Brisbane.</span></div>
     <p class="small safety">General education, not a diagnosis. If anything feels serious, read <a href="#get-seen">when to get seen</a> first.</p>
@@ -399,9 +402,9 @@ footer .wrap { display: flex; flex-direction: column; gap: 12px; }
 </section>
 
 <!-- CHECK -->
-<section id="check">
+<section id="move-1">
   <div class="wrap">
-    <p class="kick">The 60-second check</p>
+    <p class="kick">Move 01, sixty seconds</p>
     <h2 class="rv">Where are you, really?</h2>
     <p class="lede read">Feeling good is a terrible test for being ready. Answer these instead. Can you...</p>
     <div class="check-grid">
@@ -427,9 +430,9 @@ footer .wrap { display: flex; flex-direction: column; gap: 12px; }
 </section>
 
 <!-- MOVE 1 -->
-<section id="move-1">
+<section id="move-2">
   <div class="wrap">
-    <p class="kick">Move 01, two minutes</p>
+    <p class="kick">Move 02, two minutes</p>
     <h2 class="rv">Name the finish line.</h2>
     <p class="lede read">The activity, with a number. Not the symptom.</p>
     <div class="ex-grid">
@@ -456,9 +459,9 @@ footer .wrap { display: flex; flex-direction: column; gap: 12px; }
 </section>
 
 <!-- MOVE 2 -->
-<section id="move-2">
+<section id="move-3">
   <div class="wrap">
-    <p class="kick">Move 02, your next session</p>
+    <p class="kick">Move 03, your next session</p>
     <h2 class="rv">Turn one dial. Leave the rest.</h2>
     <p class="lede read">Rest is not rehab. Before you drop a session, change one thing about it.</p>
     <div class="tabs" role="tablist" aria-label="Your sport">
@@ -482,19 +485,19 @@ footer .wrap { display: flex; flex-direction: column; gap: 12px; }
 </section>
 
 <!-- MOVE 3 -->
-<section id="move-3">
+<section id="move-4">
   <div class="wrap">
-    <p class="kick">Move 03, tomorrow, before you get up</p>
+    <p class="kick">Move 04, tomorrow, before you get up</p>
     <h2 class="rv">Judge it by tomorrow morning.</h2>
     <p class="lede read">During tells you very little. The morning after tells you what you need to know.</p>
     <div class="chart">
       <svg viewBox="0 0 900 330" role="img" aria-label="Symptoms across a day: it often feels better once warm during the session, then the real verdict comes the next morning.">
-        <g class="grid"><line x1="40" y1="260" x2="880" y2="260"/><line x1="40" y1="160" x2="880" y2="160" stroke-dasharray="3 6"/><line x1="40" y1="60" x2="880" y2="60" stroke-dasharray="3 6"/></g>
+        <g class="grid"><line x1="40" y1="290" x2="880" y2="290"/></g>
         <path class="usual" d="M60 170 L880 170"/>
-        <text class="note" x="60" y="150">your usual</text>
+        <text class="note" x="60" y="158">your usual</text>
         <path class="real" pathLength="1" d="M60 170 C 170 168, 230 230, 300 236 C 380 242, 430 236, 470 220 C 560 186, 620 130, 700 110 C 760 95, 820 92, 860 90"/>
-        <text class="note" x="250" y="292">feels great once warm</text>
-        <g class="end"><circle cx="860" cy="90" r="9" fill="#FB452F"/><text class="note red" x="855" y="58" text-anchor="end">the real verdict</text></g>
+        <text class="note" x="320" y="264" text-anchor="middle">feels great once warm</text>
+        <g class="end"><circle cx="860" cy="90" r="9" fill="#FB452F"/><text class="note red" x="846" y="74" text-anchor="end">the real verdict</text></g>
         <g class="ax"><text x="60" y="318">Before</text><text x="300" y="318" text-anchor="middle">During</text><text x="560" y="318" text-anchor="middle">Tonight</text><text x="860" y="318" text-anchor="end">Next morning</text></g>
       </svg>
     </div>
@@ -509,9 +512,9 @@ footer .wrap { display: flex; flex-direction: column; gap: 12px; }
 </section>
 
 <!-- MOVE 4 -->
-<section id="move-4">
+<section id="move-5">
   <div class="wrap">
-    <p class="kick">Move 04, five minutes this week</p>
+    <p class="kick">Move 05, five minutes this week</p>
     <h2 class="rv">Test the other side.</h2>
     <p class="lede read">Your good side is your benchmark. Use it. Pick one test for where it is.</p>
     <div class="areas" role="tablist" aria-label="Where it is">
@@ -626,7 +629,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 12px; }
       <table>
         <thead><tr><th scope="col">Number</th><th scope="col">Week 1</th><th scope="col">Week 2</th><th scope="col">Week 3</th><th scope="col">Week 4</th><th scope="col">Trend</th></tr></thead>
         <tbody>
-          <tr data-row="test" data-want="up"><th scope="row"><p class="stmt" style="font-size: 18px;">Your test</p><p class="small">Injured side number, from move 04</p></th><td><input type="number" inputmode="decimal" aria-label="Your test, week 1"></td><td><input type="number" inputmode="decimal" aria-label="Your test, week 2"></td><td><input type="number" inputmode="decimal" aria-label="Your test, week 3"></td><td><input type="number" inputmode="decimal" aria-label="Your test, week 4"></td><td class="trend">-</td></tr>
+          <tr data-row="test" data-want="up"><th scope="row"><p class="stmt" style="font-size: 18px;">Your test</p><p class="small">Injured side number, from move 05</p></th><td><input type="number" inputmode="decimal" aria-label="Your test, week 1"></td><td><input type="number" inputmode="decimal" aria-label="Your test, week 2"></td><td><input type="number" inputmode="decimal" aria-label="Your test, week 3"></td><td><input type="number" inputmode="decimal" aria-label="Your test, week 4"></td><td class="trend">-</td></tr>
           <tr data-row="hard" data-want="up"><th scope="row"><p class="stmt" style="font-size: 18px;">Your hardest</p><p class="small">Heaviest set, longest or fastest run, or minutes played</p></th><td><input type="number" inputmode="decimal" aria-label="Your hardest, week 1"></td><td><input type="number" inputmode="decimal" aria-label="Your hardest, week 2"></td><td><input type="number" inputmode="decimal" aria-label="Your hardest, week 3"></td><td><input type="number" inputmode="decimal" aria-label="Your hardest, week 4"></td><td class="trend">-</td></tr>
           <tr data-row="morn" data-want="flat"><th scope="row"><p class="stmt" style="font-size: 18px;">Your worst morning</p><p class="small">Highest morning score of the week, 0 to 10</p></th><td><input type="number" inputmode="decimal" min="0" max="10" aria-label="Worst morning, week 1"></td><td><input type="number" inputmode="decimal" min="0" max="10" aria-label="Worst morning, week 2"></td><td><input type="number" inputmode="decimal" min="0" max="10" aria-label="Worst morning, week 3"></td><td><input type="number" inputmode="decimal" min="0" max="10" aria-label="Worst morning, week 4"></td><td class="trend">-</td></tr>
         </tbody>
