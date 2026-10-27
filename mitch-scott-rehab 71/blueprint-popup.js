@@ -85,7 +85,7 @@
   document.body.appendChild(tab);
 
   var shown = false, lastFocus = null;
-  function showTab() { if (st.done && !FORCE) return; tab.classList.add('vis'); requestAnimationFrame(function () { requestAnimationFrame(function () { tab.classList.add('in'); }); }); }
+  function showTab() { return; if (st.done && !FORCE) return; tab.classList.add('vis'); requestAnimationFrame(function () { requestAnimationFrame(function () { tab.classList.add('in'); }); }); }
   function hideTab() { tab.classList.remove('in'); }
   function open(auto) {
     if (ov.classList.contains('on')) return;
