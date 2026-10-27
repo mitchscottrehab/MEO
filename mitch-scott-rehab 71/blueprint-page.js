@@ -6,7 +6,6 @@
   var A = document.getElementById('bpA'), B = document.getElementById('bpB'), msg = document.getElementById('bpMsg'), btn = form.querySelector('.bp-go');
   function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
   function markDone() { try { var s = load(); s.n = s.n || 0; s.t = s.t || Date.now(); s.done = true; localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
-  if (load().done) { A.hidden = true; B.hidden = false; }
   function submitLead(fd) {
     var w3 = fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: fd }).then(function (r) { return r.json(); });
     var ml = new URLSearchParams();
