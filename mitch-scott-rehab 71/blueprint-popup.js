@@ -1,6 +1,7 @@
 /* Comeback Blueprint pop-up + floating tab.
    Scroll/time-triggered name + email form. Sends to MailerLite (ML_URL) and a backup email via Web3Forms. */
 (function () {
+  window.meoOpenBlueprint = function () { location.href = 'comeback-blueprint-m7k2q.html'; };
   var ML_URL = 'https://assets.mailerlite.com/jsonp/2744689/forms/202425378396964812/subscribe';
   var GUIDE = 'comeback-blueprint-m7k2q.html';
   var KEY = 'meoBlueprint';          // JSON: {n: times auto-shown, t: last shown ms, done: signed up}
@@ -25,7 +26,7 @@
   var css = ''
   + '#cbpOv{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(22,32,26,0);-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0);visibility:hidden;opacity:0;pointer-events:none;transition:opacity .9s cubic-bezier(.22,.8,.24,1),background .9s ease,backdrop-filter .9s ease,-webkit-backdrop-filter .9s ease,visibility 0s linear .9s}'
   + '#cbpOv.on{visibility:visible;opacity:1;pointer-events:auto;background:rgba(22,32,26,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);transition-delay:0s}'
-  + '#cbpBox{position:relative;width:100%;max-width:430px;max-height:calc(100dvh - 40px);overflow:auto;background:var(--stone,#F1EDE3);color:var(--ink,#16201A);padding:30px 28px 24px;border-radius:20px;font-family:"Work Sans",system-ui,sans-serif;box-shadow:0 24px 70px rgba(0,0,0,.35);transform:translateY(28px) scale(.97);opacity:0;transition:transform 1.1s cubic-bezier(.16,1,.3,1),opacity .9s ease}'
+  + '#cbpBox{position:relative;width:100%;max-width:430px;max-height:calc(100dvh - 40px);overflow:auto;background:var(--stone,#F1EDE3);color:var(--ink,#16201A);padding:30px 28px 24px;border-radius:20px;font-family:Inter,system-ui,sans-serif;box-shadow:0 24px 70px rgba(0,0,0,.35);transform:translateY(28px) scale(.97);opacity:0;transition:transform 1.1s cubic-bezier(.16,1,.3,1),opacity .9s ease}'
   + '#cbpOv.on #cbpBox{transform:none;opacity:1;transition-delay:.12s}'
   + '#cbpBox h2{font-family:Inter,sans-serif;font-weight:900;font-size:clamp(1.05rem,5.4vw,1.5rem);line-height:1.1;letter-spacing:-.03em;margin:0 0 10px;white-space:nowrap}'
   + '#cbpBox p{margin:0 0 14px;font-size:.95rem;line-height:1.45}'
@@ -40,7 +41,7 @@
   + '#cbpBox .cbp-no{display:block;margin:0 auto;border:0;background:none;font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;color:inherit;padding:4px}'
   + '#cbpBox a.ln{display:block;margin-top:14px;font-size:.92rem}'
   + '#cbpMsg{margin:10px 0 0;font-size:.85rem;color:#a02b14;display:none}'
-  + '#cbpTab{position:fixed;left:16px;bottom:18px;z-index:9000;display:none;align-items:center;gap:8px;padding:10px 16px;border:0;border-radius:999px;background:var(--ink,#16201A);color:var(--stone,#F1EDE3);font:600 .85rem "Work Sans",system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.28);opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}'
+  + '#cbpTab{position:fixed;left:16px;bottom:18px;z-index:9000;display:none;align-items:center;gap:8px;padding:10px 16px;border:0;border-radius:999px;background:var(--ink,#16201A);color:var(--stone,#F1EDE3);font:600 .85rem Inter,system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.28);opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}'
   + '#cbpTab.vis{display:inline-flex}#cbpTab.in{opacity:1;transform:none}'
   + '#cbpTab i{width:8px;height:8px;border-radius:50%;background:#F95132;display:inline-block}'
   + '@media(max-width:600px){'
@@ -50,7 +51,7 @@
   +   '#cbpBox p{font-size:.86rem;margin-bottom:10px}#cbpBox h2{margin-bottom:8px}'
   +   '#cbpBox label.f{font-size:.8rem;margin-bottom:8px}#cbpBox input[type=text],#cbpBox input[type=email]{padding:9px 11px;font-size:.95rem}'
   +   '#cbpBox button.go{padding:12px}#cbpBox .cbp-fine,#cbpBox .cbp-c{font-size:.72rem}'
-  +   '#cbpTab{bottom:86px;left:12px;padding:9px 14px}'
+  +   '#cbpTab{display:none!important}'
   + '}'
   + '@media(prefers-reduced-motion:reduce){#cbpOv,#cbpBox,#cbpTab{transition-duration:.01s!important;transition-delay:0s!important}}';
   var sty = document.createElement('style'); sty.textContent = css; document.head.appendChild(sty);
@@ -97,6 +98,7 @@
   ov.addEventListener('click', function (e) { if (e.target === ov) close(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.classList.contains('on')) close(); });
   tab.addEventListener('click', function () { open(false); });
+  window.meoOpenBlueprint = function () { open(false); };
 
   // Auto pop-up: allowed if never shown, or shown fewer than MAX_SHOWS times and the last was long enough ago.
   var allowAuto = FORCE || st.n === 0 || (st.n < MAX_SHOWS && Date.now() - st.t > GAP_MS);
