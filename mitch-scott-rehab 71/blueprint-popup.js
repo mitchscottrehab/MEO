@@ -35,6 +35,7 @@
   + '#cbpBox input[type=text],#cbpBox input[type=email],#cbpBox input[type=tel]{display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:11px 12px;font:inherit;font-size:1rem;border:1px solid #8a9a8f;background:#fff;color:inherit;border-radius:10px}'
   + '#cbpBox .cbp-ph{display:flex;gap:8px;margin-top:5px}#cbpBox .cbp-ph select{flex:none;width:140px;box-sizing:border-box;padding:11px 6px;font:inherit;font-size:.92rem;border:1px solid #8a9a8f;background:#fff;color:inherit;border-radius:10px}#cbpBox .cbp-ph input{margin-top:0!important;flex:1;min-width:0}'
   + '#cbpBox .cbp-c{display:flex;gap:10px;align-items:flex-start;font-size:.78rem;line-height:1.4;margin:4px 0 11px}'
+  + '#cbpBox .cbp-pp{margin:10px 0 0;text-align:center;font-size:.78rem}#cbpBox .cbp-pp a{color:inherit;text-decoration:underline}'
   + '#cbpBox .cbp-c input{margin-top:3px;flex:none}'
   + '#cbpBox button.go,#cbpBox a.go{display:block;width:100%;box-sizing:border-box;padding:14px;border:0;border-radius:12px;background:#F95132;color:#fff;font:inherit;font-weight:600;font-size:1rem;text-align:center;text-decoration:none;cursor:pointer}'
   + '#cbpBox button.go:disabled{opacity:.6}'
@@ -74,7 +75,7 @@
   + '<label class="cbp-c"><input type="checkbox" name="contact_consent" value="yes"><span id="cbpConsent"></span></label>'
   + '<label class="cbp-c"><input type="checkbox" name="marketing_opt_in" value="yes"><span>Also send me the occasional email about training around injury. Optional. Unsubscribe any time.</span></label>'
   + '<button class="go" type="submit">Send me the Blueprint</button>'
-  + '<p class="cbp-fine">I’ll email you a copy and get in touch about your injury. No mailing list unless you say yes below. <a href="privacy-policy.html" target="_blank">Privacy policy</a></p>'
+  + '<p class="cbp-pp"><a href="privacy-policy.html" target="_blank" rel="noopener">Privacy policy</a></p>'
   + '<p id="cbpMsg" role="alert"></p></form>'
   + '<button class="cbp-no" type="button">No thanks</button></div>'
   + '<div id="cbpB" hidden><h2>It’s yours.</h2><p>Open the Blueprint here:</p>'
@@ -127,7 +128,7 @@
     var mlp = fetch(ML_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: ml.toString() });
     return Promise.all([w3.catch(function () { return { success: false }; }), mlp.then(function () { return true; })]).then(function () { return { success: true }; });
   }
-  if (window.meoCountryOptions) { ov.querySelector('select[name=cc]').innerHTML = window.meoCountryOptions(); ov.querySelector('#cbpConsent').textContent = window.MEO_CONSENT; }
+  if (window.meoCountryOptions) { ov.querySelector('select[name=cc]').innerHTML = window.meoCountryOptions(); ov.querySelector('#cbpConsent').innerHTML = window.meoConsentHTML(); }
   var form = ov.querySelector('#cbpForm'), msg = ov.querySelector('#cbpMsg'), btn = form.querySelector('.go');
   form.addEventListener('submit', function (e) {
     e.preventDefault();

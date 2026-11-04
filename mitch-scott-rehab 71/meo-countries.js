@@ -9,6 +9,7 @@
     return CC.map(function (c, i) { return '<option value="' + c[1] + '"' + (i === 0 ? ' selected' : '') + '>' + c[0] + ' +' + c[1] + '</option>'; }).join('');
   };
   window.MEO_CONSENT = 'Yes, send me the free Comeback Blueprint. I’m happy for Mitch to contact me by phone, text or email about my injury and how MEO might help.';
+  window.meoConsentHTML = function () { return window.MEO_CONSENT.replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
   /* Returns an error message, or '' when the form is OK (and fills the hidden full phone number). */
   window.meoBpCheck = function (f) {
     var n = f.elements.name.value.trim(), em = f.elements.email.value.trim();

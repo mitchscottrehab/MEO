@@ -15,7 +15,7 @@
     return Promise.all([w3.catch(function () { return { success: false }; }), mlp.then(function () { return true; })]).then(function () { return { success: true }; });
   }
   form.elements.cc.innerHTML = window.meoCountryOptions();
-  document.getElementById('bpConsent').textContent = window.MEO_CONSENT;
+  document.getElementById('bpConsent').innerHTML = window.meoConsentHTML();
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     msg.style.display = 'none';
