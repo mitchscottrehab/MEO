@@ -10,7 +10,7 @@
 
   var A = {};            // answers
   var hist = [];         // screen history for the back arrow
-  var cur = 'where';
+  var cur = 'goal';
   var lastFocus = null;
 
   var css = ''
@@ -30,7 +30,10 @@
   + '#mfBox button.mf-o{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;box-sizing:border-box;padding:16px 18px;border:1.5px solid #3a4a40;border-radius:14px;background:transparent;color:#F1EDE3;font:inherit;font-weight:700;font-size:1.02rem;text-align:left;cursor:pointer;transition:border-color .15s,background .15s}'
   + '#mfBox button.mf-o:hover,#mfBox button.mf-o:focus-visible{border-color:#F95132;background:rgba(249,81,50,.10);outline:0}'
   + '#mfBox button.mf-o.sel{border-color:#F95132;background:rgba(249,81,50,.14)}'
+  + '#mfBox button.mf-o b{font-weight:700}'
+  + '#mfBox button.mf-o b em{display:block;font-style:normal;font-weight:500;font-size:.86rem;color:#B9B3A8;margin-top:2px}'
   + '#mfBox button.mf-o span{color:#F95132;font-weight:900}'
+  + '#mfBox.inl{text-align:left;position:relative;max-width:560px;margin:0 auto;max-height:none;overflow:visible;transform:none;opacity:1}'
   + '#mfBox .mf-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}'
   + '#mfBox .mf-grid button.mf-o{padding:12px 14px;font-size:.95rem;border-radius:12px}'
   + '#mfBox .mf-go,#mfBox a.mf-go{display:block;width:100%;box-sizing:border-box;padding:15px 18px;border:0;border-radius:999px;background:#F95132;color:#16201A;font:inherit;font-weight:800;font-size:1rem;text-align:center;text-decoration:none;cursor:pointer;letter-spacing:-.01em}'
@@ -67,33 +70,43 @@
   + '<div class="mf-bar" aria-hidden="true"><i></i></div>'
   + '<button type="button" class="mf-x" aria-label="Close">&times;</button></div>'
   + '<div id="mfBody"></div></div>';
-  document.body.appendChild(ov);
+  var host = document.getElementById('meoFlowInline');
+  if (!host) document.body.appendChild(ov);
 
   var box = ov.querySelector('#mfBox'), body = ov.querySelector('#mfBody');
   var bk = ov.querySelector('.mf-bk'), bar = ov.querySelector('.mf-bar i');
 
-  var PROG = { where: 12, goal: 28, status: 44, choose: 58, tried: 70, start: 82, contact: 94, done: 100 };
+  var PROG = { goal: 12, where: 28, status: 44, choose: 58, tried: 70, start: 82, contact: 94, done: 100 };
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  // list items are a plain string, or [value, main text, small text]
   function opts(list, key) {
     return '<div class="mf-opts">' + list.map(function (t) {
-      return '<button type="button" class="mf-o' + (A[key] === t ? ' sel' : '') + '" data-k="' + key + '" data-v="' + esc(t) + '">' + esc(t) + '<span>&rarr;</span></button>';
+      var v = t, main = t, sub = '';
+      if (typeof t !== 'string') { v = t[0]; main = t[1]; sub = t[2] || ''; }
+      return '<button type="button" class="mf-o' + (A[key] === v ? ' sel' : '') + '" data-k="' + key + '" data-v="' + esc(v) + '"><b>' + esc(main) + (sub ? '<em>' + esc(sub) + '</em>' : '') + '</b><span>&rarr;</span></button>';
     }).join('') + '</div>';
   }
 
+  var STATUS = [
+    ['I\u2019m training hard - currently working around an injury/niggle though', 'I\u2019m training hard', 'currently working around an injury/niggle though', 'training hard'],
+    ['Trying to train - but feeling stuck, my injury keeps flaring up', 'Trying to train', 'but feeling stuck, my injury keeps flaring up', 'stuck'],
+    ['I\u2019m pushing through - my mind says yes, so I\u2019m ignoring the pain', 'I\u2019m pushing through', 'my mind says yes, so I\u2019m ignoring the pain', 'pushing through'],
+    ['I\u2019ve had to stop - not doing much at the moment', 'I\u2019ve had to stop', 'not doing much at the moment', 'stopped']
+  ];
   var SCREENS = {
-    where: function () {
-      return '<h2 id="mfT" tabindex="-1">Where do you train?</h2>'
-        + '<p class="mf-s">I work in person in Albion, Brisbane, and online. You&rsquo;ll see both.</p>'
-        + opts(['Brisbane', 'Somewhere else'], 'where');
-    },
     goal: function () {
       return '<h2 id="mfT" tabindex="-1">What are you trying to get back to?</h2><p class="mf-s">Pick the closest one.</p>'
-        + opts(['Running', 'Lifting', 'Sport', 'Something else'], 'goal');
+        + opts([['Running', 'Running', '(anything from marathons to 100m sprints...)'], ['Lifting', 'Lifting', '(I\u2019m a gym bro)'], ['Sport', 'My sport', '(rugby, AFL, triathlon...)'], ['Something else', 'Something else', '(we see people with all sorts of goals!)']], 'goal');
+    },
+    where: function () {
+      return '<h2 id="mfT" tabindex="-1">Where do you train?</h2>'
+        + '<p class="mf-s">MEO is based in Brisbane, but we work with people all over the world!</p>'
+        + opts(['Brisbane', 'Somewhere else'], 'where');
     },
     status: function () {
-      return '<h2 id="mfT" tabindex="-1">Where&rsquo;s training at right now?</h2><p class="mf-s">No wrong answer. It tells me where to start.</p>'
-        + opts(['I love training, currently working around an injury', 'Trying to train, but my injury keeps flaring up', 'I\u2019ve had to stop, not doing much at the moment'], 'status');
+      return '<h2 id="mfT" tabindex="-1">Where&rsquo;s training at right now?</h2><p class="mf-s">There&rsquo;s no wrong answer. It tells me where you&rsquo;re at.</p>'
+        + opts(STATUS.map(function (x) { return [x[0], x[1], x[2]]; }), 'status');
     },
     choose: function () {
       var inP = A.where === 'Brisbane';
@@ -116,7 +129,7 @@
     },
     start: function () {
       return '<h2 id="mfT" tabindex="-1">When do you want to get started?</h2><p class="mf-s">Just so I know how quickly to get back to you.</p>'
-        + opts(['This week', 'This month', 'In the next 1 to 3 months', 'Just looking for now'], 'start');
+        + opts(['I\u2019m ready, as soon as possible!', 'In the next few weeks', 'Just looking for now'], 'start');
     },
     contact: function () {
       return '<h2 id="mfT" tabindex="-1">Where should I contact you?</h2><p class="mf-s">I&rsquo;ll get back to you about booking. Nothing else.</p>'
@@ -133,23 +146,24 @@
     done: function () {
       return '<div class="mf-done"><div class="mf-tick" aria-hidden="true">&#10003;</div>'
         + '<h2 id="mfT" tabindex="-1">Got it.</h2><p class="mf-s">I&rsquo;ll be in touch, usually the same day.</p>'
-        + '<button type="button" class="mf-go ghost" data-close="1">Back to the site</button></div>';
+        + '<button type="button" class="mf-go ghost" data-close="1">' + (host ? 'Start again' : 'Back to the site') + '</button></div>';
     }
   };
 
   function render(name, back) {
     if (!back && cur && cur !== name) hist.push(cur);
     cur = name;
+    if (host) window.meoFlowOpen = (name === 'contact');   // inline: only hold the Blueprint pop-up back while they type their details
     body.innerHTML = SCREENS[name]();
     bar.style.width = PROG[name] + '%';
-    bk.hidden = (name === 'where' || name === 'done');
-    var h = body.querySelector('h2'); if (h) try { h.focus({ preventScroll: true }); } catch (e) {}
+    bk.hidden = (name === 'goal' || name === 'done');
+    var h = body.querySelector('h2'); if (h && hist.length + (back ? 1 : 0) > 0 || (h && !host)) try { h.focus({ preventScroll: true }); } catch (e) {}
     box.scrollTop = 0;
   }
 
   function next(from) {
-    if (from === 'where') return 'goal';
-    if (from === 'goal') return 'status';
+    if (from === 'goal') return 'where';
+    if (from === 'where') return 'status';
     if (from === 'status') return 'choose';
     if (from === 'start') return 'contact';
     return null;
@@ -198,7 +212,7 @@
     btn.disabled = true; btn.textContent = 'One sec...';
     var fd = new FormData();
     fd.append('access_key', KEY);
-    var SHORT = { 'I love training, currently working around an injury': 'training around it', 'Trying to train, but my injury keeps flaring up': 'flaring', 'I\u2019ve had to stop, not doing much at the moment': 'stopped' };
+    var SHORT = {}; STATUS.forEach(function (x) { SHORT[x[0]] = x[3]; });
     fd.append('subject', 'Callback: ' + name + ', ' + (A.goal || '?') + ', ' + (SHORT[A.status] || '?'));
     fd.append('from_name', 'MEO Website Callback');
     fd.append('botcheck', f.elements.botcheck.checked ? 'on' : '');
@@ -224,16 +238,24 @@
       });
   });
 
+  if (host) {                                // permanent, on the page
+    box.classList.add('inl'); box.removeAttribute('aria-modal'); box.setAttribute('role', 'region');
+    box.querySelector('.mf-x').style.display = 'none';
+    host.appendChild(box);
+    A = {}; hist = []; cur = null; render('goal');
+  }
   function open() {
+    if (host) { host.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     if (ov.classList.contains('on')) return;
     A = {}; hist = []; cur = null;
     window.meoFlowOpen = true;
     lastFocus = document.activeElement;
-    render('where');
+    render('goal');
     ov.classList.add('on');
     document.body.style.overflow = 'hidden';
   }
   function close() {
+    if (host) { A = {}; hist = []; cur = null; render('goal'); return; }
     ov.classList.remove('on'); window.meoFlowOpen = false;
     document.body.style.overflow = '';
     if (lastFocus && lastFocus.focus) try { lastFocus.focus({ preventScroll: true }); } catch (e) {}
@@ -241,7 +263,7 @@
   window.meoOpenFlow = open;
 
   bk.addEventListener('click', function () { var p = hist.pop(); if (p) render(p, true); });
-  ov.querySelector('.mf-x').addEventListener('click', close);
+  box.querySelector('.mf-x').addEventListener('click', close);
   ov.addEventListener('click', function (e) { if (e.target === ov) close(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.classList.contains('on')) close(); });
   document.addEventListener('click', function (e) {
