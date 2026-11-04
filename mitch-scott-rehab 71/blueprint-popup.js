@@ -89,6 +89,7 @@
   function hideTab() { tab.classList.remove('in'); }
   function open(auto) {
     if (ov.classList.contains('on')) return;
+    if (auto && window.meoFlowOpen) return;
     if (auto) { if (shown) return; shown = true; st.n += 1; st.t = Date.now(); save(); }
     lastFocus = document.activeElement; hideTab(); ov.classList.add('on');
     var i = ov.querySelector('input[name=name]'); if (i && !ov.querySelector('#cbpA').hidden) setTimeout(function () { try { i.focus({ preventScroll: true }); } catch (e) {} }, 400);

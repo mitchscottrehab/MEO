@@ -21,6 +21,9 @@
     if (!n || !/^\S+@\S+\.\S+$/.test(em)) { msg.textContent = 'Add your first name and a valid email to continue.'; msg.style.display = 'block'; return; }
     btn.disabled = true; btn.textContent = 'One sec...';
     if (!form.elements.marketing_opt_in.checked) { var h = document.createElement('input'); h.type = 'hidden'; h.name = 'marketing_opt_in'; h.value = 'no'; form.appendChild(h); }
+    // Tag where they came from, so a Gmail filter can separate ManyChat leads: link ManyChat to the-comeback-blueprint.html?src=manychat
+    var m = /[?&]src=([a-z0-9_-]+)/i.exec(location.search);
+    if (m && form.elements.subject) form.elements.subject.value = 'Comeback Blueprint request (' + m[1].toLowerCase() + ')';
     submitLead(new FormData(form)).then(function (res) {
       if (!res.success) throw new Error('failed');
       if (window.fbq) { fbq('track', 'Lead'); }
