@@ -85,11 +85,14 @@ src="https://www.facebook.com/tr?id=2308202229914735&ev=PageView&noscript=1"
           <input type="hidden" name="subject" value="Comeback Blueprint request">
           <input type="hidden" name="from_name" value="MEO Website Blueprint Page">
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
-          <label class="bp-f">First name<input type="text" name="name" required autocomplete="given-name"></label>
+          <input type="hidden" name="phone" value="">
+          <label class="bp-f">Full name<input type="text" name="name" required autocomplete="name"></label>
           <label class="bp-f">Email<input type="email" name="email" required autocomplete="email"></label>
+          <label class="bp-f">Phone number<span class="bp-ph"><select name="cc" aria-label="Country code" autocomplete="tel-country-code"></select><input type="tel" name="phone_local" inputmode="tel" required autocomplete="tel-national" placeholder="0412 345 678"></span></label>
+          <label class="bp-c bp-c1"><input type="checkbox" name="contact_consent" value="yes"><span id="bpConsent"></span></label>
+          <label class="bp-c"><input type="checkbox" name="marketing_opt_in" value="yes"><span>Also send me the occasional email about training around injury. Optional. Unsubscribe any time.</span></label>
           <button class="bp-go" type="submit">Send me the Blueprint</button>
-          <p class="bp-fine">I'll email you a copy and that's it. No mailing list unless you say yes below. <a href="privacy-policy.html" target="_blank">Privacy policy</a></p>
-          <label class="bp-c"><input type="checkbox" name="marketing_opt_in" value="yes"><span>Send me the occasional email about training around injury. Unsubscribe any time.</span></label>
+          <p class="bp-fine">I'll email you a copy and get in touch about your injury. No mailing list unless you say yes below. <a href="privacy-policy.html" target="_blank">Privacy policy</a></p>
           <p id="bpMsg" role="alert"></p>
         </form>
       </div>
@@ -118,6 +121,7 @@ src="https://www.facebook.com/tr?id=2308202229914735&ev=PageView&noscript=1"
 </div>
 
 <script src="script.js"></script>
+<script src="meo-countries.js" defer></script>
 <script src="blueprint-page.js" defer></script>
 </body>
 </html>

@@ -32,7 +32,8 @@
   + '#cbpBox p{margin:0 0 14px;font-size:.95rem;line-height:1.45}'
   + '#cbpBox .cbp-sub{font-weight:600}'
   + '#cbpBox label.f{display:block;font-size:.85rem;margin-bottom:11px}'
-  + '#cbpBox input[type=text],#cbpBox input[type=email]{display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:11px 12px;font:inherit;font-size:1rem;border:1px solid #8a9a8f;background:#fff;color:inherit;border-radius:10px}'
+  + '#cbpBox input[type=text],#cbpBox input[type=email],#cbpBox input[type=tel]{display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:11px 12px;font:inherit;font-size:1rem;border:1px solid #8a9a8f;background:#fff;color:inherit;border-radius:10px}'
+  + '#cbpBox .cbp-ph{display:flex;gap:8px;margin-top:5px}#cbpBox .cbp-ph select{flex:none;width:140px;box-sizing:border-box;padding:11px 6px;font:inherit;font-size:.92rem;border:1px solid #8a9a8f;background:#fff;color:inherit;border-radius:10px}#cbpBox .cbp-ph input{margin-top:0!important;flex:1;min-width:0}'
   + '#cbpBox .cbp-c{display:flex;gap:10px;align-items:flex-start;font-size:.78rem;line-height:1.4;margin:4px 0 11px}'
   + '#cbpBox .cbp-c input{margin-top:3px;flex:none}'
   + '#cbpBox button.go,#cbpBox a.go{display:block;width:100%;box-sizing:border-box;padding:14px;border:0;border-radius:12px;background:#F95132;color:#fff;font:inherit;font-weight:600;font-size:1rem;text-align:center;text-decoration:none;cursor:pointer}'
@@ -49,7 +50,7 @@
   +   '#cbpBox{max-width:380px;margin:0 auto;max-height:78dvh;padding:22px 18px 16px;border-radius:18px;transform:translateY(60px);opacity:0}'
   +   '#cbpOv.on #cbpBox{transform:none;opacity:1}'
   +   '#cbpBox p{font-size:.86rem;margin-bottom:10px}#cbpBox h2{margin-bottom:8px}'
-  +   '#cbpBox label.f{font-size:.8rem;margin-bottom:8px}#cbpBox input[type=text],#cbpBox input[type=email]{padding:9px 11px;font-size:.95rem}'
+  +   '#cbpBox label.f{font-size:.8rem;margin-bottom:8px}#cbpBox input[type=text],#cbpBox input[type=email],#cbpBox input[type=tel]{padding:9px 11px;font-size:.95rem}'
   +   '#cbpBox button.go{padding:12px}#cbpBox .cbp-fine,#cbpBox .cbp-c{font-size:.72rem}'
   +   '#cbpTab{display:none!important}'
   + '}'
@@ -66,11 +67,14 @@
   + '<input type="hidden" name="subject" value="Comeback Blueprint request">'
   + '<input type="hidden" name="from_name" value="MEO Website Blueprint Pop-up">'
   + '<input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">'
-  + '<label class="f">First name<input type="text" name="name" required autocomplete="given-name"></label>'
+  + '<input type="hidden" name="phone" value="">'
+  + '<label class="f">Full name<input type="text" name="name" required autocomplete="name"></label>'
   + '<label class="f">Email<input type="email" name="email" required autocomplete="email"></label>'
+  + '<label class="f">Phone number<span class="cbp-ph"><select name="cc" aria-label="Country code" autocomplete="tel-country-code"></select><input type="tel" name="phone_local" inputmode="tel" required autocomplete="tel-national" placeholder="0412 345 678"></span></label>'
+  + '<label class="cbp-c"><input type="checkbox" name="contact_consent" value="yes"><span id="cbpConsent"></span></label>'
+  + '<label class="cbp-c"><input type="checkbox" name="marketing_opt_in" value="yes"><span>Also send me the occasional email about training around injury. Optional. Unsubscribe any time.</span></label>'
   + '<button class="go" type="submit">Send me the Blueprint</button>'
-  + '<p class="cbp-fine">I’ll email you a copy and that’s it. No mailing list unless you say yes below. <a href="privacy-policy.html" target="_blank">Privacy policy</a></p>'
-  + '<label class="cbp-c"><input type="checkbox" name="marketing_opt_in" value="yes"><span>Send me the occasional email about training around injury. Unsubscribe any time.</span></label>'
+  + '<p class="cbp-fine">I’ll email you a copy and get in touch about your injury. No mailing list unless you say yes below. <a href="privacy-policy.html" target="_blank">Privacy policy</a></p>'
   + '<p id="cbpMsg" role="alert"></p></form>'
   + '<button class="cbp-no" type="button">No thanks</button></div>'
   + '<div id="cbpB" hidden><h2>It’s yours.</h2><p>Open the Blueprint here:</p>'
@@ -118,20 +122,21 @@
     var w3 = fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: fd }).then(function (r) { return r.json(); });
     if (!ML_URL) return w3;
     var ml = new URLSearchParams();
-    ml.set('fields[name]', fd.get('name')); ml.set('fields[email]', fd.get('email'));
+    ml.set('fields[name]', fd.get('name')); ml.set('fields[email]', fd.get('email')); ml.set('fields[phone]', fd.get('phone'));
     ml.set('fields[marketing_opt_in]', fd.get('marketing_opt_in')); ml.set('ml-submit', '1'); ml.set('anticsrf', 'true');
     var mlp = fetch(ML_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: ml.toString() });
     return Promise.all([w3.catch(function () { return { success: false }; }), mlp.then(function () { return true; })]).then(function () { return { success: true }; });
   }
+  if (window.meoCountryOptions) { ov.querySelector('select[name=cc]').innerHTML = window.meoCountryOptions(); ov.querySelector('#cbpConsent').textContent = window.MEO_CONSENT; }
   var form = ov.querySelector('#cbpForm'), msg = ov.querySelector('#cbpMsg'), btn = form.querySelector('.go');
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var n = form.elements.name.value.trim(), em = form.elements.email.value.trim();
     msg.style.display = 'none';
-    if (!n || !/^\S+@\S+\.\S+$/.test(em)) { msg.textContent = 'Add your first name and a valid email to continue.'; msg.style.display = 'block'; return; }
+    var err = window.meoBpCheck(form);
+    if (err) { msg.textContent = err; msg.style.display = 'block'; return; }
     btn.disabled = true; btn.textContent = 'One sec...';
     if (!form.elements.marketing_opt_in.checked) { var h = document.createElement('input'); h.type = 'hidden'; h.name = 'marketing_opt_in'; h.value = 'no'; form.appendChild(h); }
-    submitLead(new FormData(form)).then(function (res) {
+    submitLead(window.meoBpData(form)).then(function (res) {
       if (!res.success) throw new Error(res.message || 'failed');
       if (window.fbq) { fbq('track', 'Lead'); }
       st.done = true; save(); tab.classList.remove('vis', 'in');

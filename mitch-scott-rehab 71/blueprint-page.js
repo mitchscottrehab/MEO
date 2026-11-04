@@ -9,22 +9,24 @@
   function submitLead(fd) {
     var w3 = fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: fd }).then(function (r) { return r.json(); });
     var ml = new URLSearchParams();
-    ml.set('fields[name]', fd.get('name')); ml.set('fields[email]', fd.get('email'));
+    ml.set('fields[name]', fd.get('name')); ml.set('fields[email]', fd.get('email')); ml.set('fields[phone]', fd.get('phone'));
     ml.set('fields[marketing_opt_in]', fd.get('marketing_opt_in')); ml.set('ml-submit', '1'); ml.set('anticsrf', 'true');
     var mlp = fetch(ML_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: ml.toString() });
     return Promise.all([w3.catch(function () { return { success: false }; }), mlp.then(function () { return true; })]).then(function () { return { success: true }; });
   }
+  form.elements.cc.innerHTML = window.meoCountryOptions();
+  document.getElementById('bpConsent').textContent = window.MEO_CONSENT;
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var n = form.elements.name.value.trim(), em = form.elements.email.value.trim();
     msg.style.display = 'none';
-    if (!n || !/^\S+@\S+\.\S+$/.test(em)) { msg.textContent = 'Add your first name and a valid email to continue.'; msg.style.display = 'block'; return; }
+    var err = window.meoBpCheck(form);
+    if (err) { msg.textContent = err; msg.style.display = 'block'; return; }
     btn.disabled = true; btn.textContent = 'One sec...';
     if (!form.elements.marketing_opt_in.checked) { var h = document.createElement('input'); h.type = 'hidden'; h.name = 'marketing_opt_in'; h.value = 'no'; form.appendChild(h); }
     // Tag where they came from, so a Gmail filter can separate ManyChat leads: link ManyChat to the-comeback-blueprint.html?src=manychat
     var m = /[?&]src=([a-z0-9_-]+)/i.exec(location.search);
     if (m && form.elements.subject) form.elements.subject.value = 'Comeback Blueprint request (' + m[1].toLowerCase() + ')';
-    submitLead(new FormData(form)).then(function (res) {
+    submitLead(window.meoBpData(form)).then(function (res) {
       if (!res.success) throw new Error('failed');
       if (window.fbq) { fbq('track', 'Lead'); }
       markDone(); A.hidden = true; B.hidden = false;
