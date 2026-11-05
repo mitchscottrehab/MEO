@@ -1105,3 +1105,5 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
 .bp-c a{ color:#fff; text-decoration:underline; font-weight:600; }
 .bp-pp{ text-align:center; font-size:.78rem; margin:12px 0 0; }
 .bp-pp a{ color:#fff; text-decoration:underline; }
+
+.bp-glass p.bp-pp{ margin:16px 0 0; text-align:center; width:100%; max-width:none; }
