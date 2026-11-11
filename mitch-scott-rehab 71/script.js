@@ -143,7 +143,7 @@ if ('IntersectionObserver' in window && revealEls.length) {
     // Elements that arrive on their own (like a lone heading) just get 0.
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        entry.target.style.transitionDelay = (Math.min(i, 5) * 200) + 'ms';
+        entry.target.style.transitionDelay = (Math.min(i, 4) * 80) + 'ms';
         entry.target.classList.add('in');
         io.unobserve(entry.target);
       }
@@ -158,7 +158,7 @@ if ('IntersectionObserver' in window && revealEls.length) {
 
 // Trigger the immediate-cascade elements right away (still staggered).
 Array.from(immediateEls).forEach((el, i) => {
-  el.style.transitionDelay = (Math.min(i, 5) * 200) + 'ms';
+  el.style.transitionDelay = (Math.min(i, 4) * 80) + 'ms';
   el.classList.add('in');
 });
 

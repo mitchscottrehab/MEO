@@ -23,7 +23,8 @@
   + '#mfBox .mf-bk:hover,#mfBox .mf-x:hover{color:#F1EDE3}'
   + '#mfBox .mf-bk[hidden]{display:block;visibility:hidden}'
   + '#mfBox .mf-bar{flex:1;height:4px;background:#2c3830;border-radius:4px;overflow:hidden}'
-  + '#mfBox .mf-bar i{display:block;height:100%;width:0;background:#F95132;transition:width .35s}'
+  + '#mfBox .mf-bar i{display:block;height:100%;width:0;background:#F95132;transition:width .6s cubic-bezier(.2,.8,.2,1)}'
+  + '@keyframes mfIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}#mfBody.mf-in{animation:mfIn .4s cubic-bezier(.16,1,.3,1)}'
   + '#mfBox h2{font-family:Inter,sans-serif;font-weight:900;font-size:clamp(1.5rem,6vw,1.85rem);line-height:1.08;letter-spacing:-.03em;margin:0 0 8px;color:#F1EDE3;outline:0}'
   + '#mfBox p.mf-s{margin:0 0 20px;color:#B9B3A8;font-size:.95rem;line-height:1.45}'
   + '#mfBox .mf-opts{display:flex;flex-direction:column;gap:10px}'
@@ -60,7 +61,7 @@
   +   '#mfBox .mf-top{margin-bottom:18px}'
   +   '#mfBox button.mf-o{padding:14px 16px}'
   + '}'
-  + '@media(prefers-reduced-motion:reduce){#mfOv,#mfBox,#mfBox .mf-bar i{transition-duration:.01s!important;transition-delay:0s!important}}';
+  + '@media(prefers-reduced-motion:reduce){#mfOv,#mfBox,#mfBox .mf-bar i{transition-duration:.01s!important;transition-delay:0s!important}#mfBody.mf-in{animation:none}}';
 
   var sty = document.createElement('style'); sty.textContent = css; document.head.appendChild(sty);
 
@@ -155,6 +156,7 @@
     cur = name;
     if (host) window.meoFlowOpen = (name === 'contact');   // inline: only hold the Blueprint pop-up back while they type their details
     body.innerHTML = SCREENS[name]();
+    body.classList.remove('mf-in'); void body.offsetWidth; body.classList.add('mf-in');
     bar.style.width = PROG[name] + '%';
     bk.hidden = (name === 'goal' || name === 'done');
     var h = body.querySelector('h2'); if (h && hist.length + (back ? 1 : 0) > 0 || (h && !host)) try { h.focus({ preventScroll: true }); } catch (e) {}
