@@ -43,8 +43,8 @@
   + '#mfBox .mf-go.ghost{background:transparent;color:#F1EDE3;box-shadow:inset 0 0 0 2px #F1EDE3}'
   + '#mfBox .mf-go.ghost:hover{background:#F1EDE3;color:#16201A}'
   + '#mfBox .mf-stack{display:flex;flex-direction:column;gap:10px}'
-  + '#mfBox .mf-or{text-align:center;color:#B9B3A8;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin:16px 0}'
-  + '#mfBox .mf-tag{display:block;font-size:.75rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#F95132;margin:0 0 10px}'
+  + '#mfBox .mf-or{text-align:center;color:#B9B3A8;font-size:.9rem;margin:16px 0}'
+  + '#mfBox .mf-tag{display:block;font-size:.9rem;font-weight:600;color:#B9B3A8;margin:0 0 10px}'
   + '#mfBox label.mf-f{display:block;font-weight:800;font-size:.8rem;color:#B9B3A8;margin:0 0 16px}'
   + '#mfBox label.mf-f input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 2px 10px;font:inherit;font-weight:700;font-size:1.15rem;color:#F1EDE3;background:transparent;border:0;border-bottom:2px solid #3a4a40;border-radius:0;outline:0}'
   + '#mfBox label.mf-f input:focus{border-bottom-color:#F95132}'
@@ -111,8 +111,8 @@
     },
     choose: function () {
       var inP = A.where === 'Brisbane';
-      var bIn = '<a class="mf-go' + (inP ? '' : ' ghost') + '" href="' + URL_IN + '" data-book="In person">In-person at Pinnacle Fitness &rarr;</a>';
-      var bOn = '<a class="mf-go' + (inP ? ' ghost' : '') + '" href="' + URL_ON + '" data-book="Online">Online &rarr;</a>';
+      var bIn = '<a class="mf-go' + (inP ? '' : ' ghost') + '" href="' + URL_IN + '" data-book="In person">In-person at Pinnacle Fitness</a>';
+      var bOn = '<a class="mf-go' + (inP ? ' ghost' : '') + '" href="' + URL_ON + '" data-book="Online">Online</a>';
       return '<h2 id="mfT" tabindex="-1">Two ways to take the next step.</h2>'
         + '<p class="mf-s">Book a 60-minute Performance Assessment, $220. Choose how you&rsquo;d like to do it:</p>'
         + '<div class="mf-stack">' + (inP ? bIn + bOn : bOn + bIn) + '</div>'
@@ -140,7 +140,7 @@
         + '<label class="mf-f">Email<input type="email" name="email" autocomplete="email" placeholder="you@example.com" value="' + esc(A.email || '') + '"></label>'
         + '<label class="mf-f">Phone number<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="04__ ___ ___" value="' + esc(A.phone || '') + '"></label>'
         + '<label class="mf-c"><input type="checkbox" name="consent"><span>I agree to be contacted about this enquiry by phone, text message or email. <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy policy</a></span></label>'
-        + '<button type="submit" class="mf-go">Send it &rarr;</button>'
+        + '<button type="submit" class="mf-go">Send it</button>'
         + '<p class="mf-msg" role="alert"></p></form>'
         + '<p class="mf-fine">Your details are only used to contact you about this enquiry. You won&rsquo;t be added to a mailing list.</p>';
     },
@@ -235,7 +235,7 @@
         render('done');
       })
       .catch(function () {
-        btn.disabled = false; btn.textContent = 'Send it →';
+        btn.disabled = false; btn.textContent = 'Send it';
         msg.textContent = 'That didn’t go through. Try again, or email admin@meorehabperformance.com.'; msg.style.display = 'block';
       });
   });

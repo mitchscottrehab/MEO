@@ -1156,3 +1156,100 @@ body.site-theme .price-tile.featured .price-features li::before{ background:#FDE
 .price-tile .price-duration{ text-transform:none; font-size:0.78rem; letter-spacing:0; }
 @media (min-width:961px){ .pricing-grid .price-tile .price-duration{ min-height:1.4em; } .pricing-grid .price-tile .tile-sub{ min-height:3.2em; } }
 .parallax-hero h1 .mom-dot{ color:var(--vivid); font-style:normal; }
+
+/* ============================================================
+   PREMIUM PASS (13 Nov 2026)
+   Strips the generic "AI site" patterns: one typeface, no pill
+   labels, no mono caps, no numbered badges, no hover lift, quieter
+   list markers and motion. Same rules as the MEO app.
+   ============================================================ */
+body.site-theme{ --body:'Inter', system-ui, sans-serif; --mono:'Inter', system-ui, sans-serif; }
+body.site-theme{ letter-spacing:-0.005em; }
+
+/* Labels: plain sentence-case text, no pill, no caps */
+body.site-theme .eyebrow{
+  border:none; border-radius:0; padding:0; background:none;
+  font-family:var(--display); font-size:0.95rem; font-weight:600;
+  letter-spacing:0; text-transform:none; color:var(--moss);
+}
+body.site-theme .section-head .eyebrow{ display:none; }
+body.site-theme .parallax-hero .eyebrow{
+  border:none; padding:0; color:rgba(255,255,255,0.78); font-size:1rem; font-weight:500; margin-bottom:18px;
+}
+body.site-theme .phase-card .phase-num,
+body.site-theme .journey-tag,
+body.site-theme .card .meta,
+body.site-theme .offer-main .meta,
+body.site-theme .price-tile .tile-label,
+body.site-theme .approach-next .label,
+body.site-theme .trust-strip .label,
+body.site-theme .stat-label,
+body.site-theme .loc-tag,
+body.site-theme .hero-note,
+body.site-theme .price-duration{
+  font-family:var(--display); text-transform:none; letter-spacing:0;
+  border:none; border-radius:0; padding:0; background:none;
+}
+body.site-theme .phase-card .phase-num,
+body.site-theme .journey-tag{ font-size:0.9rem; font-weight:600; color:var(--moss); }
+body.site-theme .card .meta,
+body.site-theme .offer-main .meta{ font-size:0.88rem; font-weight:500; color:var(--moss); }
+body.site-theme .price-tile .tile-label{ font-size:0.9rem; font-weight:700; color:var(--ink); }
+body.site-theme .approach-next .label{ font-size:0.88rem; font-weight:500; color:var(--moss); }
+body.site-theme .trust-strip .label{ font-size:0.95rem; color:var(--moss); }
+body.site-theme .price-amount .unit{ font-family:var(--display); color:var(--moss); }
+body.site-theme .price-tile .price-duration{ font-size:0.95rem; font-weight:600; color:var(--ink); }
+body.site-theme .nav-num{ display:none; }
+
+/* Numbered circles and icon tiles out; hierarchy from type */
+body.site-theme .feature-num{ display:none; }
+body.site-theme .feature-item{ gap:0; }
+body.site-theme .card-icon{ display:none; }
+body.site-theme .stats-bar{ display:none; }
+
+/* "Most popular": a quiet tab, not a pill */
+body.site-theme .price-badge{
+  font-family:var(--display); text-transform:none; letter-spacing:0; font-size:0.82rem; font-weight:600;
+  border-radius:6px; padding:5px 10px;
+}
+
+/* List markers: a short rule instead of tick-in-a-circle */
+body.site-theme .price-features li::before,
+body.site-theme .price-tile.featured .price-features li::before,
+body.site-theme .check-list li::before,
+body.site-theme .offer-includes li::before,
+body.site-theme .compare-col li::before{
+  content:''; width:10px; height:1.5px; border-radius:0; background:currentColor !important;
+  opacity:0.45; margin-top:0.72em; flex-shrink:0;
+}
+body.site-theme .compare-col.before li span.txt{ text-decoration:none; opacity:0.7; }
+
+/* No hover lift; hover only changes colour on things you click */
+body.site-theme .card:hover,
+body.site-theme .price-tile:hover,
+body.site-theme .problem-card:hover,
+body.site-theme .approach-next a:hover{ transform:none; box-shadow:none; }
+body.site-theme .card:hover,
+body.site-theme .price-tile:hover,
+body.site-theme .problem-card:hover{ border-color:var(--line); background-color:inherit; }
+body.site-theme .price-tile.featured:hover{ border-color:var(--vivid); }
+body.site-theme .btn-primary:hover,
+body.site-theme .btn-outline:hover,
+body.site-theme .btn-grey:hover,
+body.site-theme .btn-clay:hover,
+body.site-theme .sticky-book a:hover{ transform:none; box-shadow:none; }
+body.site-theme .price-tile.featured{ box-shadow:none; }
+
+/* Quieter cards */
+body.site-theme .card,
+body.site-theme .price-tile,
+body.site-theme .problem-card{ border-radius:14px; border-width:1px; }
+body.site-theme .price-tile.featured{ border-width:1.5px; }
+
+/* Quiz rows: no arrow on every option */
+body.site-theme .mf-o > span{ display:none; }
+
+/* Motion: a soft fade, no slide on every block */
+body.site-theme.js .reveal, .js body.site-theme .reveal{ transform:none; transition:opacity .6s ease; }
+@media (prefers-reduced-motion:reduce){ .js .reveal{ opacity:1 !important; transition:none !important; } }
+body.site-theme .card .price-badge{ align-self:flex-start; }
