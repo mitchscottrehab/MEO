@@ -1145,3 +1145,13 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
 .price-tile .price-features{ margin-bottom:24px; }
 .mom-fine{ max-width:760px; margin:40px auto 0; text-align:center; color:var(--moss); font-size:0.95rem; line-height:1.6; }
 .mom-fine p{ margin:0 0 12px; }
+
+/* Momentum page hero + featured tier */
+.hero-title-momentum{ font-size:clamp(72px, 9vw, 150px) !important; }
+@media (max-width:640px){ .hero-title-momentum{ font-size:58px !important; } }
+.section-head h2 em.accent{ color:var(--vivid); font-style:normal; }
+body.site-theme .price-tile.featured{ border:2px solid var(--vivid); }
+body.site-theme .price-tile.featured .price-badge{ background:var(--vivid); color:#fff; }
+body.site-theme .price-tile.featured .price-features li::before{ background:#FDE3DE; }
+.price-tile .price-duration{ text-transform:none; font-size:0.78rem; letter-spacing:0; }
+@media (min-width:961px){ .pricing-grid .price-tile .price-duration{ min-height:1.4em; } .pricing-grid .price-tile .tile-sub{ min-height:3.2em; } }
