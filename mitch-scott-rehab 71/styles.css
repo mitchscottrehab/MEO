@@ -1135,3 +1135,13 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
   .parallax-hero .parallax-content > *{ animation:none !important; }
   .js .about-grid .about-photo img{ transform:none; transition:none; }
 }
+
+/* Momentum page */
+.mom-quote{ font-family:Inter,system-ui,sans-serif; font-weight:800; font-size:clamp(1.5rem,2.8vw,2.3rem); letter-spacing:-0.02em; line-height:1.15; margin:26px 0 0; color:var(--vivid); }
+.mom-sub{ max-width:62ch; margin:14px 0 0; font-size:1.08rem; line-height:1.6; }
+.mom-line{ max-width:62ch; margin:22px 0 0; padding-top:18px; border-top:1px solid var(--line); font-weight:600; font-size:1rem; line-height:1.55; }
+.price-tile .tile-fits{ font-size:0.88rem; line-height:1.5; color:var(--moss); margin:14px 0 22px; }
+.price-tile .tile-label{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--moss); margin:0 0 12px; }
+.price-tile .price-features{ margin-bottom:24px; }
+.mom-fine{ max-width:760px; margin:40px auto 0; text-align:center; color:var(--moss); font-size:0.95rem; line-height:1.6; }
+.mom-fine p{ margin:0 0 12px; }
