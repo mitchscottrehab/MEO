@@ -1155,3 +1155,4 @@ body.site-theme .price-tile.featured .price-badge{ background:var(--vivid); colo
 body.site-theme .price-tile.featured .price-features li::before{ background:#FDE3DE; }
 .price-tile .price-duration{ text-transform:none; font-size:0.78rem; letter-spacing:0; }
 @media (min-width:961px){ .pricing-grid .price-tile .price-duration{ min-height:1.4em; } .pricing-grid .price-tile .tile-sub{ min-height:3.2em; } }
+.parallax-hero h1 .mom-dot{ color:var(--vivid); font-style:normal; }
