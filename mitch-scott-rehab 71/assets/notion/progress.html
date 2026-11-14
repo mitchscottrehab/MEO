@@ -90,7 +90,7 @@
     document.getElementById('keys').hidden=false;
     document.getElementById('kh').textContent = phase>3 ? 'Key targets reached' : 'Key targets for Phase '+cp;
     document.getElementById('kl').innerHTML = keys.map(function(t,j){
-      return '<li>'+esc(t)+(at[j]?' <span>(you currently = '+esc(at[j])+')</span>':'')+'</li>';
+      return '<li>'+esc(t)+(at[j]?' <span>(currently = '+esc(at[j])+')</span>':'')+'</li>';
     }).join('');
   }
 
