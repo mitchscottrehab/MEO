@@ -16,13 +16,14 @@
   html,body{margin:0;background:var(--bg);color:var(--ink);
     font-family:Inter,-apple-system,Helvetica,Arial,sans-serif;
     font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
-  .card{padding:22px 24px 20px}
+  html,body{height:100%;overflow:hidden}
+  .card{height:100%;display:flex;flex-direction:column;padding:20px 24px 16px}
   .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:16px}
   .stage{font-size:12px;color:var(--mute);white-space:nowrap}
   .stage b{color:var(--ink);font-weight:600}
   .goal{font-size:12px;color:var(--mute);text-align:right}
   .goal b{color:var(--red);font-weight:600;font-size:13px}
-  .chart{position:relative;height:118px}
+  .chart{position:relative;flex:1 1 auto;min-height:48px;max-height:170px}
   .chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
   .phases{display:grid;grid-template-columns:repeat(3,1fr);margin-top:12px}
   .ph{padding:9px 0 0;border-top:1px solid var(--rule)}
@@ -32,7 +33,7 @@
   .ph.cur{border-top:2px solid var(--red);padding-top:8px}
   .ph.lock .n,.ph.lock .f{color:var(--faint)}
   .ph.done .n::after{content:" \2713";color:var(--red)}
-  .keys{margin-top:20px;padding-top:16px;border-top:1px solid var(--rule)}
+  .keys{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule)}
   .keys h3{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--ink)}
   .keys ul{list-style:none;margin:0;padding:0}
   .keys li{position:relative;padding:4px 0 4px 15px;font-size:13px;line-height:1.45;color:var(--ink)}
@@ -41,7 +42,6 @@
   @media (max-width:460px){
     .card{padding:16px 18px 12px}
     .top{margin-bottom:10px}
-    .chart{height:78px}
     .phases{margin-top:8px}
     .ph{padding-top:7px}.ph.cur{padding-top:6px}
     .keys{margin-top:12px;padding-top:11px}
