@@ -5,90 +5,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Momentum progress</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{--red:#fb452f;--bg:#1f1f1f;--ink:#f4f1ec;--mute:#8a857d;--lock:#4a4743}
-  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:Inter,Helvetica,Arial,sans-serif}
-  .wrap{box-sizing:border-box;height:100vh;padding:14px 16px}
-  svg{display:block;width:100%;height:100%;overflow:visible}
-  .lbl{font-weight:600;fill:var(--ink)}
-  .sub{fill:var(--mute)}
-  .locked .lbl{fill:var(--lock)}
-  .locked .sub{fill:var(--lock)}
-  .goal{font-weight:700;fill:var(--red)}
-  .tag{fill:var(--mute);font-weight:500}
-  .kh{fill:var(--ink);font-weight:600}
-  .kt{fill:var(--ink);font-weight:500}
-  .locked .tag{fill:var(--lock)}
-  .here{font-weight:600;fill:var(--ink)}
+  :root{
+    --bg:#1c1b1a; --ink:#f4f1ec; --ink2:#c9c4bb; --mute:#8a857d; --faint:#55514b;
+    --rule:#2d2b29; --red:#fb452f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Inter,-apple-system,Helvetica,Arial,sans-serif;
+    font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+  .card{padding:22px 24px 20px}
+  .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:16px}
+  .stage{font-size:12px;color:var(--mute);white-space:nowrap}
+  .stage b{color:var(--ink);font-weight:600}
+  .goal{font-size:12px;color:var(--mute);text-align:right}
+  .goal b{color:var(--red);font-weight:600;font-size:13px}
+  .chart{position:relative;height:118px}
+  .chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);margin-top:12px}
+  .ph{padding:9px 0 0;border-top:1px solid var(--rule)}
+  .ph + .ph{padding-left:12px}
+  .ph .n{font-size:13px;font-weight:600;color:var(--ink)}
+  .ph .f{font-size:12px;color:var(--mute);margin-top:2px}
+  .ph.cur{border-top:2px solid var(--red);padding-top:8px}
+  .ph.lock .n,.ph.lock .f{color:var(--faint)}
+  .ph.done .n::after{content:" \2713";color:var(--red)}
+  .keys{margin-top:20px;padding-top:16px;border-top:1px solid var(--rule)}
+  .keys h3{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--ink)}
+  .keys ul{list-style:none;margin:0;padding:0}
+  .keys li{position:relative;padding:4px 0 4px 15px;font-size:13px;line-height:1.45;color:var(--ink)}
+  .keys li::before{content:"";position:absolute;left:1px;top:11px;width:5px;height:5px;border-radius:50%;background:var(--red)}
+  .keys li span{color:var(--mute)}
+  @media (max-width:460px){
+    .card{padding:16px 18px 12px}
+    .top{margin-bottom:10px}
+    .chart{height:78px}
+    .phases{margin-top:8px}
+    .ph{padding-top:7px}.ph.cur{padding-top:6px}
+    .keys{margin-top:12px;padding-top:11px}
+    .keys h3{margin-bottom:3px}
+    .keys li{padding:2px 0 2px 15px}.keys li::before{top:9px}
+    .ph + .ph{padding-left:8px}
+    .ph .f{font-size:11px}
+  }
 </style>
 </head>
 <body>
-<div class="wrap"><svg id="c" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Momentum progress"></svg></div>
+<div class="card">
+  <div class="top">
+    <div class="stage" id="stage"></div>
+    <div class="goal" id="goal"></div>
+  </div>
+  <div class="chart" id="chart"></div>
+  <div class="phases" id="phases"></div>
+  <div class="keys" id="keys" hidden><h3 id="kh"></h3><ul id="kl"></ul></div>
+</div>
 <script>
 (function(){
   var q=new URLSearchParams(location.search);
   function g(k,d){return (q.get(k)||d||'').trim()}
-  function lines(v){return v?v.split(';').map(function(x){return x.trim()}).filter(Boolean):[]}
+  function list(v){return v?v.split(';').map(function(x){return x.trim()}):[]}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   var phase=Math.max(1,Math.min(4,parseInt(g('phase','1'),10)||1)); // 4 = goal reached
   var now=Math.max(0,Math.min(100,parseFloat(g('now','40'))))/100;
   var focus=[g('p1'),g('p2'),g('p3')];
-  var tg=[[],lines(g('t1')),lines(g('t2')),lines(g('t3'))]; // targets for phase 1-3
-  var at=g('at').split(';').map(function(x){return x.trim()}); // current scores, same order as the phase's targets
+  var tg=[null,list(g('t1')).filter(Boolean),list(g('t2')).filter(Boolean),list(g('t3')).filter(Boolean)];
+  var at=list(g('at'));
   var goal=g('goal','Your goal');
-  var ns='http://www.w3.org/2000/svg', svg=document.getElementById('c');
-  var k=Math.max(1,760/Math.max(280,(svg.parentNode.clientWidth||760)-32)); // keeps text readable in narrow embeds
-  var fs={lbl:13,sub:11,goal:14,here:12,kh:13,kt:12,kc:12};
-  function el(t,a,txt,parent){var e=document.createElementNS(ns,t);for(var key in a)e.setAttribute(key,a[key]);if(txt!=null){e.textContent=txt;var c=a['class'];if(fs[c])e.setAttribute('font-size',fs[c]*k)}(parent||svg).appendChild(e);return e}
-  var lh=17*k, TOP=30+18*k, BASE=TOP+190;
-  var C=[20,260,500,740];                            // Phase 1 | Phase 2 | Phase 3
-  var X=[40,260,500,715], Y=[BASE-18,BASE-78,BASE-138,TOP];
-  var anyFocus=focus.some(Boolean);
-  var LY=BASE+20*k, SY=LY+15*k, KY=(anyFocus?SY:LY)+30*k;
+
+  document.getElementById('stage').innerHTML = phase>3 ? '<b>Goal reached</b>' : '<b>Phase '+phase+'</b> of 3';
+  document.getElementById('goal').innerHTML = 'Goal&nbsp; <b>'+esc(goal)+'</b>';
+
+  var html='';
+  for(var i=1;i<=3;i++){
+    var cls=i<phase?'done':(i===phase?'cur':'lock');
+    html+='<div class="ph '+cls+'"><div class="n">Phase '+i+'</div>'+(focus[i-1]?'<div class="f">'+esc(focus[i-1])+'</div>':'')+'</div>';
+  }
+  document.getElementById('phases').innerHTML=html;
+
   var cp=Math.min(phase,3), keys=tg[cp];
-  var VH=Math.round(keys.length?KY+keys.length*lh+10*k:(anyFocus?SY:LY)+10*k);
-  svg.setAttribute('viewBox','0 0 760 '+VH);
-  el('line',{x1:20,y1:BASE,x2:740,y2:BASE,stroke:'#2e2c2a','stroke-width':1});
-  el('line',{x1:20,y1:Y[3],x2:740,y2:Y[3],stroke:'#fb452f','stroke-opacity':.35,'stroke-width':1,'stroke-dasharray':'3 5'});
-  for(var i=0;i<3;i++){
-    var x1=X[i],y1=Y[i],x2=X[i+1],y2=Y[i+1], n=i+1;
-    var done=n<phase, cur=n===phase, locked=n>phase;
-    var gr=el('g',{'class':locked?'locked':''});
-    el('rect',{x:C[i],y:TOP-14,width:C[i+1]-C[i],height:BASE-TOP+14,fill:cur?'#fb452f':'#ffffff','fill-opacity':cur?.06:(locked?0:.02)},null,gr);
-    if(locked){
-      el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--lock)','stroke-width':2.2*k,'stroke-dasharray':(5*k)+' '+(6*k),'stroke-linecap':'round'},null,gr);
-      var lx=(x1+x2)/2+16*k, ly=(y1+y2)/2+6*k;
-      el('g',{transform:'translate('+lx+','+ly+') scale('+k+')'},null,gr).innerHTML='<rect x="-8" y="0" width="16" height="12" rx="2.5" fill="#4a4743"/><path d="M-5 0 v-4 a5 5 0 0 1 10 0 v4" fill="none" stroke="#4a4743" stroke-width="2"/>';
-    } else if(done){
-      el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--red)','stroke-width':3*k,'stroke-linecap':'round'},null,gr);
-    } else {
-      var hx=x1+(x2-x1)*now, hy=y1+(y2-y1)*now;
-      el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--red)','stroke-opacity':.3,'stroke-width':2.2*k,'stroke-dasharray':(5*k)+' '+(6*k),'stroke-linecap':'round'},null,gr);
-      el('line',{x1:x1,y1:y1,x2:hx,y2:hy,stroke:'var(--red)','stroke-width':3*k,'stroke-linecap':'round'},null,gr);
-      el('circle',{cx:hx,cy:hy,r:10*k,fill:'var(--red)','fill-opacity':.2},null,gr);
-      el('circle',{cx:hx,cy:hy,r:5*k,fill:'var(--red)',stroke:'var(--bg)','stroke-width':2},null,gr);
-      el('text',{x:hx,y:hy-14*k,'text-anchor':'middle','class':'here'},"You're here",gr);
-    }
-    if(i<2) el('circle',{cx:x2,cy:y2,r:4*k,fill:locked?'var(--lock)':'var(--red)'},null,gr);
-    var cx=(C[i]+C[i+1])/2;
-    el('text',{x:cx,y:LY,'text-anchor':'middle','class':'lbl'},'Phase '+n+(k>1.4?'':(locked?'  ·  locked':(done?'  ·  done':''))),gr);
-    if(focus[i]) el('text',{x:cx,y:SY,'text-anchor':'middle','class':'sub'},focus[i],gr);
-  }
-  el('circle',{cx:X[0],cy:Y[0],r:4*k,fill:'var(--red)'});
-  var gx=X[3], gy=Y[3];
-  el('line',{x1:gx,y1:gy,x2:gx,y2:gy-30,stroke:phase>3?'var(--red)':'var(--ink)','stroke-width':2});
-  el('path',{d:'M'+gx+' '+(gy-30)+' l18 6 l-18 6 z',fill:'var(--red)'});
-  el('text',{x:gx-8*k,y:gy-14,'text-anchor':'end','class':'goal'},goal);
-  // key targets for the current phase
   if(keys.length){
-    el('text',{x:20,y:KY,'class':'kh'},phase>3?'Key targets reached':'Key targets for Phase '+cp);
-    keys.forEach(function(t,j){
-      var y=KY+(j+1)*lh, tx=el('text',{x:20,y:y,'class':'kt','font-size':fs.kt*k});
-      var b=document.createElementNS(ns,'tspan');b.setAttribute('fill','#fb452f');b.textContent='•  ';tx.appendChild(b);
-      var m=document.createElementNS(ns,'tspan');m.textContent=t;tx.appendChild(m);
-      if(at[j]){var c=document.createElementNS(ns,'tspan');c.setAttribute('class','kc');c.setAttribute('fill','#8a857d');c.textContent='  (you currently = '+at[j]+')';tx.appendChild(c);}
-    });
+    document.getElementById('keys').hidden=false;
+    document.getElementById('kh').textContent = phase>3 ? 'Key targets reached' : 'Key targets for Phase '+cp;
+    document.getElementById('kl').innerHTML = keys.map(function(t,j){
+      return '<li>'+esc(t)+(at[j]?' <span>(you currently = '+esc(at[j])+')</span>':'')+'</li>';
+    }).join('');
   }
+
+  var box=document.getElementById('chart');
+  function draw(){
+    var W=box.clientWidth, H=box.clientHeight;
+    var pad=4, y0=H-6, y3=8;
+    var xs=[pad, W/3, 2*W/3, W-7];
+    var ys=[y0, y0-(y0-y3)*0.24, y0-(y0-y3)*0.58, y3];
+    var p=phase>3?1:((phase-1)+now)/3;
+    function pt(t){var s=Math.min(2,Math.floor(t*3)),f=t*3-s;if(t>=1){s=2;f=1}return [xs[s]+(xs[s+1]-xs[s])*f, ys[s]+(ys[s+1]-ys[s])*f, s]}
+    var c=pt(p);
+    var full='M'+xs.map(function(x,i){return x+' '+ys[i]}).join(' L');
+    var done='M'+xs[0]+' '+ys[0]; for(var s=0;s<c[2];s++) done+=' L'+xs[s+1]+' '+ys[s+1]; done+=' L'+c[0]+' '+c[1];
+    var area=done+' L'+c[0]+' '+H+' L'+xs[0]+' '+H+' Z';
+    var lx=Math.max(34,Math.min(W-34,c[0]));
+    box.innerHTML='<svg viewBox="0 0 '+W+' '+H+'">'+
+      '<defs><linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fb452f" stop-opacity=".2"/><stop offset="1" stop-color="#fb452f" stop-opacity="0"/></linearGradient></defs>'+
+      '<line x1="'+xs[1]+'" y1="0" x2="'+xs[1]+'" y2="'+H+'" stroke="#2d2b29"/>'+
+      '<line x1="'+xs[2]+'" y1="0" x2="'+xs[2]+'" y2="'+H+'" stroke="#2d2b29"/>'+
+      '<line x1="0" y1="'+y3+'" x2="'+W+'" y2="'+y3+'" stroke="#fb452f" stroke-opacity=".3" stroke-dasharray="2 4"/>'+
+      '<path d="'+area+'" fill="url(#fade)"/>'+
+      '<path d="'+full+'" fill="none" stroke="#3a3835" stroke-width="1.5" stroke-linejoin="round"/>'+
+      '<path d="'+done+'" fill="none" stroke="#fb452f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'+
+      [1,2].map(function(i){var hit=p>=i/3-1e-6;return '<circle cx="'+xs[i]+'" cy="'+ys[i]+'" r="3" fill="'+(hit?'#fb452f':'#1c1b1a')+'" stroke="'+(hit?'#fb452f':'#55514b')+'" stroke-width="1.5"/>'}).join('')+
+      '<circle cx="'+xs[0]+'" cy="'+ys[0]+'" r="3" fill="#fb452f"/>'+
+      '<circle cx="'+xs[3]+'" cy="'+ys[3]+'" r="5" fill="'+(phase>3?'#fb452f':'#1c1b1a')+'" stroke="#fb452f" stroke-width="1.5"/>'+
+      (phase>3?'':
+        '<circle cx="'+c[0]+'" cy="'+c[1]+'" r="6" fill="#fb452f" stroke="#1c1b1a" stroke-width="2.5"/>'+
+        '<text x="'+lx+'" y="'+(c[1]-14)+'" text-anchor="middle" font-family="Inter,Helvetica,Arial,sans-serif" font-size="12" font-weight="500" fill="#f4f1ec">You’re here</text>')+
+      '</svg>';
+  }
+  draw();
+  var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(draw,60)});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(draw);
 })();
 </script>
 </body>
