@@ -17,7 +17,8 @@
   .locked .sub{fill:var(--lock)}
   .goal{font-weight:700;fill:var(--red)}
   .tag{fill:var(--mute);font-weight:500}
-  .now{fill:var(--red);font-weight:600}
+  .kh{fill:var(--ink);font-weight:600}
+  .kt{fill:var(--ink);font-weight:500}
   .locked .tag{fill:var(--lock)}
   .here{font-weight:600;fill:var(--ink)}
 </style>
@@ -32,31 +33,28 @@
   var phase=Math.max(1,Math.min(4,parseInt(g('phase','1'),10)||1)); // 4 = goal reached
   var now=Math.max(0,Math.min(100,parseFloat(g('now','40'))))/100;
   var focus=[g('p1'),g('p2'),g('p3')];
-  var tg=[lines(g('start')),lines(g('t1')),lines(g('t2')),lines(g('t3'))]; // start, then targets for phase 1-3
-  var at=lines(g('at')), goal=g('goal','Your goal');
+  var tg=[[],lines(g('t1')),lines(g('t2')),lines(g('t3'))]; // targets for phase 1-3
+  var at=g('at').split(';').map(function(x){return x.trim()}); // current scores, same order as the phase's targets
+  var goal=g('goal','Your goal');
   var ns='http://www.w3.org/2000/svg', svg=document.getElementById('c');
   var k=Math.max(1,760/Math.max(280,(svg.parentNode.clientWidth||760)-32)); // keeps text readable in narrow embeds
-  var fs={lbl:13,sub:11,goal:14,here:12,tag:11.5,now:11.5};
+  var fs={lbl:13,sub:11,goal:14,here:12,kh:13,kt:12,kc:12};
   function el(t,a,txt,parent){var e=document.createElementNS(ns,t);for(var key in a)e.setAttribute(key,a[key]);if(txt!=null){e.textContent=txt;var c=a['class'];if(fs[c])e.setAttribute('font-size',fs[c]*k)}(parent||svg).appendChild(e);return e}
-  var lh=14.5*k, TOP=30+18*k, BASE=TOP+190;
-  var C=[20,170,360,550,740];                       // columns: Start | Phase 1 | Phase 2 | Phase 3
-  var X=[170,360,550,715], Y=[BASE-18,BASE-75,BASE-135,TOP];
-  var rows=0; for(var r=0;r<4;r++) rows=Math.max(rows,tg[r].length+(r===phase&&at.length?at.length:0)+(r>0&&focus[r-1]?1:0));
-  var LY=BASE+20*k, VH=Math.round(LY+(rows)*lh+10*k);
+  var lh=17*k, TOP=30+18*k, BASE=TOP+190;
+  var C=[20,260,500,740];                            // Phase 1 | Phase 2 | Phase 3
+  var X=[40,260,500,715], Y=[BASE-18,BASE-78,BASE-138,TOP];
+  var anyFocus=focus.some(Boolean);
+  var LY=BASE+20*k, SY=LY+15*k, KY=(anyFocus?SY:LY)+30*k;
+  var cp=Math.min(phase,3), keys=tg[cp];
+  var VH=Math.round(keys.length?KY+keys.length*lh+10*k:(anyFocus?SY:LY)+10*k);
   svg.setAttribute('viewBox','0 0 760 '+VH);
   el('line',{x1:20,y1:BASE,x2:740,y2:BASE,stroke:'#2e2c2a','stroke-width':1});
   el('line',{x1:20,y1:Y[3],x2:740,y2:Y[3],stroke:'#fb452f','stroke-opacity':.35,'stroke-width':1,'stroke-dasharray':'3 5'});
-  function col(ci,parts,parent){ // parts: [[text,cls],...]
-    var cx=(C[ci]+C[ci+1])/2, y=LY;
-    parts.forEach(function(pt){ if(pt[0]){el('text',{x:cx,y:y,'text-anchor':'middle','class':pt[1]},pt[0],parent); y+=pt[1]==='lbl'?16*k:lh;} });
-  }
-  // Start column
-  col(0,[['Start','lbl']].concat(tg[0].map(function(t){return [t,'tag']})));
   for(var i=0;i<3;i++){
     var x1=X[i],y1=Y[i],x2=X[i+1],y2=Y[i+1], n=i+1;
     var done=n<phase, cur=n===phase, locked=n>phase;
     var gr=el('g',{'class':locked?'locked':''});
-    el('rect',{x:C[i+1],y:TOP-14,width:C[i+2]-C[i+1],height:BASE-TOP+14,fill:cur?'#fb452f':'#ffffff','fill-opacity':cur?.06:(locked?0:.02)},null,gr);
+    el('rect',{x:C[i],y:TOP-14,width:C[i+1]-C[i],height:BASE-TOP+14,fill:cur?'#fb452f':'#ffffff','fill-opacity':cur?.06:(locked?0:.02)},null,gr);
     if(locked){
       el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--lock)','stroke-width':2.2*k,'stroke-dasharray':(5*k)+' '+(6*k),'stroke-linecap':'round'},null,gr);
       var lx=(x1+x2)/2+16*k, ly=(y1+y2)/2+6*k;
@@ -72,16 +70,25 @@
       el('text',{x:hx,y:hy-14*k,'text-anchor':'middle','class':'here'},"You're here",gr);
     }
     if(i<2) el('circle',{cx:x2,cy:y2,r:4*k,fill:locked?'var(--lock)':'var(--red)'},null,gr);
-    var parts=[['Phase '+n,'lbl'],[focus[i],'sub']];
-    tg[n].forEach(function(t){parts.push([t,'tag'])});
-    if(cur) at.forEach(function(t){parts.push(['Now '+t,'now'])});
-    col(n,parts,gr);
+    var cx=(C[i]+C[i+1])/2;
+    el('text',{x:cx,y:LY,'text-anchor':'middle','class':'lbl'},'Phase '+n+(k>1.4?'':(locked?'  ·  locked':(done?'  ·  done':''))),gr);
+    if(focus[i]) el('text',{x:cx,y:SY,'text-anchor':'middle','class':'sub'},focus[i],gr);
   }
   el('circle',{cx:X[0],cy:Y[0],r:4*k,fill:'var(--red)'});
   var gx=X[3], gy=Y[3];
   el('line',{x1:gx,y1:gy,x2:gx,y2:gy-30,stroke:phase>3?'var(--red)':'var(--ink)','stroke-width':2});
   el('path',{d:'M'+gx+' '+(gy-30)+' l18 6 l-18 6 z',fill:'var(--red)'});
   el('text',{x:gx-8*k,y:gy-14,'text-anchor':'end','class':'goal'},goal);
+  // key targets for the current phase
+  if(keys.length){
+    el('text',{x:20,y:KY,'class':'kh'},phase>3?'Key targets reached':'Key targets for Phase '+cp);
+    keys.forEach(function(t,j){
+      var y=KY+(j+1)*lh, tx=el('text',{x:20,y:y,'class':'kt','font-size':fs.kt*k});
+      var b=document.createElementNS(ns,'tspan');b.setAttribute('fill','#fb452f');b.textContent='•  ';tx.appendChild(b);
+      var m=document.createElementNS(ns,'tspan');m.textContent=t;tx.appendChild(m);
+      if(at[j]){var c=document.createElementNS(ns,'tspan');c.setAttribute('class','kc');c.setAttribute('fill','#8a857d');c.textContent='  (you currently = '+at[j]+')';tx.appendChild(c);}
+    });
+  }
 })();
 </script>
 </body>
