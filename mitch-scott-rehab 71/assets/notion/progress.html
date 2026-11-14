@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Momentum progress</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#fb452f;--bg:#1f1f1f;--ink:#f4f1ec;--mute:#8a857d;--lock:#4a4743}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Helvetica,Arial,sans-serif}
+  .wrap{padding:18px 20px 12px}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .lbl{font-size:13px;font-weight:600;fill:var(--ink)}
+  .sub{font-size:11.5px;fill:var(--mute)}
+  .locked .lbl{fill:var(--lock)}
+  .locked .sub{fill:var(--lock)}
+  .goal{font-size:14px;font-weight:700;fill:var(--red)}
+  .here{font-size:12px;font-weight:600;fill:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap"><svg id="c" viewBox="0 0 760 300" role="img" aria-label="Momentum progress"></svg></div>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var phase=Math.max(1,Math.min(4,parseInt(q.get('phase')||'1',10)||1)); // 4 = all done
+  var now=Math.max(0,Math.min(100,parseFloat(q.get('now')||'40')))/100;
+  var focus=[q.get('p1')||'',q.get('p2')||'',q.get('p3')||''];
+  var goal=q.get('goal')||'Your goal';
+  var ns='http://www.w3.org/2000/svg', svg=document.getElementById('c');
+  function el(t,a,txt,parent){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;(parent||svg).appendChild(e);return e}
+  // points: Assessment, end of P1, end of P2, end of P3 (= goal)
+  var X=[40,250,460,670], Y=[240,185,120,50];
+  var names=['Phase 1','Phase 2','Phase 3'];
+  // baseline grid
+  el('line',{x1:20,y1:262,x2:740,y2:262,stroke:'#2e2c2a','stroke-width':1});
+  // goal band
+  el('line',{x1:20,y1:Y[3],x2:740,y2:Y[3],stroke:'#fb452f','stroke-opacity':.35,'stroke-width':1,'stroke-dasharray':'3 5'});
+  for(var i=0;i<3;i++){
+    var x1=X[i],y1=Y[i],x2=X[i+1],y2=Y[i+1], n=i+1;
+    var done=n<phase, cur=n===phase, locked=n>phase;
+    var g=el('g',{'class':locked?'locked':''});
+    // phase shading
+    el('rect',{x:x1,y:20,width:x2-x1,height:242,fill:cur?'#fb452f':'#ffffff','fill-opacity':cur?.06:(locked?.0:.02)},null,g);
+    if(locked){
+      el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--lock)','stroke-width':3,'stroke-dasharray':'6 7','stroke-linecap':'round'},null,g);
+      // lock icon
+      var lx=(x1+x2)/2, ly=(y1+y2)/2-26;
+      el('rect',{x:lx-8,y:ly,width:16,height:12,rx:2.5,fill:'var(--lock)'},null,g);
+      el('path',{d:'M'+(lx-5)+' '+ly+' v-4 a5 5 0 0 1 10 0 v4',fill:'none',stroke:'var(--lock)','stroke-width':2},null,g);
+    } else if(done){
+      el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--red)','stroke-width':4,'stroke-linecap':'round'},null,g);
+    } else {
+      var hx=x1+(x2-x1)*now, hy=y1+(y2-y1)*now;
+      el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--red)','stroke-opacity':.3,'stroke-width':3,'stroke-dasharray':'6 7','stroke-linecap':'round'},null,g);
+      el('line',{x1:x1,y1:y1,x2:hx,y2:hy,stroke:'var(--red)','stroke-width':4,'stroke-linecap':'round'},null,g);
+      el('circle',{cx:hx,cy:hy,r:13,fill:'var(--red)','fill-opacity':.2},null,g);
+      el('circle',{cx:hx,cy:hy,r:6.5,fill:'var(--red)',stroke:'var(--bg)','stroke-width':2},null,g);
+      el('text',{x:hx,y:hy-20,'text-anchor':'middle','class':'here'},"You're here",g);
+    }
+    el('circle',{cx:x2,cy:y2,r:4.5,fill:locked?'var(--lock)':'var(--red)'},null,g);
+    el('text',{x:(x1+x2)/2,y:282,'text-anchor':'middle','class':'lbl'},names[i]+(locked?'  ·  locked':(done?'  ·  done':'')),g);
+    if(focus[i]) el('text',{x:(x1+x2)/2,y:298,'text-anchor':'middle','class':'sub'},focus[i],g);
+  }
+  // start point
+  el('circle',{cx:X[0],cy:Y[0],r:4.5,fill:'var(--red)'});
+  el('text',{x:X[0],y:Y[0]+22,'text-anchor':'start','class':'sub'},'Assessment');
+  // goal flag
+  var gx=X[3], gy=Y[3];
+  el('line',{x1:gx,y1:gy,x2:gx,y2:gy-34,stroke:phase>3?'var(--red)':'var(--ink)','stroke-width':2});
+  el('path',{d:'M'+gx+' '+(gy-34)+' l20 7 l-20 7 z',fill:'var(--red)'});
+  el('text',{x:gx-10,y:gy-40,'text-anchor':'end','class':'goal'},goal);
+})();
+</script>
+</body>
+</html>
