@@ -1254,19 +1254,22 @@ body.site-theme.js .reveal, .js body.site-theme .reveal{ transform:none; transit
 @media (prefers-reduced-motion:reduce){ .js .reveal{ opacity:1 !important; transition:none !important; } }
 body.site-theme .card .price-badge{ align-self:flex-start; }
 
-/* Momentum: shared centrepiece + three frequencies branching off it */
-.mom-core{ margin-top:44px; background:var(--ink); color:#fff; border-radius:28px; padding:56px 56px 52px; position:relative; overflow:hidden; }
-.mom-core::after{ content:""; position:absolute; right:-120px; top:-120px; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle, rgba(249,81,50,0.22), rgba(249,81,50,0) 70%); pointer-events:none; }
-.mom-core-head{ max-width:640px; margin-bottom:40px; position:relative; }
-.mom-core-eyebrow{ font-family:var(--mono); font-size:0.74rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--vivid); margin:0 0 14px; }
-.mom-core h3{ font-family:var(--display); font-weight:800; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.1; letter-spacing:-0.02em; color:#fff; margin:0; }
-.mom-core h3 .accent{ color:var(--vivid); font-style:normal; }
-.mom-core-cols{ display:grid; grid-template-columns:1fr 1fr; gap:48px; position:relative; }
-.mom-core-label{ font-weight:700; font-size:1rem; color:#fff; margin:0 0 18px; padding-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.14); }
-.mom-core-list{ list-style:none; margin:0; padding:0; }
-.mom-core-list li{ position:relative; padding-left:30px; margin:0 0 16px; font-size:1rem; line-height:1.55; color:rgba(255,255,255,0.82); }
-.mom-core-list li::before{ content:""; position:absolute; left:0; top:0.32em; width:16px; height:16px; border-radius:50%; background:var(--vivid); box-shadow:0 0 0 4px rgba(249,81,50,0.18); }
-.mom-core-list li::after{ content:""; position:absolute; left:5px; top:calc(0.32em + 4px); width:4px; height:7px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
+/* Momentum: centrepiece (identity + outcomes) with three frequencies branching off */
+.mom-core{ margin-top:44px; background:#0A0A0A; color:#fff; border-radius:28px; position:relative; overflow:hidden; isolation:isolate; }
+.mom-core-photo{ position:absolute; inset:0 0 0 auto; width:52%; background:url('assets/journey-train.jpg') center 30%/cover no-repeat; filter:grayscale(1); z-index:-1; }
+.mom-core-photo::after{ content:""; position:absolute; inset:0; background:linear-gradient(90deg,#0A0A0A 0%,rgba(10,10,10,0.88) 30%,rgba(10,10,10,0.5) 70%,rgba(10,10,10,0.65) 100%), linear-gradient(0deg,#0A0A0A 0%,rgba(10,10,10,0) 45%); }
+.mom-core-inner{ padding:80px 72px 44px; }
+.mom-core-title{ font-family:var(--display); font-weight:800; font-size:clamp(2.2rem,4.6vw,4rem); line-height:1.02; letter-spacing:-0.035em; color:#fff; margin:0; max-width:14ch; }
+.mom-core-title .accent{ color:var(--vivid); font-style:normal; }
+.mom-core-lede{ margin:28px 0 0; max-width:46ch; font-size:1.12rem; line-height:1.6; color:rgba(255,255,255,0.72); }
+.mom-pillars{ display:grid; grid-template-columns:repeat(3,1fr); margin-top:72px; border-top:1px solid rgba(255,255,255,0.14); }
+.mom-pillar{ padding:30px 32px 6px 0; }
+.mom-pillar + .mom-pillar{ padding-left:32px; border-left:1px solid rgba(255,255,255,0.14); }
+.mom-pillar-n{ display:block; font-family:var(--display); font-weight:700; font-size:0.85rem; color:var(--vivid); letter-spacing:0.04em; margin-bottom:18px; }
+.mom-pillar h4{ font-family:var(--display); font-weight:800; font-size:clamp(1.35rem,2vw,1.7rem); letter-spacing:-0.02em; line-height:1.1; color:#fff; margin:0 0 10px; }
+.mom-pillar p{ margin:0; font-size:0.98rem; line-height:1.55; color:rgba(255,255,255,0.62); }
+.mom-core-incl{ margin:48px 0 0; padding-top:22px; border-top:1px solid rgba(255,255,255,0.10); font-size:0.88rem; line-height:1.7; color:rgba(255,255,255,0.5); }
+.mom-core-incl span{ color:#fff; font-weight:600; margin-right:12px; }
 
 .mom-branch{ position:relative; height:72px; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 .mom-branch::before{ content:""; position:absolute; left:50%; top:0; height:36px; width:2px; background:var(--vivid); transform:translateX(-1px); }
@@ -1274,19 +1277,23 @@ body.site-theme .card .price-badge{ align-self:flex-start; }
 .mom-branch span{ position:relative; }
 .mom-branch span::before{ content:""; position:absolute; left:50%; top:36px; height:36px; width:2px; background:var(--vivid); transform:translateX(-1px); }
 .mom-branch span::after{ content:""; position:absolute; left:50%; bottom:-6px; width:12px; height:12px; border-radius:50%; background:var(--vivid); transform:translateX(-6px); }
-.mom-branch-label{ text-align:center; font-weight:600; color:var(--ink); margin:0 0 30px; display:none; }
+.mom-branch-label{ text-align:center; font-weight:600; color:var(--ink); }
 .mom-tiles{ margin-top:6px; }
 .mom-tile .tile-fits{ margin-bottom:0; }
+.wrap p.mom-branch-label{ max-width:none; width:100%; text-align:center; margin:22px 0 30px; }
 
 @media (max-width:960px){
-  .mom-core{ padding:40px 26px 34px; border-radius:22px; }
-  .mom-core-cols{ grid-template-columns:1fr; gap:26px; }
-  .mom-branch{ display:block; height:56px; }
+  .mom-core{ border-radius:22px; }
+  .mom-core-photo{ width:100%; height:340px; inset:0 0 auto 0; }
+  .mom-core-photo::after{ background:linear-gradient(0deg,#0A0A0A 0%,rgba(10,10,10,0.55) 60%,rgba(10,10,10,0.35) 100%); }
+  .mom-core-inner{ padding:150px 26px 32px; }
+  .mom-pillars{ grid-template-columns:1fr; margin-top:44px; }
+  .mom-pillar, .mom-pillar + .mom-pillar{ padding:24px 0; border-left:0; }
+  .mom-pillar + .mom-pillar{ border-top:1px solid rgba(255,255,255,0.14); }
+  .mom-core-incl{ margin-top:12px; }
+  .mom-core-incl span{ display:block; margin:0 0 6px; }
+  .mom-branch{ display:block; height:44px; }
   .mom-branch::after, .mom-branch span{ display:none; }
-  .mom-branch::before{ height:44px; }
-  .mom-branch::before{ box-shadow:none; }
-  .mom-branch-label{ display:block; }
+  .wrap p.mom-branch-label{ margin:16px 0 26px; }
   .mom-tiles{ gap:22px; }
 }
-@media (min-width:961px){ .mom-branch-label{ display:block; margin:22px 0 30px; } }
-.wrap p.mom-branch-label{ max-width:none; width:100%; text-align:center; }
