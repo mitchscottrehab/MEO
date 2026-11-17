@@ -1333,3 +1333,5 @@ body.site-theme .card .price-badge{ align-self:flex-start; }
 .mom-branch-2::after{ left:calc((100% - 24px)/4); right:calc((100% - 24px)/4); }
 @media (max-width:960px){ .pricing-grid.mom-tiles-2{ grid-template-columns:1fr; max-width:480px; } }
 .wrap .mom-fine p{ max-width:none; }
+
+.price-tile .price-plan{ margin:-2px 0 14px; font-size:0.9rem; color:var(--moss); }
