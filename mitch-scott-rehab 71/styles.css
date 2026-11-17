@@ -1148,7 +1148,7 @@ body.site-theme .price-tile.featured{ box-shadow:0 24px 50px -24px rgba(0,0,0,0.
 
 /* Momentum page hero + featured tier */
 .hero-title-momentum{ font-size:clamp(72px, 9vw, 150px) !important; }
-@media (max-width:640px){ .hero-title-momentum{ font-size:58px !important; } }
+@media (max-width:640px){ .hero-title-momentum{ font-size:46px !important; } }
 .section-head h2 em.accent{ color:var(--vivid); font-style:normal; }
 body.site-theme .price-tile.featured{ border:2px solid var(--vivid); }
 body.site-theme .price-tile.featured .price-badge{ background:var(--vivid); color:#fff; }
@@ -1320,3 +1320,8 @@ body.site-theme .card .price-badge{ align-self:flex-start; }
   .mom-hero-def .mom-hero-word{ font-size:0.84rem; margin-bottom:12px; }
   .mom-hero-circles{ height:16px; margin-top:16px; }
 }
+
+/* Momentum hero wordmark: Inter Black italic capitals with the MEO E */
+.hero-title-momentum{ font-style:italic; letter-spacing:-0.02em; white-space:nowrap; }
+.hero-title-momentum .meo-e{ height:0.727em; width:0.9894em; display:inline-block; vertical-align:baseline; margin:0 -0.04em 0 0.03em; fill:#F95132; overflow:visible; }
+.hero-title-momentum .mom-dot-white{ color:#fff; -webkit-text-fill-color:#fff; }
