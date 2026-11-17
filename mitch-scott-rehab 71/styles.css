@@ -1325,3 +1325,11 @@ body.site-theme .card .price-badge{ align-self:flex-start; }
 .hero-title-momentum{ font-style:italic; letter-spacing:-0.02em; white-space:nowrap; }
 .hero-title-momentum .meo-e{ height:0.727em; width:0.9894em; display:inline-block; vertical-align:baseline; margin:0 -0.04em 0 0.03em; fill:#F95132; overflow:visible; }
 .hero-title-momentum .mom-dot-white{ color:#fff; -webkit-text-fill-color:#fff; }
+
+/* Momentum: two frequency options */
+.mom-tiles-2, .mom-branch-2{ max-width:820px; margin-left:auto; margin-right:auto; }
+.pricing-grid.mom-tiles-2{ grid-template-columns:repeat(2,1fr); }
+.mom-branch-2{ grid-template-columns:repeat(2,1fr); }
+.mom-branch-2::after{ left:calc((100% - 24px)/4); right:calc((100% - 24px)/4); }
+@media (max-width:960px){ .pricing-grid.mom-tiles-2{ grid-template-columns:1fr; max-width:480px; } }
+.wrap .mom-fine p{ max-width:none; }
