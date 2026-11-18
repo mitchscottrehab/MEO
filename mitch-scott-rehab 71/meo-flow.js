@@ -95,6 +95,7 @@
     ['I\u2019m pushing through - my mind says yes, so I\u2019m ignoring the pain', 'I\u2019m pushing through', 'my mind says yes, so I\u2019m ignoring the pain', 'pushing through'],
     ['I\u2019ve had to stop - not doing much at the moment', 'I\u2019ve had to stop', 'not doing much at the moment', 'stopped']
   ];
+  var ON_MOMENTUM = /momentum/i.test(location.pathname);
   var SCREENS = {
     goal: function () {
       return '<h2 id="mfT" tabindex="-1">What are you trying to get back to?</h2><p class="mf-s">Pick the closest one.</p>'
@@ -133,7 +134,7 @@
         + opts(['I\u2019m ready, as soon as possible!', 'In the next few weeks', 'Just looking for now'], 'start');
     },
     contact: function () {
-      return '<h2 id="mfT" tabindex="-1">Where should I contact you?</h2><p class="mf-s">I&rsquo;ll get back to you about booking. Nothing else.</p>'
+      return '<h2 id="mfT" tabindex="-1">Where should I contact you?</h2><p class="mf-s">' + (ON_MOMENTUM ? 'I&rsquo;ll get back to you personally about Momentum. Nothing else.' : 'I&rsquo;ll get back to you about booking. Nothing else.') + '</p>'
         + '<form id="mfForm" novalidate>'
         + '<input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">'
         + '<label class="mf-f">First name<input type="text" name="name" autocomplete="given-name" value="' + esc(A.name || '') + '"></label>'
@@ -166,7 +167,7 @@
   function next(from) {
     if (from === 'goal') return 'where';
     if (from === 'where') return 'status';
-    if (from === 'status') return 'choose';
+    if (from === 'status') return ON_MOMENTUM ? 'tried' : 'choose';   // Momentum page: no booking screen, no $220
     if (from === 'start') return 'contact';
     return null;
   }
@@ -215,7 +216,9 @@
     var fd = new FormData();
     fd.append('access_key', KEY);
     var SHORT = {}; STATUS.forEach(function (x) { SHORT[x[0]] = x[3]; });
-    fd.append('subject', 'Callback: ' + name + ', ' + (A.goal || '?') + ', ' + (SHORT[A.status] || '?'));
+    var PAGE = /momentum/i.test(location.pathname) ? 'Momentum page' : (/^\/(index(\.html)?)?$/.test(location.pathname) ? 'Homepage' : location.pathname.replace(/^\//, ''));
+    fd.append('subject', 'Callback: ' + name + ', ' + (A.goal || '?') + ', ' + (SHORT[A.status] || '?') + ' (' + PAGE + ')');
+    fd.append('sent_from_page', PAGE);
     fd.append('from_name', 'MEO Website Callback');
     fd.append('botcheck', f.elements.botcheck.checked ? 'on' : '');
     fd.append('name', name);
