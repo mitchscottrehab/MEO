@@ -1335,3 +1335,7 @@ body.site-theme .card .price-badge{ align-self:flex-start; }
 .wrap .mom-fine p{ max-width:none; }
 
 .price-tile .price-plan{ margin:-2px 0 14px; font-size:0.9rem; color:var(--moss); }
+
+/* Paper texture on light backgrounds only (dark sections untouched) */
+body.site-theme,
+body.site-theme .on-panel{ background-color:#FAFAFA; background-image:url('assets/brand/paper-white.jpg'); background-repeat:repeat; background-size:384px 384px; }
