@@ -148,7 +148,11 @@ if ('IntersectionObserver' in window && revealEls.length) {
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -20% 0px' });
+  }, document.body.classList.contains('reveal-early')
+    // Pages marked .reveal-early (Momentum) bring content in just before it
+    // scrolls into view, so nothing below the questionnaire looks empty.
+    ? { threshold: 0, rootMargin: '0px 0px 15% 0px' }
+    : { threshold: 0.1, rootMargin: '0px 0px -20% 0px' });
   revealEls.forEach(el => { if (!immediateEls.has(el)) io.observe(el); });
 } else {
   // IntersectionObserver isn't supported at all in this browser - show
