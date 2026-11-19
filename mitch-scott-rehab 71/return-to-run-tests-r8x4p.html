@@ -181,6 +181,16 @@ src="https://www.facebook.com/tr?id=2308202229914735&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
+<style>
+.cliniko-modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,10,10,0.65);z-index:999995;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .25s ease}
+.cliniko-modal-overlay.is-open{display:flex}.cliniko-modal-overlay.is-visible{opacity:1}
+.cliniko-modal{background:#fff;border-radius:16px;width:100%;max-width:720px;height:88vh;max-height:840px;position:relative;box-shadow:0 30px 80px -20px rgba(0,0,0,0.5);display:flex;flex-direction:column;overflow:hidden;transform:scale(0.96);transition:transform .25s ease}
+.cliniko-modal-overlay.is-visible .cliniko-modal{transform:scale(1)}
+.cliniko-modal-close{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;background:rgba(10,10,10,0.06);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#0a0a0a}
+.cliniko-modal iframe{flex:1;width:100%;height:100%;border:none}
+.cliniko-modal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Inter,Helvetica,Arial,sans-serif;font-size:0.85rem;color:#666;background:#fff}
+@media (max-width:640px){.cliniko-modal-overlay{padding:0}.cliniko-modal{max-width:100%;height:100%;max-height:100%;border-radius:0}}
+</style>
 </head>
 <body>
 
@@ -447,4 +457,16 @@ src="https://www.facebook.com/tr?id=2308202229914735&ev=PageView&noscript=1"
 })();
 </script>
 
+<script>
+(function(){var o=document.createElement('div');o.className='cliniko-modal-overlay';
+o.innerHTML='<div class="cliniko-modal"><button class="cliniko-modal-close" aria-label="Close booking">&times;</button><div class="cliniko-modal-loading">Loading booking...</div><iframe title="Book an appointment"></iframe></div>';
+document.body.appendChild(o);var f=o.querySelector('iframe'),l=o.querySelector('.cliniko-modal-loading');
+function close(){o.classList.remove('is-visible');document.body.style.overflow='';setTimeout(function(){o.classList.remove('is-open');f.src='about:blank';},250);}
+f.addEventListener('load',function(){l.style.display='none';});
+o.querySelector('.cliniko-modal-close').addEventListener('click',close);
+o.addEventListener('click',function(e){if(e.target===o)close();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('is-open'))close();});
+document.querySelectorAll('a[href*="cliniko.com/bookings"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();if(window.fbq)fbq('track','Schedule');l.style.display='flex';f.src=a.href;o.classList.add('is-open');document.body.style.overflow='hidden';requestAnimationFrame(function(){o.classList.add('is-visible');});});});
+})();
+</script>
 </body></html>
