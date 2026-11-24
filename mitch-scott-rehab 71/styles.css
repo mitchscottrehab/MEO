@@ -1377,7 +1377,7 @@ body.site-theme .on-panel{ background-color:#FAFAFA; background-image:url('asset
 .vsl-close{padding:96px 0 100px;background:#0A0A0A;color:#fff}
 .vsl-close-h{font-family:var(--display);font-weight:900;font-size:clamp(2.2rem,5vw,4rem);letter-spacing:-0.035em;line-height:1.02;color:#fff;margin:0 auto;max-width:14ch}
 .vsl-close-h .accent{color:var(--vivid);font-style:normal}
-.vsl-foot{padding:36px 0 44px;background:#0A0A0A;color:rgba(255,255,255,0.6);font-size:0.85rem;border-top:1px solid #1d1d1d}
+.vsl-foot{padding:36px 0 44px;background:#0A0A0A;color:rgba(255,255,255,0.6);font-size:0.75rem;border-top:1px solid #1d1d1d}
 .vsl-foot p{margin:0 auto 8px}
 @media (max-width:640px){
   .vsl-hero{padding:56px 0 40px}
@@ -1445,3 +1445,7 @@ body.site-theme .on-panel{ background-color:#FAFAFA; background-image:url('asset
 .pc .pc-word .mom-dot{color:#fff}
 .dh-h{font-family:var(--display);font-weight:800;font-size:1.3rem;margin:0 0 8px;letter-spacing:-.02em}
 @media (max-width:900px){.pc-grid{grid-template-columns:1fr;max-width:460px;margin:10px auto 0}.pc{aspect-ratio:4/5}}
+
+/* Simple page footers: smaller, quieter text (24 Nov 2026) */
+footer .wrap[style*="text-align:center"] p{font-size:0.75rem;line-height:1.6;letter-spacing:0.01em}
+footer .wrap[style*="text-align:center"] p.footer-legal-links a{margin:0 6px}
