@@ -140,7 +140,7 @@
         + '<label class="mf-f">First name<input type="text" name="name" autocomplete="given-name" value="' + esc(A.name || '') + '"></label>'
         + '<label class="mf-f">Email<input type="email" name="email" autocomplete="email" placeholder="you@example.com" value="' + esc(A.email || '') + '"></label>'
         + '<label class="mf-f">Phone number<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="04__ ___ ___" value="' + esc(A.phone || '') + '"></label>'
-        + '<label class="mf-c"><input type="checkbox" name="consent"><span>I agree to be contacted about this enquiry by phone, text message or email. <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy policy</a></span></label>'
+        + '<label class="mf-c"><input type="checkbox" name="consent"><span>I agree to be contacted about this enquiry by phone, text message or email. <a href="/privacy-policy" target="_blank" rel="noopener">Privacy policy</a></span></label>'
         + '<button type="submit" class="mf-go">Send it</button>'
         + '<p class="mf-msg" role="alert"></p></form>'
         + '<p class="mf-fine">Your details are only used to contact you about this enquiry. You won&rsquo;t be added to a mailing list.</p>';

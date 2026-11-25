@@ -1,9 +1,9 @@
 /* Comeback Blueprint pop-up + floating tab.
    Scroll/time-triggered name + email form. Sends to MailerLite (ML_URL) and a backup email via Web3Forms. */
 (function () {
-  window.meoOpenBlueprint = function () { location.href = 'comeback-blueprint-m7k2q.html'; };
+  window.meoOpenBlueprint = function () { location.href = '/comeback-blueprint-m7k2q'; };
   var ML_URL = 'https://assets.mailerlite.com/jsonp/2744689/forms/202425378396964812/subscribe';
-  var GUIDE = 'comeback-blueprint-m7k2q.html';
+  var GUIDE = '/comeback-blueprint-m7k2q';
   var KEY = 'meoBlueprint';          // JSON: {n: times auto-shown, t: last shown ms, done: signed up}
   var OLD = 'meoBlueprintSeen';      // earlier version of the key (timestamp)
   var TRIGGER = 0.5, DELAY = 30000;  // 50% scroll or 30 seconds, whichever first
@@ -75,13 +75,13 @@
   + '<label class="cbp-c"><input type="checkbox" name="contact_consent" value="yes"><span id="cbpConsent"></span></label>'
   + '<label class="cbp-c"><input type="checkbox" name="marketing_opt_in" value="yes"><span>Also send me the occasional email about training around injury. Optional. Unsubscribe any time.</span></label>'
   + '<button class="go" type="submit">Send me the Blueprint</button>'
-  + '<p class="cbp-pp"><a href="privacy-policy.html" target="_blank" rel="noopener">Privacy policy</a></p>'
+  + '<p class="cbp-pp"><a href="/privacy-policy" target="_blank" rel="noopener">Privacy policy</a></p>'
   + '<p id="cbpMsg" role="alert"></p></form>'
   + '<button class="cbp-no" type="button">No thanks</button></div>'
   + '<div id="cbpB" hidden><h2>It’s yours.</h2><p>Open the Blueprint here:</p>'
   + '<a class="go" href="' + GUIDE + '">Open the Blueprint</a>'
   + '<p class="cbp-fine">A copy’s on its way to your inbox too, so check junk if it’s not there in a few minutes.</p>'
-  + '<a class="ln" href="the-solution.html">Want to talk it through? Book a Performance Assessment</a></div></div>';
+  + '<a class="ln" href="/the-solution">Want to talk it through? Book a Performance Assessment</a></div></div>';
   document.body.appendChild(ov);
 
   var tab = document.createElement('button'); tab.id = 'cbpTab'; tab.type = 'button';
