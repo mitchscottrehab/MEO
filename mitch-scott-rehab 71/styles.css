@@ -1475,3 +1475,19 @@ body.site-theme .home-next a::after{content:"\2192";position:absolute;left:28px;
 body.site-theme .home-next a:hover{border-color:#F95132;transform:translateY(-3px);box-shadow:0 22px 40px -24px rgba(0,0,0,0.55)}
 body.site-theme .home-next a:hover::after{transform:translateX(5px)}
 @media (max-width:700px){ body.site-theme .home-next a{padding:26px 22px 58px} body.site-theme .home-next a::after{left:22px;bottom:20px} }
+
+/* Momentum page: terms and conditions, collapsed at the bottom (26 Nov 2026) */
+.vsl-terms{padding:28px 0 56px;scroll-margin-top:84px}
+.vsl-terms .wrap{max-width:760px}
+.vsl-terms details{border-top:1px solid rgba(10,10,10,0.12);border-bottom:1px solid rgba(10,10,10,0.12)}
+.vsl-terms summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:20px 2px;font-weight:600;font-size:0.95rem;color:#0A0A0A}
+.vsl-terms summary::-webkit-details-marker{display:none}
+.vsl-terms summary::after{content:"+";font-size:1.3rem;font-weight:500;color:#F95132;transition:transform .2s ease}
+.vsl-terms details[open] summary::after{transform:rotate(45deg)}
+.vsl-terms-body{padding:0 2px 28px;font-size:0.88rem;line-height:1.65;color:rgba(10,10,10,0.72)}
+.vsl-terms-body h3{font-size:0.95rem;font-weight:700;color:#0A0A0A;margin:22px 0 6px;letter-spacing:0}
+.vsl-terms-body p{margin:0 0 8px}
+.vsl-terms-body ul{margin:6px 0 8px;padding-left:18px}
+.vsl-terms-body li{margin:0 0 8px}
+.vsl-terms-body a{color:#0A0A0A;text-decoration:underline;text-underline-offset:2px}
+.vsl-terms-note{font-size:0.82rem;color:rgba(10,10,10,0.55)}
