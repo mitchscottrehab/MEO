@@ -1465,3 +1465,13 @@ h2.as-h3{ font-size:clamp(1.25rem, 1.8vw, 1.6rem); }
 h3.as-h4{ font-size:revert; }
 .phase-card h3.as-h4{ font-family:var(--display); font-weight:700; font-size:1.15rem; margin-bottom:6px; }
 .phase-grid-large .phase-card h3.as-h4{ font-size:1.7rem; margin-bottom:10px; }
+
+/* Homepage "Two ways to go from here" cards: dark so they stand out (25 Nov 2026) */
+body.site-theme .home-next a{position:relative;background:#141414;border:1.5px solid #141414;border-radius:18px;padding:30px 28px 64px;transition:transform .3s cubic-bezier(.25,.8,.25,1),border-color .3s ease,box-shadow .3s ease}
+body.site-theme .home-next a .label{color:#F95132;font-weight:600}
+body.site-theme .home-next a h3{color:#fff;font-size:1.35rem}
+body.site-theme .home-next a p{color:rgba(255,255,255,0.68)}
+body.site-theme .home-next a::after{content:"\2192";position:absolute;left:28px;bottom:24px;color:#F95132;font-size:1.3rem;font-weight:600;transition:transform .3s ease}
+body.site-theme .home-next a:hover{border-color:#F95132;transform:translateY(-3px);box-shadow:0 22px 40px -24px rgba(0,0,0,0.55)}
+body.site-theme .home-next a:hover::after{transform:translateX(5px)}
+@media (max-width:700px){ body.site-theme .home-next a{padding:26px 22px 58px} body.site-theme .home-next a::after{left:22px;bottom:20px} }
