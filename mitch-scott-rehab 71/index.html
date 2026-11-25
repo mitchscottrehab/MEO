@@ -19,29 +19,69 @@
 <meta name="twitter:image" content="https://meorehabperformance.com/assets/social-preview.jpg">
 <link rel="canonical" href="https://meorehabperformance.com/">
 <link rel="icon" href="assets/meo-favicon.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow:wght@600&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
-  "medicalSpecialty": "Physiotherapy",
-  "name": "MEO Rehab & Performance",
-  "url": "https://meorehabperformance.com/",
-  "logo": "https://meorehabperformance.com/assets/meo-mark-red.png",
-  "image": "https://meorehabperformance.com/assets/mitch-photo.jpg",
-  "description": "Hybrid rehab and performance coaching blending Physiotherapy, Exercise Physiology, and Sports Science. In-person at Pinnacle Fitness Albion, Brisbane, or online.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Albion",
-    "addressRegion": "QLD",
-    "addressCountry": "AU"
-  },
-  "areaServed": "Brisbane, QLD",
-  "sameAs": [
-    "https://www.instagram.com/mitchscottmeo"
+  "@graph": [
+    {
+      "@type": "Physiotherapy",
+      "@id": "https://meorehabperformance.com/#albion",
+      "name": "MEO Rehab & Performance",
+      "url": "https://meorehabperformance.com/",
+      "logo": "https://meorehabperformance.com/assets/meo-mark-red.png",
+      "image": "https://meorehabperformance.com/assets/mitch-photo.jpg",
+      "description": "Physiotherapy and injury rehab for people who train, built around your training. In person at Pinnacle Fitness Albion and The Gap Fitness, Brisbane, and online.",
+      "telephone": "+61439992182",
+      "email": "mitch@meorehabperformance.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Pinnacle Fitness, 34 Collingwood St",
+        "addressLocality": "Albion",
+        "addressRegion": "QLD",
+        "postalCode": "4010",
+        "addressCountry": "AU"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": -27.432963, "longitude": 153.044787 },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "11:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "07:00", "closes": "14:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "07:00", "closes": "18:00" }
+      ],
+      "areaServed": ["Brisbane, QLD", "Australia (online)"],
+      "sameAs": ["https://www.instagram.com/mitchscottmeo"],
+      "department": { "@id": "https://meorehabperformance.com/#thegap" },
+      "employee": { "@id": "https://meorehabperformance.com/#mitch" }
+    },
+    {
+      "@type": "Physiotherapy",
+      "@id": "https://meorehabperformance.com/#thegap",
+      "name": "MEO Rehab & Performance (The Gap)",
+      "url": "https://meorehabperformance.com/",
+      "telephone": "+61439992182",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "The Gap Fitness, 200 Settlement Rd",
+        "addressLocality": "The Gap",
+        "addressRegion": "QLD",
+        "postalCode": "4061",
+        "addressCountry": "AU"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "08:00", "closes": "18:00" }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://meorehabperformance.com/#mitch",
+      "name": "Mitchell Scott",
+      "jobTitle": "Physiotherapist",
+      "worksFor": { "@id": "https://meorehabperformance.com/#albion" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "The University of Queensland" },
+      "url": "https://meorehabperformance.com/about-meo#mitch",
+      "sameAs": ["https://www.instagram.com/mitchscottmeo"]
+    }
   ]
 }
 </script>
@@ -145,17 +185,17 @@ src="https://www.facebook.com/tr?id=2308202229914735&ev=PageView&noscript=1"
         <div class="phase-grid phase-grid-large">
           <div class="phase-card reveal">
             <span class="phase-num">Phase 1</span>
-            <h4>Out of pain</h4>
+            <h3 class="as-h4">Out of pain</h3>
             <p>Where most rehab stops.</p>
           </div>
           <div class="phase-card reveal">
             <span class="phase-num">Phase 2</span>
-            <h4>Back to your best</h4>
+            <h3 class="as-h4">Back to your best</h3>
             <p>Rebuilding capacity, not just stopping once symptoms settle.</p>
           </div>
           <div class="phase-card reveal">
             <span class="phase-num">Phase 3</span>
-            <h4>Exceeding what you were</h4>
+            <h3 class="as-h4">Exceeding what you were</h3>
             <p>The goal? Not just getting back, but getting better than you were before.</p>
           </div>
         </div>
